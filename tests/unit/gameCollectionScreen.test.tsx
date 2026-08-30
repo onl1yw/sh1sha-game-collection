@@ -53,6 +53,7 @@ describe("GameCollectionScreen", () => {
     );
     expect(repositoryLink?.target).toBe("_blank");
     expect(repositoryLink?.rel).toContain("noopener");
-    expect(repositoryLink?.querySelector(".lucide-git-fork")).not.toBeNull();
+    expect(repositoryLink?.textContent).toBe("GitHub");
+    expect(repositoryLink?.querySelector(".lucide-folder-git-2")).not.toBeNull();
   });
 });

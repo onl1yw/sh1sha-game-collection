@@ -1,4 +1,4 @@
-import { ArrowRight, GitFork, Settings } from "lucide-react";
+import { ArrowRight, FolderGit2, Settings } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { AppShell } from "../../shared/ui/AppShell";
@@ -41,7 +41,8 @@ export function GameCollectionScreen({
             aria-label="Открыть GitHub проекта"
             title="GitHub"
           >
-            <GitFork aria-hidden="true" size={22} strokeWidth={1.8} />
+            <FolderGit2 aria-hidden="true" size={22} strokeWidth={1.8} />
+            GitHub
           </a>
           <Button variant="quiet" onClick={onOpenSettings}>
             <Settings aria-hidden="true" size={20} strokeWidth={1.8} />
