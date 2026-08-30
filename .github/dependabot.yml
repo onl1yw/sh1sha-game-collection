@@ -10,6 +10,12 @@ updates:
         dependency-type: development
       npm-production:
         dependency-type: production
+    ignore:
+      # Latest majors are not installable with the current supported toolchain.
+      - dependency-name: typescript
+        versions: [">=7.0.0"]
+      - dependency-name: jsdom
+        versions: [">=30.0.0"]
 
   - package-ecosystem: github-actions
     directory: /
