@@ -14,9 +14,12 @@
   border-radius: var(--radius-control);
   color: var(--color-text-muted);
   display: inline-flex;
+  font-weight: 700;
+  gap: var(--space-sm);
   justify-content: center;
   min-height: var(--touch-target);
   min-width: var(--touch-target);
+  text-decoration: none;
 }
 
 .github:focus-visible {
