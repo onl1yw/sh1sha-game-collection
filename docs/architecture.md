@@ -1,15 +1,17 @@
-# Архитектура платформы
+# Platform architecture
 
-## Цель
+## Goal
 
-`sh1sha's game collection` — статическая mobile-first платформа локальных игр
-на одном устройстве. Каждая игра поставляется собственным compile-time модулем,
-а платформа отвечает только за каталог, общие настройки и визуальные примитивы.
+`sh1sha's game collection` is a static, mobile-first platform for local games
+played on one device. Each game ships as its own compile-time module, while the
+platform is responsible only for the catalog, shared preferences, and visual
+primitives.
 
-Удалённые плагины во время исполнения не загружаются. Это сохраняет статическую
-сборку предсказуемой и позволяет проверять любой вклад до публикации.
+The application does not load remote plugins at runtime. Keeping every module in
+the build makes the static artifact predictable and lets CI validate every
+contribution before release.
 
-## Карта зависимостей
+## Dependency map
 
 ```text
 app + platform features ──> GameModule contract <── games/* module boundary
@@ -23,123 +25,128 @@ app + platform features ──> GameModule contract <── games/* module bound
 
 ```text
 src/
-  app/                       платформенная оболочка и реестр
+  app/                       platform shell and registry
   features/
-    game-collection/         каталог игр
-    settings/                общие настройки
+    game-collection/         game catalog
+    settings/                shared preferences
   games/
     spy/
-      gameModule.ts          маленький дескриптор
-      SpyGame.tsx            корень и lazy entry point
-      app/                   состояние, команды, порты, роутер
-      domain/                чистые правила
-      features/              экраны игры
-      infrastructure/        storage, random и загрузка тематик
-  shared/ui/                 общие визуальные примитивы
+      gameModule.ts          small descriptor
+      SpyGame.tsx            root and lazy entry point
+      app/                   state, commands, ports, and router
+      domain/                pure game rules
+      features/              game screens
+      infrastructure/        storage, randomness, and theme loading
+  shared/ui/                 shared visual primitives
 ```
 
-## Платформа
+## Platform
 
-`src/app/gameModule.ts` определяет стабильный API модуля. Дескриптор содержит
-ID, тексты карточки, Lucide-иконку, необязательное состояние продолжения и
-асинхронный `load` корневого компонента.
+`src/app/gameModule.ts` defines the stable module API. A descriptor contains an
+ID, catalog-card copy, a Lucide icon, optional resume state, and an asynchronous
+`load` function for the root component.
 
-`src/app/gameRegistry.ts` автоматически обнаруживает
-`src/games/*/gameModule.ts`, проверяет версию API, соответствие ID имени папки и
-уникальность ID. Код самой игры загружается лениво отдельным chunk.
+`src/app/gameRegistry.ts` discovers `src/games/*/gameModule.ts`
+automatically and validates the API version, the match between module ID and
+directory name, and ID uniqueness. The game implementation itself is loaded
+lazily in a separate chunk.
 
-Новый модуль не добавляется вручную в `App.tsx`. Это уменьшает конфликты между
-параллельными pull request.
+A new module is not registered manually in `App.tsx`. This reduces conflicts
+between concurrent pull requests.
 
-## Граница игры
+## Game boundary
 
-Игра владеет всеми своими понятиями:
+A game owns all of its concepts:
 
-- правилами и типами раунда;
-- экранным автоматом и командами;
-- DTO, миграциями и ключами storage;
-- игровым контентом и его схемами;
-- экранами и игровыми сообщениями.
+- rules and round types;
+- screen state machine and commands;
+- DTOs, migrations, and storage keys;
+- game content and its schemas;
+- screens and game-specific messages.
 
-Платформа передаёт только `GameHostProps`: общие предпочтения, возврат в
-коллекцию и открытие настроек. Она не читает внутреннее состояние игры.
+The platform passes only `GameHostProps`: shared preferences, a return action,
+and an action that opens settings. It does not inspect the game's internal
+state.
 
-Одна игра не импортирует другую. Даже если Alias и «Шпион» используют понятия
-игрока или раунда, их модели остаются раздельными, пока общий контракт не доказан
-реальным повторным использованием.
+Games do not import one another. Even if Alias and Spy both use concepts such as
+players or rounds, their models remain separate until real repeated use proves a
+shared contract.
 
-## Внутренние слои игры
+## Layers inside a game
 
 ### `domain`
 
-Чистые TypeScript-правила без React, DOM, `fetch` и `localStorage`. Слой можно
-тестировать в Node без браузерного окружения.
+Pure TypeScript rules with no React, DOM, `fetch`, or `localStorage`. This
+layer can be tested in Node without a browser environment.
 
 ### `app`
 
-Состояние, reducer/state machine, команды и порты внешних зависимостей. Этот слой
-зависит от собственного domain, но не создаёт браузерные адаптеры.
+State, reducer or state machine, commands, and ports for external dependencies.
+This layer depends on its own domain but does not instantiate browser adapters.
 
 ### `infrastructure`
 
-Реализации портов: storage, миграции, загрузчики JSON и источник случайности.
-Конкретные реализации собираются только в provider/composition root игры.
+Port implementations for persistence, migrations, JSON loading, and
+randomness. Concrete implementations are assembled only in the game's provider
+or composition root.
 
 ### `features`
 
-Экраны и небольшие UI-компоненты. Они получают данные и callbacks через props,
-используют `shared/ui` и не обращаются к infrastructure напрямую.
+Screens and small UI components. They receive data and callbacks through props,
+use `shared/ui`, and do not access infrastructure directly.
 
 ## Shared UI
 
-`src/shared/ui` содержит только универсальные визуальные примитивы. Shared-код
-не импортирует платформу или игры и не знает о ролях, тематиках или раундах.
-Контракты компонентов описаны в `docs/ui-components.md`.
+`src/shared/ui` contains universal visual primitives only. Shared code does
+not import the platform or any game, and knows nothing about roles, themes, or
+rounds. Component contracts are documented in
+`docs/ui-components.md`.
 
-## Контент «Шпиона»
+## Spy content
 
-Публичные JSON-тематики находятся в `public/games/spy/themes`. Метаданные
-каталога (`enabled`, `sensitive`) отделены от строгой игровой модели темы.
-Некорректный файл исключается, не ломая остальные темы.
+Public JSON themes live in `public/games/spy/themes`. Catalog metadata
+(`enabled`, `sensitive`) is separate from the strict game-theme model. An
+invalid file is excluded without breaking the remaining themes.
 
-Схемы лежат в `schemas/games/spy`. Локальные наборы из `.local-themes` не входят
-в Git и production-сборку.
+Schemas live in `schemas/games/spy`. Local packs in `.local-themes` are
+excluded from Git and from the production build.
 
-## Сохранение
+## Persistence
 
-Платформа передаёт каждой игре scoped storage и автоматически добавляет
-namespace `sh1sha-games:<game-id>`. Игра видит только относительные ключи и не
-может случайно затереть состояние соседнего модуля.
+The platform gives each game scoped storage and automatically prefixes its keys
+with `sh1sha-games:<game-id>`. A game sees relative keys only, so it cannot
+accidentally overwrite another module's state.
 
-«Шпион» сохраняет сессию и историю честной жеребьёвки раздельно. Его
-единственный legacy-адаптер переносит старые ключи `spy-game:*` в новый
-namespace. Прямое обращение игр к браузерному storage запрещено CI. Миграции
-обязаны быть обратимо протестированы. Ошибки квоты и доступа перехватываются
-внутри infrastructure игры. Раскрытая секретная роль никогда не сохраняется
-как раскрытая.
+Spy stores its session and fair-assignment history separately. Its single
+legacy adapter migrates old `spy-game:*` keys into the new namespace. CI
+forbids direct access to browser storage from game code. Migrations must be
+covered by round-trip tests. Infrastructure adapters handle quota and access
+errors. A revealed secret role is never persisted as revealed.
 
-## Автоматические границы
+## Automated boundaries
 
-`npm run check:architecture` разбирает статические и динамические импорты через
-TypeScript AST и проверяет:
+`npm run check:architecture` parses static and dynamic imports with the
+TypeScript AST and verifies that:
 
-- platform не импортирует конкретные игры;
-- `shared` не импортирует platform или игры;
-- игры не импортируют соседние игры;
-- game domain не зависит от React, UI, application или infrastructure;
-- game UI не импортирует infrastructure;
-- concrete adapters создаются только в composition root;
-- `gameModule.ts` не импортирует UI eagerly и содержит один dynamic entry;
-- игры используют только scoped storage, переданный платформой;
-- стили игр используют CSS Modules без `:global` и не протекают в shell;
-- в каждой папке игры существует ровно один `gameModule.ts`.
+- the platform does not import concrete games;
+- `shared` does not import the platform or games;
+- games do not import neighboring games;
+- a game's domain does not depend on React, UI, application, or infrastructure;
+- game UI does not import infrastructure;
+- concrete adapters are created only in a composition root;
+- `gameModule.ts` does not import UI eagerly and has one dynamic entry point;
+- games use only the scoped storage supplied by the platform;
+- game styles use CSS Modules without `:global` and do not leak into the shell;
+- every game directory contains exactly one `gameModule.ts`.
 
-Дополнительно `npm run check:size` запрещает файлы длиннее 300 строк.
+In addition, `npm run check:size` rejects files longer than 300 lines.
 
-## Расширение
+## Extending the platform
 
-- новая игра: `docs/adding-a-game.md`;
-- новая тематика «Шпиона»: `docs/adding-a-theme.md`;
-- правила общих компонентов: `docs/ui-components.md`.
+- new game: `docs/adding-a-game.md`;
+- new Spy theme: `docs/adding-a-theme.md`;
+- first contribution or agent-assisted workflow: `docs/first-contribution.md`
+  and `AGENTS.md`;
+- shared-component rules: `docs/ui-components.md`.
 
-Любое расширение должно проходить `npm run check` до pull request.
+Every extension must pass `npm run check` before a pull request is opened.

@@ -1,6 +1,6 @@
-# Формат тематик
+# Theme format
 
-## Размещение
+## Location
 
 ```text
 public/games/spy/themes/
@@ -8,18 +8,19 @@ public/games/spy/themes/
   <theme-id>.json
 ```
 
-`manifest.json` содержит список доступных файлов. Каждая тематика хранится отдельно и может редактироваться без изменения TypeScript-кода.
+`manifest.json` lists the available files. Each theme is stored separately and
+can be edited without changing TypeScript code.
 
-Личные или временно исключённые наборы хранятся в `.local-themes/`. Эта папка
-игнорируется Git и находится вне `public`, поэтому её содержимое не копируется в
-production-сборку.
+Keep personal or temporarily excluded packs in `.local-themes/`. Git ignores
+this directory, and it is outside `public`, so its contents are not copied to
+the production build.
 
-Стартовые тематики помечены как `enabled: true`. Временную или ещё не готовую
-тематику можно скрыть из приложения, установив ей `enabled: false` в манифесте.
-Поле `sensitive: true` скрывает тематику по умолчанию и отдаёт её под управление
-пользовательской настройки «Чувствительные темы».
+Initial themes use `enabled: true`. Hide a temporary or unfinished theme from
+the application by setting `enabled: false` in the manifest. The
+`sensitive: true` field hides a theme by default and puts its visibility under
+the user's “Чувствительные темы” setting.
 
-## Формат манифеста
+## Manifest format
 
 ```json
 {
@@ -35,7 +36,7 @@ production-сборку.
 }
 ```
 
-## Формат тематики
+## Theme format
 
 ```json
 {
@@ -57,37 +58,40 @@ production-сборку.
 }
 ```
 
-Группа — набор достаточно похожих объектов. В классическом режиме можно выбрать любой объект из всей тематики. В режиме другого слова настоящее и альтернативное слова выбираются из одной группы.
+A group is a collection of sufficiently similar objects. Classic mode may select
+any object from the entire theme. Alternative-word mode selects the real and
+alternative objects from the same group.
 
-Такой формат:
+This format:
 
-- читается человеком без специальных инструментов;
-- не дублирует пары в обе стороны;
-- позволяет добавить больше двух подходящих альтернатив;
-- не связывает содержимое с кодом приложения.
+- is human-readable without special tools;
+- avoids duplicating pairs in both directions;
+- supports more than two suitable alternatives;
+- keeps content independent from application code.
 
-## Правила качества
+## Quality rules
 
-- идентификаторы уникальны, записаны в `kebab-case` и не длиннее 64 символов;
-- название тематики и группы — не длиннее 80 символов, описание — 200;
-- тематика содержит от 1 до 20 групп и не более 300 объектов суммарно;
-- название объекта не повторяется внутри тематики;
-- в группе может быть от 1 до 15 объектов, каждый не длиннее 80 символов;
-- одиночные группы доступны в классическом режиме и пропускаются в режиме
-  другого слова, где нужна пара;
-- объекты одной группы должны быть сопоставимы по масштабу и категории;
-- слишком близкие синонимы и очевидно несвязанные пары не используются;
-- технические поля и версия схемы проверяются при загрузке.
+- identifiers are unique, use `kebab-case`, and are at most 64 characters;
+- theme and group names are at most 80 characters, and descriptions at most 200;
+- a theme contains 1 to 20 groups and no more than 300 objects in total;
+- an object name is unique within the theme;
+- a group contains 1 to 15 objects, each at most 80 characters;
+- one-item groups work in classic mode and are skipped in alternative-word mode,
+  where a pair is required;
+- objects in one group should be comparable in scale and category;
+- avoid near-identical synonyms and obviously unrelated pairs;
+- technical fields and the schema version are validated during loading.
 
-При выборе нового раунда приложение сначала исключает недавно сыгранные
-объекты. Когда свежих объектов не остаётся, история повторов временно
-сбрасывается, поэтому даже небольшой пользовательский набор не блокирует игру.
+When selecting a new round, the application first excludes recently played
+objects. Once no fresh objects remain, the repeat history is reset temporarily,
+so even a small custom pack cannot block the game.
 
-Runtime-валидатор в `src/games/spy/domain/theme/validateTheme.ts` остаётся
-главным источником правил. JSON Schema для редакторов лежит в
-`schemas/games/spy/` и проверяется на совпадение числовых лимитов с runtime.
-Ошибка одного файла не должна ломать весь каталог: приложение исключит
-некорректную тематику и покажет понятное сообщение.
+The runtime validator in
+`src/games/spy/domain/theme/validateTheme.ts` is the authoritative source of
+rules. JSON Schemas for editors live in `schemas/games/spy/`, and CI checks
+their numeric limits against the runtime values. One invalid file must not break
+the whole catalog: the application excludes that theme and displays a readable
+message.
 
-Перед коммитом запустите `npm run validate:themes`. Полный порядок добавления
-набора описан в [инструкции для контрибьюторов](./adding-a-theme.md).
+Run `npm run validate:themes` before committing. The complete contribution
+workflow is documented in the [theme contribution guide](./adding-a-theme.md).

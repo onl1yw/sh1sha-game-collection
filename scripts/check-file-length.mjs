@@ -10,11 +10,13 @@ const SEARCH_ROOTS = [
   "schemas",
   "scripts",
   "src",
+  "templates",
   "tests",
 ];
 const ROOT_FILES = [
   ".editorconfig",
   ".gitignore",
+  "AGENTS.md",
   "CODE_OF_CONDUCT.md",
   "CONTRIBUTING.md",
   "eslint.config.js",

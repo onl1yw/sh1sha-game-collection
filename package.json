@@ -26,6 +26,7 @@
   },
   "scripts": {
     "dev": "vite",
+    "create:game": "node scripts/create-game.mjs",
     "build": "tsc --noEmit && vite build && node scripts/copy-legal-notices.mjs",
     "test": "vitest run",
     "test:watch": "vitest",

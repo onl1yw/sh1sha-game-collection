@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { validateGameSetup } from "../../../src/games/spy/domain/game/validateGameSetup";
 
 describe("validateGameSetup", () => {
-  it("принимает корректную игру с несколькими шпионами", () => {
+  it("accepts a valid game with multiple spies", () => {
     const result = validateGameSetup(
       [
         { id: "a", name: "Аня" },
@@ -17,7 +17,7 @@ describe("validateGameSetup", () => {
     expect(result).toEqual({ valid: true, errors: [] });
   });
 
-  it("собирает ошибки игроков и настроек", () => {
+  it("collects player and settings errors", () => {
     const result = validateGameSetup(
       [
         { id: "same", name: "" },
@@ -32,7 +32,7 @@ describe("validateGameSetup", () => {
     expect(result.errors.join(" ")).toMatch(/не меньше 1/);
   });
 
-  it("отклоняет состав больше интерфейсного лимита", () => {
+  it("rejects a player count above the interface limit", () => {
     const players = Array.from({ length: 21 }, (_, index) => ({
       id: `player-${index + 1}`,
       name: `Игрок ${index + 1}`,

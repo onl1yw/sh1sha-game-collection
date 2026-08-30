@@ -1,48 +1,48 @@
-name: Сообщить об ошибке
-description: Воспроизводимая ошибка в интерфейсе, правилах или данных
+name: Report a bug
+description: Report a reproducible problem in the interface, game rules, or data
 title: "[Bug]: "
 body:
   - type: markdown
     attributes:
       value: |
-        Спасибо за отчёт. Для уязвимостей используйте SECURITY.md и не публикуйте детали здесь.
+        Thanks for taking the time to report a bug. For security vulnerabilities, follow SECURITY.md instead of disclosing details here.
   - type: textarea
     id: description
     attributes:
-      label: Что произошло?
-      description: Опишите фактическое и ожидаемое поведение.
-      placeholder: Я ожидал(а)..., но произошло...
+      label: What happened?
+      description: Describe the actual behavior and what you expected instead.
+      placeholder: I expected..., but instead...
     validations:
       required: true
   - type: textarea
     id: steps
     attributes:
-      label: Как воспроизвести?
-      description: Перечислите минимальные последовательные шаги.
+      label: How can we reproduce it?
+      description: List the shortest sequence of steps that reproduces the problem.
       placeholder: |
-        1. Открыть...
-        2. Выбрать...
-        3. Нажать...
+        1. Open...
+        2. Select...
+        3. Tap...
     validations:
       required: true
   - type: input
     id: environment
     attributes:
-      label: Устройство и браузер
+      label: Device and browser
       placeholder: iPhone 15, iOS 19, Safari
     validations:
       required: true
   - type: textarea
     id: evidence
     attributes:
-      label: Дополнительные материалы
-      description: Скриншоты, видео, логи без секретов и персональных данных.
+      label: Additional context
+      description: Add screenshots, recordings, or logs without secrets or personal data.
   - type: checkboxes
     id: checks
     attributes:
-      label: Проверка
+      label: Before submitting
       options:
-        - label: Я проверил(а), что похожего открытого issue нет.
+        - label: I have checked that no similar issue is already open.
           required: true
-        - label: Этот отчёт не содержит данных об уязвимости безопасности.
+        - label: This report does not disclose a security vulnerability.
           required: true

@@ -33,7 +33,7 @@ class LcgRandom implements RandomSource {
 }
 
 describe("selectFairSpyIds", () => {
-  it("детерминированно выбирает несколько разных игроков", () => {
+  it("deterministically selects multiple distinct players", () => {
     const result = selectFairSpyIds({
       players,
       spyCount: 2,
@@ -51,7 +51,7 @@ describe("selectFairSpyIds", () => {
     expect(new Set(result).size).toBe(2);
   });
 
-  it("снижает вес недавнего шпиона и повышает вес ещё не выбранного", () => {
+  it("reduces a recent spy's weight and increases an unselected player's weight", () => {
     const recent = calculateSpyWeight(
       { playerId: "a", spyAssignments: 1, lastSpyRound: 8 },
       8,
@@ -62,7 +62,7 @@ describe("selectFairSpyIds", () => {
     expect(recent).toBeLessThan(never);
   });
 
-  it("обновляет историю только выбранных игроков", () => {
+  it("updates history only for selected players", () => {
     const result = updateSpyHistory(
       players,
       [{ playerId: "a", spyAssignments: 2, lastSpyRound: 3 }],
@@ -78,7 +78,7 @@ describe("selectFairSpyIds", () => {
     ]);
   });
 
-  it("не делает нового игрока почти гарантированным шпионом", () => {
+  it("does not make a new player an almost certain spy", () => {
     const history = [
       { playerId: "a", spyAssignments: 20, lastSpyRound: 17 },
       { playerId: "b", spyAssignments: 20, lastSpyRound: 18 },
@@ -122,7 +122,7 @@ describe("selectFairSpyIds", () => {
     expect(immediateRepeats / 5_000).toBeLessThan(0.1);
   });
 
-  it("отклоняет невозможное число шпионов и плохой random", () => {
+  it("rejects an impossible spy count and an invalid random value", () => {
     const common = { players, history: [], roundNumber: 0 };
     expect(() =>
       selectFairSpyIds({

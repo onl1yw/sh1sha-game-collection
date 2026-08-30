@@ -1,55 +1,95 @@
-# Как внести вклад
+# Contributing
 
-Спасибо за желание улучшить sh1sha's game collection. Проект принимает исправления, новые игры, новые тематики и улучшения общих компонентов.
+Thank you for helping improve sh1sha's game collection. The project welcomes
+fixes, new games, new themes, and improvements to shared components.
 
-## Перед началом
+## Before you start
 
-- Для небольшого исправления можно сразу открыть pull request.
-- Новую игру или заметное изменение правил сначала предложите через соответствующий шаблон issue. Это позволяет согласовать границы модуля до большой работы.
-- Прочитайте [руководство по добавлению игры](docs/adding-a-game.md) или [руководство по добавлению тематики](docs/adding-a-theme.md).
-- Обсуждение и код должны соответствовать [Кодексу поведения](CODE_OF_CONDUCT.md).
-- Уязвимости сообщайте по инструкции из [политики безопасности](SECURITY.md), а не в публичном issue.
+- You may open a pull request directly for a small, focused fix.
+- Propose a new game or a substantial rules change through the relevant issue
+  template first. This lets maintainers agree on module boundaries before a
+  large implementation begins.
+- Read the [guide to adding a game](docs/adding-a-game.md) or the
+  [guide to adding a theme](docs/adding-a-theme.md).
+- First-time contributors can follow the
+  [end-to-end walkthrough](docs/first-contribution.md).
+- Discussions and code must follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+- Report vulnerabilities through the process in the
+  [Security Policy](SECURITY.md), not through a public issue.
 
-## Локальная проверка
+## Local validation
 
 ```bash
 npm ci
 npm run check
 ```
 
-`npm run check` проверяет ограничения архитектуры и размера файлов, линтер, тесты, TypeScript и production-сборку. Pull request должен проходить эту команду полностью.
+`npm run check` validates architecture and file-size boundaries, linting,
+tests, TypeScript, and the production build. A pull request must pass the entire
+command.
 
-## Требования к изменениям
+## Agent-assisted contributions
 
-- Делайте один логически цельный pull request без посторонних изменений.
-- Сохраняйте независимость игровых модулей: игра не должна импортировать внутренности другой игры.
-- Выносите в `shared` только элементы, которые действительно переиспользуются разными частями платформы.
-- Не создавайте файлы длиннее 300 строк. Разделяйте компоненты, стили и доменную логику по ответственности.
-- Добавляйте или обновляйте тесты для правил, состояния, хранения и исправленных регрессий.
-- Обновляйте документацию, если меняется публичный контракт, формат данных или процесс контрибуции.
-- Не добавляйте секреты, персональные данные, сгенерированные сборкой файлы или зависимости без необходимости.
+Pull requests created with Codex, Claude Code, Cursor, or another coding agent
+are welcome. Ask the agent to read [AGENTS.md](AGENTS.md) before editing and keep
+it on one bounded task.
 
-## Права на код и контент
+The contributor who opens the pull request remains responsible for reviewing
+the diff, verifying behavior, confirming the origin and license of every added
+asset or data set, and reporting validation honestly. Generated code receives
+the same review standard as hand-written code. Do not submit an agent's output
+without understanding what it changes.
 
-В проекте действует принцип **inbound = outbound**: отправляя вклад, вы соглашаетесь предоставить его на условиях [PolyForm Noncommercial License 1.0.0](LICENSE), то есть на тех же условиях, что и репозиторий. Отдельное соглашение CLA не требуется. Авторство вашего оригинального вклада сохраняется за вами.
+## Change requirements
 
-Отправляя код, тексты, изображения, названия, списки слов или другие материалы, вы подтверждаете, что:
+- Keep each pull request focused on one coherent change and avoid unrelated
+  edits.
+- Preserve game-module independence: a game must not import another game's
+  internals.
+- Move an element to `shared` only after it is genuinely reused across multiple
+  parts of the platform.
+- Do not create files longer than 300 lines. Split components, styles, and
+  domain logic by responsibility.
+- Add or update tests for rules, state, persistence, and fixed regressions.
+- Update documentation whenever a public contract, data format, or contribution
+  workflow changes.
+- Do not add secrets, personal data, generated build artifacts, or unnecessary
+  dependencies.
 
-- создали их сами или имеете право распространять их на условиях лицензии проекта;
-- указали происхождение и лицензию стороннего материала в pull request;
-- материал не нарушает авторские права, товарные знаки, приватность и другие права третьих лиц;
-- материал не содержит скрытой рекламы, опасных инструкций или персональных данных.
+## Rights to code and content
 
-Не копируйте списки и карточки из платных или закрытых коммерческих игр, приложений и наборов. Общая идея игры или общеизвестный факт могут не охраняться авторским правом, но конкретный текст, подборка, структура, иллюстрация и оформление могут охраняться. Создавайте собственную редакцию и подборку.
+The project follows **inbound = outbound**: by submitting a contribution, you
+agree to license it under the
+[PolyForm Noncommercial License 1.0.0](LICENSE), the same terms as the
+repository. No separate Contributor License Agreement is required. You retain
+authorship of your original contribution.
 
-## Pull request
+By submitting code, copy, images, names, word lists, or other material, you
+confirm that:
 
-В описании укажите:
+- you created it yourself or have the right to distribute it under the
+  project's license;
+- you identify the source and license of third-party material in the pull
+  request;
+- it does not infringe copyright, trademarks, privacy, or other third-party
+  rights;
+- it does not contain undisclosed advertising, dangerous instructions, or
+  personal data.
 
-1. какую проблему решает изменение;
-2. что именно изменено;
-3. как это проверено;
-4. есть ли новые данные, ассеты, зависимости или миграции;
-5. откуда взят добавленный контент и на каких правах он используется.
+Do not copy lists or cards from paid or closed commercial games, applications,
+or packs. A general game idea or common fact may not be protected by copyright,
+but specific text, selection, structure, artwork, and presentation may be.
+Create your own wording and collection.
 
-Maintainers могут попросить разделить pull request, скорректировать архитектуру или отказаться от материала, происхождение которого нельзя подтвердить.
+## Pull requests
+
+In the description, explain:
+
+1. what problem the change solves;
+2. what changed;
+3. how you verified it;
+4. whether it adds data, assets, dependencies, or migrations;
+5. where added content came from and what rights permit its use.
+
+Maintainers may ask you to split a pull request, adjust its architecture, or
+remove material whose provenance cannot be verified.

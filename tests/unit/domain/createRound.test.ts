@@ -25,7 +25,7 @@ class SequenceRandom implements RandomSource {
 }
 
 describe("createRound", () => {
-  it("создаёт classic-раунд, где шпион видит свой статус без слова", () => {
+  it("creates a classic round where the spy sees their role without a word", () => {
     const result = createRound({
       players,
       settings: { spyCount: 1, spyMode: "classic" },
@@ -47,7 +47,7 @@ describe("createRound", () => {
     expect(result.round.firstPlayerId).toBe("d");
   });
 
-  it("даёт всем шпионам одно альтернативное слово и не раскрывает его карточкой", () => {
+  it("gives every spy one decoy word without revealing their role on the card", () => {
     const result = createRound({
       players,
       settings: { spyCount: 2, spyMode: "decoy" },
@@ -68,7 +68,7 @@ describe("createRound", () => {
     expect(result.nextSpyHistory.filter((item) => item.spyAssignments === 1)).toHaveLength(2);
   });
 
-  it("отклоняет плохие настройки и невалидную тему", () => {
+  it("rejects invalid settings and an invalid theme", () => {
     const common = {
       players,
       spyHistory: [],
@@ -93,7 +93,7 @@ describe("createRound", () => {
     ).toThrow(/Некорректная тематика/);
   });
 
-  it("учитывает историю при выборе начинающего", () => {
+  it("uses history when selecting the first player", () => {
     const result = createRound({
       players,
       settings: { spyCount: 1, spyMode: "classic" },

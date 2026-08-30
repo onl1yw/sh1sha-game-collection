@@ -26,7 +26,7 @@ class SequenceRandom implements RandomSource {
 }
 
 describe("selectThemeWords", () => {
-  it("в classic выбирает одно слово без альтернативы", () => {
+  it("selects one word without an alternative in classic mode", () => {
     const result = selectThemeWords(theme, "classic", [], new SequenceRandom([0.99]));
 
     expect(result).toEqual({
@@ -36,7 +36,7 @@ describe("selectThemeWords", () => {
     });
   });
 
-  it("в decoy выбирает два разных слова из одной группы", () => {
+  it("selects two different words from one group in decoy mode", () => {
     const result = selectThemeWords(theme, "decoy", [], new SequenceRandom([0, 0.99]));
 
     expect(result).toEqual({
@@ -46,7 +46,7 @@ describe("selectThemeWords", () => {
     });
   });
 
-  it("в decoy пропускает группы без альтернативного объекта", () => {
+  it("skips groups without an alternative item in decoy mode", () => {
     const result = selectThemeWords(
       {
         ...theme,
@@ -64,7 +64,7 @@ describe("selectThemeWords", () => {
     expect(result.targetWord).toBe("Альфа");
   });
 
-  it("не повторяет недавнее основное слово, пока есть свежее", () => {
+  it("does not repeat a recent target while a fresh one is available", () => {
     const result = selectThemeWords(
       theme,
       "decoy",
@@ -76,14 +76,14 @@ describe("selectThemeWords", () => {
     expect(["Альфа", "Бета"]).toContain(result.decoyWord);
   });
 
-  it("сбрасывает ограничение, когда все слова уже игрались", () => {
+  it("resets the restriction after every word has been played", () => {
     const recent = theme.groups.flatMap((group) => group.items);
     const result = selectThemeWords(theme, "classic", recent, new SequenceRandom([0]));
 
     expect(result.targetWord).toBe("Альфа");
   });
 
-  it("отклоняет пустую тематику", () => {
+  it("rejects an empty theme", () => {
     expect(() =>
       selectThemeWords({ ...theme, groups: [] }, "classic", [], new SequenceRandom([0])),
     ).toThrow(/нет объектов/);

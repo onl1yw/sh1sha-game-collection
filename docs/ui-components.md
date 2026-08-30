@@ -1,69 +1,69 @@
-# UI-компоненты
+# UI components
 
-Общие элементы интерфейса лежат в `src/shared/ui`. Feature-экраны собирают их и
-задают только раскладку. Они не должны заново рисовать собственные кнопки,
-карточки или переключатели, если нужный контракт уже существует.
+Shared interface elements live in `src/shared/ui`. Feature screens compose
+these elements and define layout only. They should not redraw custom buttons,
+cards, or switches when an existing contract already fits the need.
 
-## Токены
+## Tokens
 
-Цвета, интервалы, радиусы, размеры шрифта и минимальная зона нажатия объявлены в
-`src/app/styles/tokens.css`. Компоненты используют только CSS-переменные.
-Светлая и тёмная схемы переключают значения тех же токенов.
+Colors, spacing, radii, font sizes, and the minimum hit-target size are declared
+in `src/app/styles/tokens.css`. Components use CSS custom properties only.
+Light and dark modes change the values of the same tokens.
 
 ## AppShell
 
-Оболочка одного экрана. Ограничивает ширину, учитывает safe area и при
-необходимости закрепляет основное действие снизу.
+The shell for one screen. It constrains width, respects the safe area, and can
+pin the primary action to the bottom when needed.
 
 ## ScreenHeader
 
-Заголовок экрана с необязательными левым и правым действиями. Для обычного
-возврата достаточно `onBack`; `leadingAction` нужен для составного действия с
-подтверждением, `trailingAction` — для настроек и других инструментов.
+A screen title with optional actions on the left and right. Use `onBack` for
+ordinary back navigation. Use `leadingAction` for a compound action that needs
+confirmation and `trailingAction` for settings or other tools.
 
 ## Button
 
-Единая кнопка с вариантами:
+The standard button has four variants:
 
-- `primary` — главное действие экрана;
-- `secondary` — нейтральный выбор;
-- `danger` — необратимое или опасное действие;
-- `quiet` — навигация и действия в шапке.
+- `primary` — the screen's main action;
+- `secondary` — a neutral choice;
+- `danger` — a destructive or dangerous action;
+- `quiet` — navigation and header actions.
 
-Состояние выбора для `secondary` задаётся через `aria-pressed`. Полноширинный
-вариант включается свойством `fullWidth`.
+Express the selected state of a `secondary` button through `aria-pressed`.
+Enable the full-width layout with the `fullWidth` property.
 
 ## Card
 
-Неинтерактивная поверхность для группировки полей, текста и настроек. Карточка
-не получает обработчик клика: для выбора используется `InteractiveCard`.
+A non-interactive surface that groups fields, text, or preferences. `Card`
+does not receive a click handler; use `InteractiveCard` for selection.
 
 ## InteractiveCard
 
-Кликабельная карточка каталога с Lucide-иконкой, названием, необязательным
-описанием и правым элементом. Используется и для списка игр, и для тематик
-«Шпиона», поэтому их геометрия и типографика совпадают. Цвет иконки задаётся
-через `iconTone`: `accent` по умолчанию или красный семантический `danger`.
+A clickable catalog card with a Lucide icon, title, optional description, and
+trailing element. It is used for both the game list and Spy themes, keeping
+their geometry and typography consistent. Set icon color with `iconTone`:
+`accent` by default or the semantic red `danger`.
 
 ## Switch
 
-Компактный двухпозиционный переключатель. Реализован как кнопка с
-`role="switch"` и `aria-checked`; внешний текст располагается рядом в родительском
-экране, а доступное имя передаётся через `label`.
+A compact two-state switch implemented as a button with `role="switch"` and
+`aria-checked`. Place visible copy beside it in the parent screen, and supply
+its accessible name through `label`.
 
 ## SectionLabel
 
-Единый небольшой заголовок секции. Используется только когда разделу реально
-нужно имя; очевидные подписи вроде «Игры» над единственным каталогом не нужны.
+The standard small section heading. Use it only when a section genuinely needs
+a name; obvious labels such as “Games” above a single catalog are unnecessary.
 
 ## ConfirmAction
 
-Двухшаговое опасное действие с подтверждением и восстановлением фокуса.
-Используется для сброса истории и прерывания раздачи.
+A two-step destructive action with confirmation and focus restoration. Use it
+for resetting history and aborting role assignment.
 
-## Правило добавления интерфейса
+## Adding interface elements
 
-Перед созданием нового CSS-контрола нужно проверить `src/shared/ui`. Если
-существующий контракт почти подходит, расширяется он и его тесты. Новый
-feature-компонент оправдан только собственной логикой или композицией, а не
-другим цветом той же кнопки.
+Check `src/shared/ui` before creating a new CSS control. If an existing
+contract almost fits, extend that contract and its tests. A new feature
+component is justified by its own behavior or composition, not by a different
+color on the same button.

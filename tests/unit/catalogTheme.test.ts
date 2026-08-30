@@ -5,7 +5,7 @@ import { toGameTheme } from "../../src/games/spy/app/state/catalogTheme";
 import { validateTheme } from "../../src/games/spy/domain/theme/validateTheme";
 
 describe("toGameTheme", () => {
-  it("не передаёт служебный флаг sensitive в строгую модель игры", () => {
+  it("does not pass the sensitive metadata flag into the strict game model", () => {
     const catalogTheme: CatalogTheme = {
       schemaVersion: 1,
       id: "politics",

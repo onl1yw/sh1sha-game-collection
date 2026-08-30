@@ -1,32 +1,32 @@
-name: Предложить улучшение
-description: Идея для интерфейса, архитектуры, доступности или общей платформы
+name: Suggest an improvement
+description: Propose an interface, architecture, accessibility, or platform improvement
 title: "[Idea]: "
 body:
   - type: textarea
     id: problem
     attributes:
-      label: Какую проблему решаем?
-      description: Опишите сценарий и ограничение текущей версии.
+      label: What problem should we solve?
+      description: Describe the use case and the current limitation.
     validations:
       required: true
   - type: textarea
     id: proposal
     attributes:
-      label: Предлагаемое решение
-      description: Что должно измениться для пользователя или контрибьютора?
+      label: Proposed solution
+      description: What should change for players or contributors?
     validations:
       required: true
   - type: textarea
     id: alternatives
     attributes:
-      label: Альтернативы и ограничения
-      description: Какие варианты вы рассматривали и какие есть компромиссы?
+      label: Alternatives and trade-offs
+      description: What alternatives did you consider, and what trade-offs do they involve?
   - type: checkboxes
     id: checks
     attributes:
-      label: Проверка
+      label: Before submitting
       options:
-        - label: Я проверил(а), что похожего открытого issue нет.
+        - label: I have checked that no similar issue is already open.
           required: true
-        - label: Предложение не содержит секретов или персональных данных.
+        - label: This proposal contains no secrets or personal data.
           required: true
