@@ -44,5 +44,15 @@ describe("GameCollectionScreen", () => {
     const spyIcon = container.querySelector(".lucide-hat-glasses");
     expect(spyIcon).not.toBeNull();
     expect(spyIcon?.parentElement?.dataset.iconTone).toBe("danger");
+
+    const repositoryLink = container.querySelector<HTMLAnchorElement>(
+      'a[aria-label="Открыть GitHub проекта"]',
+    );
+    expect(repositoryLink?.href).toBe(
+      "https://github.com/onl1yw/sh1sha-game-collection",
+    );
+    expect(repositoryLink?.target).toBe("_blank");
+    expect(repositoryLink?.rel).toContain("noopener");
+    expect(repositoryLink?.querySelector(".lucide-git-fork")).not.toBeNull();
   });
 });

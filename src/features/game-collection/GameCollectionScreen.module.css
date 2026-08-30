@@ -3,9 +3,29 @@
   gap: var(--space-lg);
 }
 
-.settings {
-  gap: var(--space-sm);
-  justify-self: end;
+.toolbar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.github {
+  align-items: center;
+  border-radius: var(--radius-control);
+  color: var(--color-text-muted);
+  display: inline-flex;
+  justify-content: center;
+  min-height: var(--touch-target);
+  min-width: var(--touch-target);
+}
+
+.github:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.github:active {
+  translate: 0 1px;
 }
 
 .title {
