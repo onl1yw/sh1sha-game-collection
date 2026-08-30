@@ -20,7 +20,7 @@ describe("buildNextFairnessHistory", () => {
   it.each([
     { items: ["А", "Б"], expectedTargets: ["А", "Б", "А", "Б"] },
     { items: ["А", "Б", "В"], expectedTargets: ["А", "Б", "В", "А"] },
-  ])("циклично исключает recent target для $items", ({
+  ])("cycles while excluding the recent target for $items", ({
     items,
     expectedTargets,
   }) => {
@@ -48,7 +48,7 @@ describe("buildNextFairnessHistory", () => {
     expect(actualTargets).toEqual(expectedTargets);
   });
 
-  it("хранит target, но не decoy, и обновляет историю начинающих", () => {
+  it("stores the target but not the decoy and updates first-player history", () => {
     const theme = makeTheme(["А", "Б", "В"]);
     const history = buildNextFairnessHistory({
       previous: createEmptyFairnessHistory(),
@@ -66,7 +66,7 @@ describe("buildNextFairnessHistory", () => {
     });
   });
 
-  it("подключает нового игрока к текущему уровню истории начинающих", () => {
+  it("adds a new player at the current first-player history level", () => {
     const roster = [...players, { id: "d", name: "d" }];
     const previous = {
       ...createEmptyFairnessHistory(),

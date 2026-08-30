@@ -1,48 +1,53 @@
-# Правила интерфейса
+# UI guidelines
 
-## Характер
+## Character
 
-Чистый утилитарный интерфейс для телефона, который удобно передавать из рук в руки. Декор не должен отвлекать от имени игрока и секретной карточки.
+The interface is clean and utilitarian, optimized for a phone passed from one
+person to another. Decoration must not compete with the current player's name or
+the secret card.
 
-## Палитра
+## Palette
 
-- основной фон: графитовый `#17191C`;
-- поверхность: `#22252A`;
-- основный текст: тёплый белый `#F4F3EF`;
-- вторичный текст: `#A9ADB5`;
-- цвет раунда и обычного объекта: сигнальный жёлтый `#F2C94C`;
-- явная роль шпиона и опасные действия: спокойный красный `#E06B65`.
+- main background: graphite `#17191C`;
+- surface: `#22252A`;
+- primary text: warm white `#F4F3EF`;
+- secondary text: `#A9ADB5`;
+- round and ordinary-object accent: signal yellow `#F2C94C`;
+- explicit spy role and dangerous actions: calm red `#E06B65`.
 
-Перед реализацией контраст всех пар проверяется по WCAG AA.
-Светлая схема использует те же смысловые токены; компоненты не задают цвета
-напрямую и переключаются атрибутом `data-color-theme` у корневого элемента.
+Check every color pair against WCAG AA before implementation. Light mode uses
+the same semantic tokens; components do not set colors directly and switch
+through the `data-color-theme` attribute on the root element.
 
-## Форма
+## Shape and layout
 
-- одна колонка;
-- крупные зоны нажатия не меньше 44 пикселей;
-- умеренные скругления 12–16 пикселей;
-- поверхности разделяются прежде всего цветом фона; рамки используются только
-  для контролов, фокуса и смысловых состояний;
-- без градиентов;
-- без фоновых иллюстраций и сложной векторной графики;
-- иконки Lucide используются только там, где они ускоряют считывание действия;
-- декоративных анимаций нет; функциональный flip карточки роли поддерживает
+- one column;
+- large hit targets of at least 44 pixels;
+- moderate corner radii of 12–16 pixels;
+- surfaces are separated primarily by background color; borders are reserved
+  for controls, focus, and semantic states;
+- no gradients;
+- no background illustrations or complex vector graphics;
+- use Lucide icons only when they make an action easier to recognize;
+- no decorative animation; the functional role-card flip respects
   `prefers-reduced-motion`;
-- hover-состояния не заменяют состояния фокуса и нажатия.
+- hover states do not replace focus and pressed states.
 
-## Секретная карточка
+## Secret card
 
-- до явного нажатия роль отсутствует на экране;
-- системная кнопка «Назад» не должна показывать роль предыдущего игрока;
-- после скрытия роль удаляется из видимой области;
-- основное действие располагается в зоне удобного нажатия большим пальцем;
-- явная роль шпиона выделяется красным, обычный объект — жёлтым;
-- текст роли читается без прокрутки на типичном мобильном экране.
+- the role is absent from the screen until an explicit action reveals it;
+- the system Back action must not reveal the previous player's role;
+- after hiding, the role is removed from the visible area;
+- the primary action sits within comfortable thumb reach;
+- an explicit spy role is red, while an ordinary object is yellow;
+- role text must be readable without scrolling on a typical mobile screen.
 
 ## CSS
 
-`tokens.css`, `reset.css` и `global.css` содержат только общие правила. Стили экранов и компонентов изолированы через CSS Modules и лежат рядом с соответствующим `.tsx`-файлом.
-Повторно используемые контролы и их границы описаны в `docs/ui-components.md`;
-feature-CSS отвечает за раскладку, а не создаёт альтернативные версии кнопок,
-карточек и переключателей.
+`tokens.css`, `reset.css`, and `global.css` contain shared rules only.
+Screen and component styles are isolated through CSS Modules and live beside
+their corresponding `.tsx` files.
+
+Reusable controls and their boundaries are documented in
+`docs/ui-components.md`. Feature CSS owns layout; it does not create
+alternative versions of buttons, cards, or switches.

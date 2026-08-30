@@ -1,70 +1,72 @@
-# Статус реализации платформы
+# Platform implementation status
 
-Первый игровой модуль и платформенный каркас готовы. Документ остаётся
-контрольным списком для последующих изменений.
+The first game module and the platform foundation are complete. This document
+remains a checklist for future work.
 
-## 1. Инструменты и контроль качества
+## 1. Tooling and quality control
 
-- [x] подключить React, TypeScript и Vite;
-- [x] добавить ESLint и проверку типов;
-- [x] добавить автоматическую проверку лимита 300 строк;
-- [x] настроить Vitest и production-сборку как обязательные проверки.
+- [x] set up React, TypeScript, and Vite;
+- [x] add ESLint and type checking;
+- [x] add an automated 300-line file limit;
+- [x] make Vitest and the production build required checks.
 
-## 2. Предметная область
+## 2. Domain
 
-- [x] определить типы игроков, настроек, тематик и раунда;
-- [x] реализовать выбор настоящего и альтернативного объекта;
-- [x] реализовать справедливый выбор одного или нескольких шпионов;
-- [x] реализовать выбор первого игрока;
-- [x] покрыть правила модульными тестами.
+- [x] define player, settings, theme, and round types;
+- [x] implement selection of real and alternative objects;
+- [x] implement fair assignment of one or more spies;
+- [x] implement selection of the first player;
+- [x] cover the rules with unit tests.
 
-## 3. Данные
+## 3. Data
 
-- [x] реализовать загрузчик манифеста и JSON-тематик;
-- [x] добавить валидацию и сообщения об ошибках;
-- [x] наполнить стартовые тематики;
-- [x] исключить быстрые повторы недавно сыгранных объектов.
+- [x] implement the manifest and JSON theme loader;
+- [x] add validation and error messages;
+- [x] populate the initial themes;
+- [x] avoid immediate repeats of recently played objects.
 
-## 4. Сохранение
+## 4. Persistence
 
-- [x] сохранить настройки и текущую сессию;
-- [x] сохранить историю ролей отдельно;
-- [x] восстановить игру после обновления страницы;
-- [x] всегда восстанавливать раскрытие роли в закрытом состоянии;
-- [x] добавить сброс локальной истории жеребьёвки.
+- [x] persist settings and the current session;
+- [x] persist role-assignment history separately;
+- [x] restore a game after a page reload;
+- [x] always restore role reveal in the hidden state;
+- [x] add an action to reset local assignment history.
 
-## 5. Интерфейс
+## 5. Interface
 
-- [x] выбор тематики;
-- [x] количество и имена игроков;
-- [x] количество шпионов и режим;
-- [x] последовательная передача телефона и раскрытие карточек;
-- [x] экран начала и активного раунда с темой и таймером прошедшего времени;
-- [x] результаты и повторная игра.
+- [x] theme selection;
+- [x] player count and names;
+- [x] spy count and mode;
+- [x] sequential phone handoff and card reveal;
+- [x] round-start and active-round screens with theme and elapsed time;
+- [x] results and replay.
 
-## 6. Проверка прототипа
+## 6. Prototype validation
 
-- [x] пройти сценарий с одним и несколькими шпионами;
-- [x] проверить оба режима;
-- [x] проверить обновление страницы на раскрытой роли;
-- [x] проверить мобильные размеры 360×640 и 390×844;
-- [x] проверить отсутствие файлов длиннее 300 строк;
-- [x] собрать production-версию как полностью статический сайт.
+- [x] complete flows with one and multiple spies;
+- [x] verify both modes;
+- [x] verify a page reload while a role is revealed;
+- [x] verify mobile layouts at 360×640 and 390×844;
+- [x] verify that no file exceeds 300 lines;
+- [x] build a fully static production site.
 
-## 7. Платформа и контрибуции
+## 7. Platform and contributions
 
-- [x] вынести «Шпиона» в независимый каталог `src/games/spy`;
-- [x] определить версионированный контракт `GameModule`;
-- [x] автоматически находить игровые модули без правок центрального реестра;
-- [x] загружать код выбранной игры отдельным lazy chunk;
-- [x] запретить архитектурной проверкой импорты между играми;
-- [x] документировать добавление игр и JSON-тематик;
-- [x] добавить CI, шаблоны issue/PR и правила контрибуций;
-- [x] оформить source-available лицензию с обязательной атрибуцией.
+- [x] move Spy into the independent `src/games/spy` directory;
+- [x] define the versioned `GameModule` contract;
+- [x] discover game modules without central-registry edits;
+- [x] load the selected game's code in a separate lazy chunk;
+- [x] reject cross-game imports in the architecture check;
+- [x] document how to add games and JSON themes;
+- [x] add CI, issue and PR templates, and contribution rules;
+- [x] add agent instructions, a first-contribution guide, and an explicit game
+      module generator;
+- [x] adopt a source-available license with required attribution.
 
-## Следующие этапы
+## Next steps
 
-- откалибровать словари живыми партиями;
-- при необходимости добавить импорт пользовательских JSON-наборов;
-- принять второй игровой модуль и проверить контракт на реальном примере;
-- добавить автоматическую проверку доступности опубликованной версии.
+- calibrate the word catalogs through real play sessions;
+- consider importing user-provided JSON packs;
+- accept a second game module and verify the contract against a real example;
+- add an automated availability check for the deployed site.

@@ -1,57 +1,57 @@
-name: Предложить новую тематику
-description: Новый набор слов для существующей игры
+name: Propose a new theme
+description: Propose a new word set for an existing game
 title: "[Theme]: "
 body:
   - type: markdown
     attributes:
       value: |
-        Сначала прочитайте docs/adding-a-theme.md. Список должен быть самостоятельной подборкой, а не копией чужого коммерческого набора.
+        Read docs/adding-a-theme.md first. The list must be an original selection, not a copy of someone else's commercial word set.
   - type: input
     id: game
     attributes:
-      label: Для какой игры предназначена тематика?
-      placeholder: Шпион
+      label: Which game is this theme for?
+      placeholder: Spy
     validations:
       required: true
   - type: input
     id: theme_name
     attributes:
-      label: Название тематики
+      label: Theme name
     validations:
       required: true
   - type: textarea
     id: scope
     attributes:
-      label: Состав и границы
-      description: Какие группы и понятия войдут, а что намеренно исключено?
+      label: Scope and boundaries
+      description: Which groups and concepts will it include, and what will it intentionally exclude?
     validations:
       required: true
   - type: dropdown
     id: sensitive
     attributes:
-      label: Содержит ли тема чувствительный контент?
-      description: Например, политику, наркотики, насилие или контент 18+.
+      label: Does this theme contain sensitive content?
+      description: For example, politics, drugs, violence, or adult content.
       options:
-        - Нет
-        - Да
-        - Не уверен(а)
+        - "No"
+        - "Yes"
+        - Not sure
     validations:
       required: true
   - type: textarea
     id: rights
     attributes:
-      label: Происхождение и права
-      description: Как составлен список? Есть ли сторонние источники и позволяют ли их условия включить материал?
+      label: Origin and rights
+      description: How was the list created? Were third-party sources used, and do their terms allow the material to be included?
     validations:
       required: true
   - type: checkboxes
     id: checks
     attributes:
-      label: Подтверждения
+      label: Confirmations
       options:
-        - label: Я прочитал(а) docs/adding-a-theme.md и CONTRIBUTING.md.
+        - label: I have read docs/adding-a-theme.md and CONTRIBUTING.md.
           required: true
-        - label: Это моя самостоятельная подборка, а не копия платного или закрытого набора.
+        - label: This is my original selection, not a copy of a paid or closed-source word set.
           required: true
-        - label: Я готов(а) добавить или обновить тесты каталога.
+        - label: I am prepared to add or update the catalog tests.
           required: true

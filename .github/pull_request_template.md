@@ -1,25 +1,27 @@
-## Зачем
+## Why
 
-<!-- Какую проблему решает этот pull request? -->
+<!-- What problem does this pull request solve? -->
 
-## Что изменено
+## What changed
 
-<!-- Короткий список существенных изменений. -->
+<!-- Briefly list the meaningful changes. -->
 
-## Как проверено
+## How it was tested
 
-<!-- Команды, тестовые сценарии и устройства/браузеры. -->
+<!-- Include commands, test scenarios, and any devices or browsers used. -->
 
-## Контент и лицензии
+## Content and licensing
 
-<!-- Перечислите новые данные, тексты, изображения, шрифты и зависимости. Укажите их источник и лицензию либо напишите «Нет». -->
+<!-- List any new data, copy, images, fonts, or dependencies. Include their source and license, or write "None." -->
 
-## Чек-лист
+## Checklist
 
-- [ ] Изменение ограничено одной задачей и не содержит посторонних правок.
-- [ ] Я прочитал(а) `CONTRIBUTING.md` и следовал(а) архитектурным правилам.
-- [ ] `npm run check` проходит локально.
-- [ ] Я добавил(а) или обновил(а) необходимые тесты и документацию.
-- [ ] Файлы не превышают 300 строк.
-- [ ] Я имею право передать весь добавленный код и контент на условиях лицензии репозитория.
-- [ ] Я не копировал(а) наборы или формулировки из платных и закрытых игр.
+- [ ] This pull request addresses one focused task and contains no unrelated changes.
+- [ ] I have read `CONTRIBUTING.md` and followed the architecture rules.
+- [ ] I reviewed and understand every change, including generated or
+      agent-assisted output.
+- [ ] `npm run check` passes locally.
+- [ ] I have added or updated the necessary tests and documentation.
+- [ ] No file exceeds 300 lines.
+- [ ] I have the right to contribute all added code and content under the repository license.
+- [ ] I have not copied word sets or wording from paid or closed-source games.

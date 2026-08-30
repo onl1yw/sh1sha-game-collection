@@ -1,22 +1,30 @@
-# Политика безопасности
+# Security Policy
 
-## Поддерживаемая версия
+## Supported version
 
-Исправления безопасности выпускаются для актуального состояния ветки `main`. Старые коммиты, форки и изменённые сборки не поддерживаются.
+Security fixes target the current state of the `main` branch. Old commits,
+forks, and modified builds are not supported.
 
-## Как сообщить об уязвимости
+## Reporting a vulnerability
 
-Используйте [Private vulnerability reporting](https://github.com/onl1yw/sh1sha-game-collection/security/advisories/new), чтобы передать отчёт владельцу репозитория непублично.
+Use
+[Private vulnerability reporting](https://github.com/onl1yw/sh1sha-game-collection/security/advisories/new)
+to send a report to the repository owner privately.
 
-Если приватная форма недоступна, создайте публичный issue без технических деталей и попросите maintainer предоставить закрытый канал связи. Не публикуйте эксплуатационный код, секреты, персональные данные или подробности неисправленной уязвимости.
+If the private form is unavailable, open a public issue without technical
+details and ask a maintainer for a private communication channel. Do not publish
+exploit code, secrets, personal data, or details of an unpatched vulnerability.
 
-В отчёте желательно указать:
+A useful report includes:
 
-- затронутую версию или commit;
-- шаги воспроизведения и влияние;
-- минимальное доказательство проблемы;
-- возможное исправление, если оно известно.
+- the affected version or commit;
+- reproduction steps and impact;
+- a minimal proof of the issue;
+- a possible fix, if known.
 
-Maintainer подтвердит получение, оценит влияние и согласует момент публичного раскрытия. Срок ответа не гарантируется: проект поддерживается на добровольной основе.
+A maintainer will acknowledge the report, assess its impact, and coordinate the
+timing of public disclosure. Response times are not guaranteed because the
+project is maintained by volunteers.
 
-Ошибки интерфейса и игровые баги без влияния на безопасность следует отправлять через обычный шаблон bug report.
+Interface defects and gameplay bugs without a security impact should use the
+regular bug-report template.

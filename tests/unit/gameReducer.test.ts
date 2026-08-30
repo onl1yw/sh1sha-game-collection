@@ -5,7 +5,7 @@ import { createInitialGameState, type GameState } from "../../src/games/spy/app/
 import type { GameRound } from "../../src/games/spy/domain/game/types";
 
 describe("gameReducer", () => {
-  it("открывает настройку сразу после выбора доступной темы", () => {
+  it("opens setup immediately after selecting an available theme", () => {
     const state: GameState = {
       ...createInitialGameState(),
       catalog: {
@@ -31,7 +31,7 @@ describe("gameReducer", () => {
     expect(chosen.selectedThemeId).toBe("places");
   });
 
-  it("не открывает настройку для неизвестной темы", () => {
+  it("does not open setup for an unknown theme", () => {
     const state = createInitialGameState();
     const chosen = gameReducer(state, {
       type: "choose-theme",
@@ -42,7 +42,7 @@ describe("gameReducer", () => {
     expect(chosen.errorMessage).toMatch(/недоступна/);
   });
 
-  it("без ошибки возвращает к выбору, если сохранённую тему удалили", () => {
+  it("returns to selection without an error when the saved theme was removed", () => {
     const restored = {
       ...setupState(),
       selectedThemeId: "removed-theme",
@@ -66,7 +66,7 @@ describe("gameReducer", () => {
     expect(loaded.errorMessage).toBeNull();
   });
 
-  it("не выдаёт новому игроку ID из истории", () => {
+  it("does not assign a historical id to a new player", () => {
     const state = setupState();
     const shrunk = gameReducer(state, { type: "set-player-count", count: 3 });
     const grown = gameReducer(shrunk, { type: "set-player-count", count: 4 });
@@ -79,7 +79,7 @@ describe("gameReducer", () => {
     expect(grown.players[3]).toEqual({ id: "player-5", name: "Игрок 4" });
   });
 
-  it("сохраняет историю отменённой раздачи как защиту от реролла", () => {
+  it("stores history from a cancelled deal to prevent rerolling", () => {
     const state: GameState = {
       ...setupState(),
       phase: "handoff",
@@ -103,7 +103,7 @@ describe("gameReducer", () => {
     expect(cancelled.fairnessHistory).toEqual(state.fairnessHistory);
   });
 
-  it("снимает устаревшее предупреждение после восстановления storage", () => {
+  it("clears a stale warning after storage recovers", () => {
     const warned = {
       ...setupState(),
       storageWarning: "Сохранение временно недоступно",
@@ -117,7 +117,7 @@ describe("gameReducer", () => {
     expect(recovered.storageWarning).toBeNull();
   });
 
-  it("сохраняет время начала активного раунда", () => {
+  it("stores the active round start time", () => {
     const ready: GameState = {
       ...setupState(),
       phase: "ready",

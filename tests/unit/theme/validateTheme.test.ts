@@ -20,7 +20,7 @@ const validTheme = {
 };
 
 describe("validateTheme", () => {
-  it("валидирует и нормализует корректную тему", () => {
+  it("validates and normalizes a valid theme", () => {
     const result = validateTheme(validTheme);
 
     expect(result.success).toBe(true);
@@ -30,7 +30,7 @@ describe("validateTheme", () => {
     }
   });
 
-  it("отклоняет пустой набор, неизвестные поля и неверные id", () => {
+  it("rejects an empty set, unknown fields, and invalid ids", () => {
     const result = validateTheme({
       ...validTheme,
       id: "Bad ID",
@@ -47,7 +47,7 @@ describe("validateTheme", () => {
     }
   });
 
-  it("ловит дубли объектов без учёта регистра и дубли id групп", () => {
+  it("detects case-insensitive duplicate items and duplicate group ids", () => {
     const result = validateTheme({
       ...validTheme,
       groups: [
@@ -65,7 +65,7 @@ describe("validateTheme", () => {
     }
   });
 
-  it("разрешает одиночную группу и ограничивает максимум пятнадцатью объектами", () => {
+  it("allows a single group and limits it to fifteen items", () => {
     const one = validateTheme({
       ...validTheme,
       groups: [{ id: "short", name: "Мало", items: ["Один"] }],
@@ -83,7 +83,7 @@ describe("validateTheme", () => {
     expect(sixteen.success).toBe(false);
   });
 
-  it("ограничивает длину текстовых полей", () => {
+  it("limits text field lengths", () => {
     const result = validateTheme({
       ...validTheme,
       id: "a".repeat(THEME_LIMITS.idLength + 1),
@@ -114,7 +114,7 @@ describe("validateTheme", () => {
     }
   });
 
-  it("ограничивает тематику двадцатью группами и 300 объектами", () => {
+  it("limits a theme to twenty groups and 300 items", () => {
     const maximumGroups = Array.from(
       { length: THEME_LIMITS.groupCount },
       (_, groupIndex) => ({
@@ -140,7 +140,7 @@ describe("validateTheme", () => {
     expect(MAX_THEME_ITEM_COUNT).toBe(300);
   });
 
-  it("держит JSON Schema синхронной с runtime-лимитами", () => {
+  it("keeps the JSON Schema synchronized with runtime limits", () => {
     const path = resolve(
       process.cwd(),
       "schemas",

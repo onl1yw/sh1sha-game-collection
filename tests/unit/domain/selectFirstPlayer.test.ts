@@ -24,7 +24,7 @@ class LcgRandom implements RandomSource {
 }
 
 describe("selectFirstPlayerId", () => {
-  it("понижает шанс часто и недавно начинавшего игрока", () => {
+  it("reduces the chance for a player who started often and recently", () => {
     const selected = selectFirstPlayerId({
       players,
       history: [
@@ -40,7 +40,7 @@ describe("selectFirstPlayerId", () => {
     expect(selected).toBe("b");
   });
 
-  it("остаётся случайным при равной истории", () => {
+  it("remains random when histories are equal", () => {
     expect(selectFirstPlayerId({
       players,
       history: [],
@@ -49,7 +49,7 @@ describe("selectFirstPlayerId", () => {
     })).toBe("d");
   });
 
-  it("даёт новому игроку обычный, а не подавляющий шанс начать", () => {
+  it("gives a new player a normal rather than overwhelming chance to start", () => {
     const history = [
       { playerId: "a", starts: 20, lastStartRound: 17 },
       { playerId: "b", starts: 20, lastStartRound: 18 },
@@ -72,7 +72,7 @@ describe("selectFirstPlayerId", () => {
     expect(newcomerStarts / 5_000).toBeLessThan(0.6);
   });
 
-  it("отклоняет повреждённую историю", () => {
+  it("rejects corrupted history", () => {
     expect(() => selectFirstPlayerId({
       players,
       history: [{ playerId: "a", starts: 1, lastStartRound: 3 }],

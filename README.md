@@ -3,94 +3,113 @@
 [![CI](https://github.com/onl1yw/sh1sha-game-collection/actions/workflows/ci.yml/badge.svg)](https://github.com/onl1yw/sh1sha-game-collection/actions/workflows/ci.yml)
 [![PolyForm Noncommercial](https://img.shields.io/badge/license-PolyForm%20Noncommercial-yellow.svg)](LICENSE)
 
-Mobile-first коллекция локальных pass-and-play игр для компании на одном
-телефоне. Без регистрации, сервера и рекламы во время игры.
+A mobile-first collection of local pass-and-play games for groups sharing one
+phone. No registration, server, or in-game advertising.
 
-**Демо:** <https://onl1yw.github.io/sh1sha-game-collection/>
+**Demo:** <https://onl1yw.github.io/sh1sha-game-collection/>
 
-Сейчас доступен «Шпион»: классический режим, альтернативное слово для шпиона,
-несколько шпионов, справедливая жеребьёвка, восстановление после перезагрузки и
-расширяемый каталог тематик.
+The collection currently includes Spy, with classic and alternative-word modes,
+multiple spies, fair role assignment, session recovery after a reload, and an
+extensible theme catalog.
 
-## Зачем этот репозиторий
+Repository and contributor documentation is in English. The current Spy
+interface and bundled theme content intentionally remain in Russian; every
+future game owns its player-facing locale.
 
-Проект задуман как открытая для контрибуций платформа небольших компанейских
-игр. Каждая игра живёт в независимом модуле со своими правилами, состоянием,
-storage и интерфейсом. Платформа автоматически находит модули и показывает их в
-общем каталоге.
+## Why this repository exists
+
+This project is designed as a contribution-friendly platform for small party
+games. Each game lives in an independent module with its own rules, state,
+storage, and interface. The platform discovers these modules automatically and
+displays them in a shared catalog.
 
 ```text
-src/games/spy/       самостоятельный модуль «Шпиона»
-src/app/             оболочка, настройки и реестр игр
-src/shared/ui/       переиспользуемые UI-примитивы
-public/games/spy/    JSON-тематики «Шпиона»
+src/games/spy/       self-contained Spy module
+src/app/             shell, settings, and game registry
+src/shared/ui/       reusable UI primitives
+public/games/spy/    Spy theme catalogs in JSON
 ```
 
-Новая игра добавляется собственной папкой и не требует правок центрального
-роутера или меню. Код выбранной игры загружается лениво отдельным chunk.
+Adding a game means adding its own directory; the central router and menu do not
+need to change. The selected game is loaded lazily in a separate chunk.
 
-## Запуск
+## Getting started
 
-Нужны Node.js 22.13+ и npm 10+.
+Requires Node.js 22.13+ and npm 10+.
 
 ```bash
 npm ci
 npm run dev
 ```
 
-Полная проверка перед pull request:
+Run the full validation gate before opening a pull request:
 
 ```bash
 npm run check
 ```
 
-Она включает архитектурные границы, лимит 300 строк, проверку тематик, ESLint,
-125+ unit-тестов, TypeScript и production-сборку.
+It checks architecture boundaries, the 300-line file limit, theme catalogs,
+ESLint, the unit test suite, TypeScript, and the production build.
 
-## Как внести вклад
+## Contributing
 
-Мы принимаем:
+We welcome:
 
-- исправления ошибок и улучшения доступности;
-- новые самостоятельные игры;
-- новые тематики и редактуру существующих наборов;
-- универсальные UI-компоненты;
-- тесты и документацию.
+- bug fixes and accessibility improvements;
+- new self-contained games;
+- new themes and edits to existing catalogs;
+- reusable UI components;
+- tests and documentation.
 
-Начните с [CONTRIBUTING.md](CONTRIBUTING.md). Для заметной новой игры сначала
-создайте issue по шаблону и согласуйте игровой цикл и границы модуля.
+Start with [CONTRIBUTING.md](CONTRIBUTING.md). For a substantial new game, open
+an issue from the provided template first so that its game loop and module
+boundaries can be agreed on before implementation.
 
-- [Как добавить игру](docs/adding-a-game.md)
-- [Как добавить тематику](docs/adding-a-theme.md)
-- [Архитектура](docs/architecture.md)
-- [UI-компоненты](docs/ui-components.md)
-- [Формат тематик](docs/theme-format.md)
-- [Правила интерфейса](docs/ui-guidelines.md)
+Agent-assisted contributions are welcome. Give the agent [AGENTS.md](AGENTS.md)
+as its repository contract and follow the
+[first-contribution walkthrough](docs/first-contribution.md). A minimal new game
+module can be created explicitly with:
 
-## Основные гарантии
+```bash
+npm run create:game -- --id alias --title "Alias"
+```
 
-- game domain не зависит от React и браузерных API;
-- одна игра не импортирует внутренности другой;
-- platform не импортирует конкретные игры;
-- storage каждой игры имеет собственный namespace и версию;
-- JSON-тематики валидируются до сборки;
-- один сломанный набор не ломает весь каталог;
-- секретная роль не восстанавливается раскрытой;
-- интерфейс учитывает `prefers-reduced-motion`.
+The repository does not ship a sample or test game in the catalog. The command
+creates a real module only when a contributor runs it.
 
-## Лицензия
+- [Adding a game](docs/adding-a-game.md)
+- [Adding a theme](docs/adding-a-theme.md)
+- [Your first contribution](docs/first-contribution.md)
+- [Architecture](docs/architecture.md)
+- [UI components](docs/ui-components.md)
+- [Theme format](docs/theme-format.md)
+- [UI guidelines](docs/ui-guidelines.md)
 
-Код доступен на условиях
-[PolyForm Noncommercial License 1.0.0](LICENSE). Разрешены некоммерческое
-использование, копирование, изменение и распространение при сохранении лицензии
-и строки авторства из [NOTICE](NOTICE).
+## Core guarantees
 
-Лицензии runtime-зависимостей перечислены в
-[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Все три файла автоматически
-включаются в production-артефакт.
+- a game's domain does not depend on React or browser APIs;
+- games do not import one another's internals;
+- the platform does not import specific games;
+- each game has its own storage namespace and schema version;
+- JSON themes are validated before the build;
+- one invalid catalog cannot break every other catalog;
+- a recovered secret role is never restored in a revealed state;
+- the interface respects `prefers-reduced-motion`.
 
-Коммерческое использование запрещено. Для иных условий потребуется разрешение
-всех правообладателей затронутого кода и контента.
+## License
 
-Из-за этого ограничения проект является **source-available**, а не open source
-в формальном смысле Open Source Definition. Исходный автор — **sh1sha**.
+The code is available under the
+[PolyForm Noncommercial License 1.0.0](LICENSE). Noncommercial use, copying,
+modification, and distribution are permitted as long as the license and the
+attribution statement in [NOTICE](NOTICE) are preserved.
+
+Runtime dependency licenses are listed in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). All three files are included
+in production artifacts automatically.
+
+Commercial use is prohibited. Different terms require permission from every
+rights holder whose code or content would be affected.
+
+Because of this restriction, the project is **source-available**, not open
+source under the formal Open Source Definition. The original author is
+**sh1sha**.

@@ -1,46 +1,48 @@
-# Шпион
+# Spy
 
-Первый игровой модуль коллекции и эталон интеграции с платформой. Игра работает
-локально на одном телефоне: участники по очереди раскрывают карточки, после чего
-задают друг другу вопросы и пытаются определить шпиона.
+Spy is the collection's first game module and the reference implementation for
+platform integration. It runs locally on one phone: players reveal their cards
+in sequence, then ask one another questions and try to identify the spy.
 
-## Режимы
+## Modes
 
-- **Шпион знает свою роль:** мирные игроки видят один объект, шпион видит только
-  свою роль.
-- **Шпион получает другое слово:** мирные видят один объект, шпион — другой
-  объект из той же группы и не знает, что отличается от остальных.
+- **Spy knows their role** (`Шпион знает свою роль`): non-spies see one
+  object, while the spy sees only their role.
+- **Spy receives a different word** (`Шпион получает другое слово`):
+  non-spies see one object, while the spy sees a different object from the same
+  group and does not know that their word differs.
 
-Поддерживаются несколько шпионов, выбор первого игрока и жеребьёвка с учётом
-недавней истории, чтобы одна роль не выпадала одному человеку слишком часто.
+The game supports multiple spies, first-player selection, and assignment that
+accounts for recent history so that one person does not receive the same role
+too frequently.
 
-## Структура модуля
+## Module structure
 
 ```text
 src/games/spy/
-  gameModule.ts       метаданные и lazy entry
+  gameModule.ts       metadata and lazy entry
   SpyGame.tsx         composition root
-  domain/             чистые правила
-  app/                состояние, команды и порты
-  infrastructure/     storage, random и загрузка тематик
-  features/           игровые экраны
+  domain/             pure rules
+  app/                state, commands, and ports
+  infrastructure/     storage, randomness, and theme loading
+  features/           game screens
 ```
 
-`gameModule.ts` — единственная точка обнаружения платформой. Правила «Шпиона»
-не экспортируются другим играм.
+`gameModule.ts` is the platform's only discovery point. Spy's rules are not
+exported to other games.
 
-## Данные и хранение
+## Data and persistence
 
-Каталог тематик лежит в `public/games/spy/themes` и управляется манифестом.
-Формат описан в [общем документе](../theme-format.md).
+The theme catalog lives in `public/games/spy/themes` and is controlled by its
+manifest. Its format is described in the
+[shared theme document](../theme-format.md).
 
-Новые записи сохраняются через переданный платформой scoped storage с
-namespace `sh1sha-games:spy`. Адаптер модуля один раз переносит совместимые
-сессии из старых ключей `spy-game:*`, поэтому обновление не сбрасывает текущую
-игру.
+New data is stored through the platform-supplied scoped storage under the
+`sh1sha-games:spy` namespace. The module adapter migrates compatible sessions
+from the legacy `spy-game:*` keys once, so an upgrade does not discard the
+current game.
 
-## Проверки
+## Validation
 
-Домен, редьюсер, восстановление, браузерные адаптеры, экраны, содержимое
-каталога и иконки покрыты unit-тестами. Полный gate запускается командой
-`npm run check`.
+Unit tests cover the domain, reducer, recovery, browser adapters, screens,
+catalog content, and icons. Run the complete gate with `npm run check`.

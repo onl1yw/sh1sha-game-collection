@@ -26,7 +26,7 @@ const FILE_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*\.json$/;
 const manifest = readJson("manifest.json") as ThemeManifestFile;
 
 describe("spy theme catalog", () => {
-  it("содержит корректный манифест без повторяющихся id и файлов", () => {
+  it("contains a valid manifest without duplicate ids or files", () => {
     expect(manifest.schemaVersion).toBe(1);
     expect(manifest.themes.length).toBeGreaterThan(0);
 
@@ -46,7 +46,7 @@ describe("spy theme catalog", () => {
   });
 
   it.each(manifest.themes)(
-    "валидирует указанную в манифесте тематику: $id",
+    "validates the theme listed in the manifest: $id",
     (entry) => {
       if (!FILE_PATTERN.test(entry.file)) return;
 
@@ -58,7 +58,7 @@ describe("spy theme catalog", () => {
     },
   );
 
-  it("помечает политики и наркотики как чувствительные темы", () => {
+  it("marks politics and drugs as sensitive themes", () => {
     for (const id of ["politicians", "drugs"]) {
       expect(manifest.themes.find((entry) => entry.id === id)?.sensitive).toBe(
         true,
@@ -66,7 +66,7 @@ describe("spy theme catalog", () => {
     }
   });
 
-  it("сохраняет все 15 исходных принцесс в теме Disney", () => {
+  it("keeps all 15 original princesses in the Disney theme", () => {
     const theme = readJson("disney.json") as ThemeFile;
     const items = allItems(theme);
     const princesses = [
@@ -90,7 +90,7 @@ describe("spy theme catalog", () => {
     expect(items).toEqual(expect.arrayContaining(princesses));
   });
 
-  it("сохраняет исходные приложения и крупные категории в теме телефона", () => {
+  it("keeps the original apps and major categories in the phone theme", () => {
     const theme = readJson("phone-apps.json") as ThemeFile;
     const items = allItems(theme);
     const sourceApps = [
@@ -131,7 +131,7 @@ describe("spy theme catalog", () => {
     expect(items).toEqual(expect.arrayContaining(sourceApps));
   });
 
-  it("сохраняет авторские вкусы после семантической дедупликации", () => {
+  it("keeps the author's flavors after semantic deduplication", () => {
     const theme = readJson("chip-flavors.json") as ThemeFile;
     const items = allItems(theme);
     const sourceFlavors = [
