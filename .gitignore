@@ -1,0 +1,12 @@
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+output/
+.playwright-cli/
+.DS_Store
+*.local
+
+# Private/local theme packs (not copied into production builds)
+.local-themes/

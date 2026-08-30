@@ -1,0 +1,31 @@
+.starter {
+  display: grid;
+  gap: var(--space-sm);
+  margin-block: auto;
+  min-height: 15rem;
+  place-content: center;
+  text-align: center;
+}
+
+.label {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.name {
+  color: var(--color-accent);
+  font-size: clamp(2.25rem, 13vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.rule {
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  text-align: center;
+}

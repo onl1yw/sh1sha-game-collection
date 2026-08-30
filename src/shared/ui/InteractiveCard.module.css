@@ -1,0 +1,66 @@
+.card {
+  align-items: center;
+  background: var(--color-surface);
+  border: 0;
+  border-radius: var(--radius-card);
+  color: var(--color-text);
+  cursor: pointer;
+  display: grid;
+  font: inherit;
+  gap: var(--space-md);
+  grid-template-columns: 3rem minmax(0, 1fr);
+  min-height: 5.5rem;
+  padding: var(--space-card);
+  text-align: left;
+  width: 100%;
+}
+
+.withTrailing {
+  grid-template-columns: 3rem minmax(0, 1fr) auto;
+}
+
+.card:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.card:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.icon {
+  align-items: center;
+  color: var(--color-accent-strong);
+  display: flex;
+  height: 3rem;
+  justify-content: center;
+  width: 3rem;
+}
+
+.iconDanger {
+  color: var(--color-danger);
+}
+
+.copy {
+  display: grid;
+  gap: var(--space-xs);
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.description {
+  color: var(--color-text-muted);
+  line-height: 1.45;
+}
+
+.trailing {
+  align-items: center;
+  color: var(--color-text-muted);
+  display: flex;
+}

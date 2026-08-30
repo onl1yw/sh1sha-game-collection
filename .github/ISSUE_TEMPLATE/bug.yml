@@ -1,0 +1,48 @@
+name: Сообщить об ошибке
+description: Воспроизводимая ошибка в интерфейсе, правилах или данных
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Спасибо за отчёт. Для уязвимостей используйте SECURITY.md и не публикуйте детали здесь.
+  - type: textarea
+    id: description
+    attributes:
+      label: Что произошло?
+      description: Опишите фактическое и ожидаемое поведение.
+      placeholder: Я ожидал(а)..., но произошло...
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Как воспроизвести?
+      description: Перечислите минимальные последовательные шаги.
+      placeholder: |
+        1. Открыть...
+        2. Выбрать...
+        3. Нажать...
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Устройство и браузер
+      placeholder: iPhone 15, iOS 19, Safari
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Дополнительные материалы
+      description: Скриншоты, видео, логи без секретов и персональных данных.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Проверка
+      options:
+        - label: Я проверил(а), что похожего открытого issue нет.
+          required: true
+        - label: Этот отчёт не содержит данных об уязвимости безопасности.
+          required: true

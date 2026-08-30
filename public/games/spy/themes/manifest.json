@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "themes": [
+    { "id": "places", "file": "places.json", "enabled": false },
+    { "id": "minecraft", "file": "minecraft.json", "enabled": true },
+    { "id": "disney", "file": "disney.json", "enabled": true },
+    { "id": "phone-apps", "file": "phone-apps.json", "enabled": true },
+    { "id": "chip-flavors", "file": "chip-flavors.json", "enabled": true },
+    { "id": "drinks", "file": "drinks.json", "enabled": true },
+    { "id": "politicians", "file": "politicians.json", "enabled": true, "sensitive": true },
+    { "id": "countries", "file": "countries.json", "enabled": true },
+    { "id": "berries", "file": "berries.json", "enabled": true },
+    { "id": "drugs", "file": "drugs.json", "enabled": true, "sensitive": true }
+  ]
+}

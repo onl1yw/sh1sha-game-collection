@@ -1,0 +1,5 @@
+.message {
+  color: var(--color-spy);
+  font-weight: 700;
+  line-height: 1.55;
+}

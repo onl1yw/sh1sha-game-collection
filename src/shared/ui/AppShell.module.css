@@ -1,0 +1,44 @@
+.viewport {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  min-height: 100dvh;
+  padding: max(var(--space-page), env(safe-area-inset-top))
+    max(var(--space-page), env(safe-area-inset-right))
+    max(var(--space-page), env(safe-area-inset-bottom))
+    max(var(--space-page), env(safe-area-inset-left));
+  width: min(100%, var(--content-max-width));
+}
+
+.viewport:has(.actions) {
+  padding-bottom: 0;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-section);
+  min-width: 0;
+}
+
+.content:focus {
+  outline: none;
+}
+
+.actions {
+  background: var(--color-background);
+  bottom: 0;
+  display: grid;
+  gap: var(--space-sm);
+  margin-top: var(--space-section);
+  padding-block: var(--space-md) max(var(--space-page), env(safe-area-inset-bottom));
+  position: sticky;
+  z-index: 1;
+}
+
+@media (min-width: 40rem) {
+  .viewport {
+    padding-block: var(--space-xl);
+  }
+}

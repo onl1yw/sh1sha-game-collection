@@ -1,0 +1,57 @@
+name: Предложить новую тематику
+description: Новый набор слов для существующей игры
+title: "[Theme]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Сначала прочитайте docs/adding-a-theme.md. Список должен быть самостоятельной подборкой, а не копией чужого коммерческого набора.
+  - type: input
+    id: game
+    attributes:
+      label: Для какой игры предназначена тематика?
+      placeholder: Шпион
+    validations:
+      required: true
+  - type: input
+    id: theme_name
+    attributes:
+      label: Название тематики
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Состав и границы
+      description: Какие группы и понятия войдут, а что намеренно исключено?
+    validations:
+      required: true
+  - type: dropdown
+    id: sensitive
+    attributes:
+      label: Содержит ли тема чувствительный контент?
+      description: Например, политику, наркотики, насилие или контент 18+.
+      options:
+        - Нет
+        - Да
+        - Не уверен(а)
+    validations:
+      required: true
+  - type: textarea
+    id: rights
+    attributes:
+      label: Происхождение и права
+      description: Как составлен список? Есть ли сторонние источники и позволяют ли их условия включить материал?
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Подтверждения
+      options:
+        - label: Я прочитал(а) docs/adding-a-theme.md и CONTRIBUTING.md.
+          required: true
+        - label: Это моя самостоятельная подборка, а не копия платного или закрытого набора.
+          required: true
+        - label: Я готов(а) добавить или обновить тесты каталога.
+          required: true

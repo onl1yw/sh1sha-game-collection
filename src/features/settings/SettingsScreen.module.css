@@ -1,0 +1,26 @@
+.section {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.themeChoices {
+  display: grid;
+  gap: var(--space-sm);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.themeChoices > * {
+  align-items: center;
+  min-height: 4rem;
+}
+
+.settingRow {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  min-height: 4.5rem;
+}
+
+.settingTitle {
+  font-weight: 800;
+}

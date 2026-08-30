@@ -1,0 +1,36 @@
+.root {
+  background: var(--color-border-strong);
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  height: 1.75rem;
+  padding: 0.25rem;
+  width: 3rem;
+}
+
+.root[data-checked="true"] {
+  background: var(--color-accent);
+}
+
+.root:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.root:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.thumb {
+  background: var(--color-switch-thumb);
+  border-radius: 50%;
+  display: block;
+  height: 1.25rem;
+  translate: 0 0;
+  width: 1.25rem;
+}
+
+.root[data-checked="true"] .thumb {
+  translate: 1.25rem 0;
+}

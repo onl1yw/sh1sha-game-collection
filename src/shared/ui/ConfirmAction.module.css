@@ -1,0 +1,48 @@
+.root {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.compact {
+  justify-items: start;
+}
+
+.confirmation {
+  background: rgb(0 0 0 / 72%);
+  display: grid;
+  inset: 0;
+  padding:
+    max(var(--space-page), env(safe-area-inset-top))
+    max(var(--space-page), env(safe-area-inset-right))
+    max(var(--space-page), env(safe-area-inset-bottom))
+    max(var(--space-page), env(safe-area-inset-left));
+  place-items: center;
+  position: fixed;
+  z-index: 20;
+}
+
+.dialog {
+  background: var(--color-surface-raised);
+  border-radius: var(--radius-card);
+  display: grid;
+  gap: var(--space-md);
+  max-width: 28rem;
+  padding: var(--space-card);
+  width: 100%;
+}
+
+.prompt {
+  line-height: 1.5;
+  margin: 0;
+}
+
+.controls {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.status {
+  color: var(--color-text);
+  line-height: 1.5;
+  text-align: center;
+}

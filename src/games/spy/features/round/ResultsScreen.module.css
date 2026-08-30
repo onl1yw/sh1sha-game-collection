@@ -1,0 +1,62 @@
+.wordCard {
+  display: grid;
+  gap: var(--space-sm);
+  text-align: center;
+}
+
+.label {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.word {
+  color: var(--color-accent);
+  font-size: clamp(2rem, 11vw, 3.75rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.decoy {
+  border-top: 1px solid var(--color-border);
+  display: grid;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  padding-top: var(--space-md);
+}
+
+.decoyWord {
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.spies {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.spies h2 {
+  color: var(--color-spy);
+  font-size: var(--font-size-lg);
+}
+
+.spies ul {
+  display: grid;
+  gap: var(--space-sm);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.spies li {
+  background: var(--color-surface);
+  border-radius: var(--radius-control);
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  padding: var(--space-md);
+}

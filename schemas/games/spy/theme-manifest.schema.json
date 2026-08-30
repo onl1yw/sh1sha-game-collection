@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "theme-manifest.schema.json",
+  "title": "Theme manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "themes"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "themes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "file", "enabled"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "file": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*\\.json$"
+          },
+          "enabled": { "type": "boolean" },
+          "sensitive": { "type": "boolean", "default": false }
+        }
+      }
+    }
+  }
+}

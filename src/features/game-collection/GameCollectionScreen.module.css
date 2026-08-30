@@ -1,0 +1,29 @@
+.header {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.settings {
+  gap: var(--space-sm);
+  justify-self: end;
+}
+
+.title {
+  font-size: clamp(2.5rem, 13vw, 4.5rem);
+  letter-spacing: -0.055em;
+  line-height: 0.94;
+  margin: 0;
+  max-width: 10ch;
+  overflow-wrap: anywhere;
+  font-weight: 800;
+}
+
+.brand {
+  color: var(--color-accent-strong);
+  font-weight: 900;
+}
+
+.games {
+  display: grid;
+  gap: var(--space-sm);
+}

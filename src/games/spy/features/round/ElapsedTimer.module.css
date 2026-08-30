@@ -1,0 +1,22 @@
+.timer {
+  display: grid;
+  gap: var(--space-xs);
+  justify-items: center;
+}
+
+.label {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.value {
+  color: var(--color-round);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(2.75rem, 14vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}

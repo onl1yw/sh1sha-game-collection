@@ -1,0 +1,17 @@
+.banner {
+  background: var(--color-surface);
+  border: 0;
+  border-left: 3px solid var(--color-spy);
+  border-radius: var(--radius-control);
+  color: var(--color-text);
+  display: grid;
+  gap: var(--space-xs);
+  margin: var(--space-page) auto 0;
+  padding: var(--space-sm) var(--space-md);
+  width: min(calc(100% - 2 * var(--space-page)), var(--content-max-width));
+}
+
+.banner p {
+  font-size: var(--font-size-sm);
+  line-height: 1.45;
+}

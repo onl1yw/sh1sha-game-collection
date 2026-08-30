@@ -1,0 +1,18 @@
+.card {
+  background: var(--color-surface);
+  border: 0;
+  border-radius: var(--radius-card);
+  padding: var(--space-card);
+}
+
+.default {
+  background: var(--color-surface);
+}
+
+.accent {
+  background: var(--color-surface-raised);
+}
+
+.danger {
+  border-left: 3px solid var(--color-danger);
+}

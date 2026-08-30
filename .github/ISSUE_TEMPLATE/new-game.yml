@@ -1,0 +1,68 @@
+name: Предложить новую игру
+description: Предложение независимого игрового модуля для коллекции
+title: "[Game]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Сначала прочитайте docs/adding-a-game.md. Issue нужен, чтобы согласовать правила и границы модуля до реализации.
+  - type: input
+    id: game_name
+    attributes:
+      label: Название игры
+    validations:
+      required: true
+  - type: textarea
+    id: pitch
+    attributes:
+      label: Короткое описание
+      description: Для кого игра и чем отличается от уже доступных игр?
+    validations:
+      required: true
+  - type: textarea
+    id: rules
+    attributes:
+      label: Правила и игровой цикл
+      description: Опишите подготовку, ход, завершение и условия победы.
+    validations:
+      required: true
+  - type: input
+    id: players
+    attributes:
+      label: Количество игроков
+      placeholder: 3–12
+    validations:
+      required: true
+  - type: dropdown
+    id: pass_and_play
+    attributes:
+      label: Подходит ли игра для локального pass-and-play без сервера?
+      options:
+        - Да
+        - Нет
+        - Нужна консультация
+    validations:
+      required: true
+  - type: textarea
+    id: architecture
+    attributes:
+      label: Предлагаемая структура модуля
+      description: Какие будут domain, state/storage, UI и точки интеграции с платформой?
+    validations:
+      required: true
+  - type: textarea
+    id: content
+    attributes:
+      label: Контент и права
+      description: Какие тексты, списки и ассеты нужны, кто их создал и на каких правах они доступны?
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Подтверждения
+      options:
+        - label: Я прочитал(а) docs/adding-a-game.md и CONTRIBUTING.md.
+          required: true
+        - label: Я не буду копировать материалы из платных или закрытых игр.
+          required: true

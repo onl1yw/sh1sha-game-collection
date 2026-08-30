@@ -1,0 +1,32 @@
+name: Предложить улучшение
+description: Идея для интерфейса, архитектуры, доступности или общей платформы
+title: "[Idea]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Какую проблему решаем?
+      description: Опишите сценарий и ограничение текущей версии.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Предлагаемое решение
+      description: Что должно измениться для пользователя или контрибьютора?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Альтернативы и ограничения
+      description: Какие варианты вы рассматривали и какие есть компромиссы?
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Проверка
+      options:
+        - label: Я проверил(а), что похожего открытого issue нет.
+          required: true
+        - label: Предложение не содержит секретов или персональных данных.
+          required: true

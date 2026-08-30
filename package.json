@@ -1,0 +1,59 @@
+{
+  "name": "sh1sha-game-collection",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Source-available modular collection of mobile pass-and-play games",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "author": "sh1sha",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onl1yw/sh1sha-game-collection.git"
+  },
+  "homepage": "https://onl1yw.github.io/sh1sha-game-collection/",
+  "bugs": {
+    "url": "https://github.com/onl1yw/sh1sha-game-collection/issues"
+  },
+  "keywords": [
+    "party-games",
+    "pass-and-play",
+    "react",
+    "typescript"
+  ],
+  "packageManager": "npm@10.9.4",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build && node scripts/copy-legal-notices.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "validate:themes": "node scripts/validate-spy-themes.mjs",
+    "lint": "eslint .",
+    "check:architecture": "node scripts/check-architecture.mjs",
+    "check:size": "node scripts/check-file-length.mjs",
+    "check": "npm run check:size && npm run check:architecture && npm run validate:themes && npm run lint && npm run test && npm run build"
+  },
+  "dependencies": {
+    "lucide-react": "^1.37.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.4.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "@vitejs/plugin-react": "^6.1.1",
+    "eslint": "^10.9.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.5",
+    "globals": "^17.11.0",
+    "jsdom": "^29.0.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.68.0",
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11"
+  }
+}
