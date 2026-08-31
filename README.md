@@ -8,11 +8,12 @@ phone. No registration, server, or in-game advertising.
 
 **Demo:** <https://games.sh1sha.ru/>
 
-The collection includes Spy and Mafia. Spy provides classic and
+The collection includes Spy, Mafia, and Alias. Spy provides classic and
 alternative-word modes, fair role assignment, session recovery, and an
 extensible theme catalog. Mafia is phone-hosted, supports editable role sets,
 pre-generated offline night narration, hidden-role dealing, night actions,
-voting, and multiple win conditions.
+voting, and multiple win conditions. Alias supports editable teams, mixed word
+themes, timed explanation rounds, reviewable scoring, and two victory modes.
 
 Repository and contributor documentation is in English. The current game
 interfaces and bundled Spy theme content intentionally remain in Russian;
@@ -28,9 +29,11 @@ displays them in a shared catalog.
 ```text
 src/games/spy/       self-contained Spy module
 src/games/mafia/     self-contained Mafia module
+src/games/alias/     self-contained Alias module
 src/app/             shell, settings, and game registry
 src/shared/ui/       reusable UI primitives
 public/games/spy/    Spy theme catalogs in JSON
+public/games/alias/  Alias word catalogs in JSON
 ```
 
 Adding a game means adding its own directory; the central router and menu do not
