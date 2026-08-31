@@ -10,7 +10,7 @@
   width: min(100%, var(--content-max-width));
 }
 
-.viewport:has(.actions) {
+.viewport[data-has-actions="true"] {
   padding-bottom: 0;
 }
 
@@ -24,17 +24,6 @@
 
 .content:focus {
   outline: none;
-}
-
-.actions {
-  background: var(--color-background);
-  bottom: 0;
-  display: grid;
-  gap: var(--space-sm);
-  margin-top: var(--space-section);
-  padding-block: var(--space-md) max(var(--space-page), env(safe-area-inset-bottom));
-  position: sticky;
-  z-index: 1;
 }
 
 @media (min-width: 40rem) {

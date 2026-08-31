@@ -1,5 +1,6 @@
 import { useEffect, useRef, type ReactNode } from "react";
 
+import { ActionBar } from "./ActionBar";
 import styles from "./AppShell.module.css";
 
 export interface AppShellProps {
@@ -16,7 +17,10 @@ export function AppShell({ children, actions, ariaLabel }: AppShellProps) {
   }, []);
 
   return (
-    <div className={styles.viewport}>
+    <div
+      className={styles.viewport}
+      data-has-actions={actions ? "true" : undefined}
+    >
       <main
         ref={mainRef}
         className={styles.content}
@@ -25,7 +29,7 @@ export function AppShell({ children, actions, ariaLabel }: AppShellProps) {
       >
         {children}
       </main>
-      {actions ? <footer className={styles.actions}>{actions}</footer> : null}
+      {actions ? <ActionBar>{actions}</ActionBar> : null}
     </div>
   );
 }

@@ -64,3 +64,46 @@
   color: var(--color-text-muted);
   display: flex;
 }
+
+.tile,
+.tile.withTrailing {
+  align-items: initial;
+  aspect-ratio: 1;
+  gap: var(--space-lg);
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto 1fr;
+  min-height: 0;
+  padding: clamp(1.5rem, 8vw, 2.25rem);
+}
+
+.tile .icon {
+  height: 4rem;
+  justify-content: flex-start;
+  width: 4rem;
+}
+
+.tile .copy {
+  align-self: end;
+  gap: var(--space-sm);
+  grid-column: 1 / -1;
+  grid-row: 2;
+  padding-right: 2.5rem;
+}
+
+.tile .title {
+  font-size: clamp(1.75rem, 8vw, 2.5rem);
+  line-height: 1;
+}
+
+.tile .description {
+  font-size: var(--font-size-md);
+  line-height: 1.4;
+  max-width: 24ch;
+}
+
+.tile .trailing {
+  align-self: start;
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+}

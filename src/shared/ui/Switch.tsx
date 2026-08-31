@@ -32,7 +32,9 @@ export function Switch({
       data-checked={checked}
       onClick={() => onCheckedChange(!checked)}
     >
-      <span className={styles.thumb} aria-hidden="true" />
+      <span className={styles.track} aria-hidden="true">
+        <span className={styles.thumb} />
+      </span>
     </button>
   );
 }

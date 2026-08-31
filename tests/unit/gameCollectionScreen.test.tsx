@@ -44,6 +44,8 @@ describe("GameCollectionScreen", () => {
     const spyIcon = container.querySelector(".lucide-hat-glasses");
     expect(spyIcon).not.toBeNull();
     expect(spyIcon?.parentElement?.dataset.iconTone).toBe("danger");
+    expect(spyIcon?.closest("button")?.dataset.layout).toBe("tile");
+    expect(spyIcon?.getAttribute("width")).toBe("64");
 
     const repositoryLink = container.querySelector<HTMLAnchorElement>(
       'a[aria-label="Открыть GitHub проекта"]',

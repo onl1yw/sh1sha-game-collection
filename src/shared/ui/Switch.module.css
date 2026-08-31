@@ -1,14 +1,28 @@
 .root {
-  background: var(--color-border-strong);
+  align-items: center;
+  background: transparent;
   border: 0;
-  border-radius: 999px;
   cursor: pointer;
+  display: inline-flex;
+  flex: 0 0 3rem;
+  height: var(--touch-target);
+  justify-content: center;
+  min-height: var(--touch-target);
+  min-width: 3rem;
+  padding: 0;
+  width: 3rem;
+}
+
+.track {
+  background: var(--color-border-strong);
+  border-radius: 999px;
+  display: block;
   height: 1.75rem;
   padding: 0.25rem;
   width: 3rem;
 }
 
-.root[data-checked="true"] {
+.root[data-checked="true"] .track {
   background: var(--color-accent);
 }
 
