@@ -1,0 +1,164 @@
+.surface {
+  isolation: isolate;
+  position: sticky;
+}
+
+.surface::before {
+  background: var(--color-background);
+  content: "";
+  left: calc(
+    0px - max(var(--space-page), env(safe-area-inset-left, 0px))
+  );
+  pointer-events: none;
+  position: absolute;
+  right: calc(
+    0px - max(var(--space-page), env(safe-area-inset-right, 0px))
+  );
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+}
+
+.backdrop {
+  display: none;
+}
+
+.top {
+  padding-bottom: var(--space-sm);
+  top: env(safe-area-inset-top, 0px);
+  z-index: 3;
+}
+
+.top::before {
+  bottom: 0;
+  top: calc(
+    0px - max(var(--space-page), env(safe-area-inset-top, 0px))
+  );
+}
+
+.bottom {
+  bottom: 0;
+  margin-top: var(--space-section);
+  padding-block:
+    var(--space-md)
+    max(var(--space-page), env(safe-area-inset-bottom, 0px));
+  z-index: 2;
+}
+
+.bottom::before {
+  bottom: 0;
+  top: 0;
+}
+
+.bottom .content {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+@supports (((-webkit-backdrop-filter: blur(1px)) or
+  (backdrop-filter: blur(1px))) and
+  ((-webkit-mask-image: linear-gradient(#000, transparent)) or
+  (mask-image: linear-gradient(#000, transparent)))) {
+  .backdrop {
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    display: block;
+    height: 24px;
+    left: calc(
+      0px - max(var(--space-page), env(safe-area-inset-left, 0px))
+    );
+    pointer-events: none;
+    position: absolute;
+    right: calc(
+      0px - max(var(--space-page), env(safe-area-inset-right, 0px))
+    );
+    z-index: 0;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+
+  .top .backdrop {
+    background: linear-gradient(
+      to bottom,
+      var(--color-background),
+      transparent
+    );
+    background: linear-gradient(
+      to bottom,
+      var(--color-background) 0,
+      color-mix(in srgb, var(--color-background) 82%, transparent) 20%,
+      color-mix(in srgb, var(--color-background) 36%, transparent) 55%,
+      transparent 100%
+    );
+    top: 100%;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 0,
+      rgb(0 0 0 / 84%) 30%,
+      rgb(0 0 0 / 30%) 70%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      #000 0,
+      rgb(0 0 0 / 84%) 30%,
+      rgb(0 0 0 / 30%) 70%,
+      transparent 100%
+    );
+  }
+
+  .bottom .backdrop {
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--color-background)
+    );
+    background: linear-gradient(
+      to bottom,
+      transparent 0,
+      color-mix(in srgb, var(--color-background) 36%, transparent) 45%,
+      color-mix(in srgb, var(--color-background) 82%, transparent) 80%,
+      var(--color-background) 100%
+    );
+    bottom: 100%;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      rgb(0 0 0 / 30%) 30%,
+      rgb(0 0 0 / 84%) 70%,
+      #000 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      rgb(0 0 0 / 30%) 30%,
+      rgb(0 0 0 / 84%) 70%,
+      #000 100%
+    );
+  }
+}
+
+.surface[data-solid="true"] .backdrop {
+  display: none;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .backdrop {
+    display: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .surface::before {
+    background: Canvas;
+  }
+
+  .backdrop {
+    display: none;
+  }
+}

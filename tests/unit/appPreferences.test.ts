@@ -15,16 +15,38 @@ describe("app preferences", () => {
     );
   });
 
-  it("persists color and sensitive-content preferences", () => {
+  it("persists color, content, and sound preferences", () => {
     const storage = new MemoryStorage();
     saveAppPreferences(
-      { colorTheme: "light", showSensitiveThemes: true },
+      {
+        colorTheme: "light",
+        showSensitiveThemes: true,
+        soundEnabled: false,
+        soundVolume: 35,
+      },
       storage,
     );
 
     expect(loadAppPreferences(storage)).toEqual({
       colorTheme: "light",
       showSensitiveThemes: true,
+      soundEnabled: false,
+      soundVolume: 35,
+    });
+  });
+
+  it("migrates version one preferences with safe sound defaults", () => {
+    const storage = new MemoryStorage(JSON.stringify({
+      schemaVersion: 1,
+      colorTheme: "light",
+      showSensitiveThemes: true,
+    }));
+
+    expect(loadAppPreferences(storage)).toEqual({
+      colorTheme: "light",
+      showSensitiveThemes: true,
+      soundEnabled: true,
+      soundVolume: 100,
     });
   });
 

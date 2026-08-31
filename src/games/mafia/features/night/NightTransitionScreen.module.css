@@ -1,0 +1,31 @@
+.card {
+  align-content: center;
+  display: grid;
+  gap: var(--space-xl);
+  grid-template-rows: minmax(5rem, auto) auto;
+  justify-items: center;
+  min-height: 18rem;
+  text-align: center;
+}
+
+.actionPlaceholder {
+  min-height: var(--touch-target);
+}
+
+.navigationPlaceholder {
+  display: block;
+  min-height: var(--touch-target);
+}
+
+.message {
+  align-items: center;
+  color: var(--color-text-muted);
+  display: flex;
+  font-size: clamp(1.5rem, 7vw, 2.25rem);
+  font-weight: 850;
+  justify-content: center;
+  line-height: 1.1;
+  margin: 0;
+  max-width: 28rem;
+  text-wrap: balance;
+}

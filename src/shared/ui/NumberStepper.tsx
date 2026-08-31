@@ -1,4 +1,4 @@
-import { Button } from "../../../../shared/ui/Button";
+import { Button } from "./Button";
 import styles from "./NumberStepper.module.css";
 
 export interface NumberStepperProps {

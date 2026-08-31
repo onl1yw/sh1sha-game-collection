@@ -12,6 +12,7 @@ const commonProps = {
   onReveal: vi.fn(),
   onHide: vi.fn(),
   onCancel: vi.fn(),
+  onOpenSettings: vi.fn(),
 };
 
 let container: HTMLDivElement;
@@ -105,7 +106,7 @@ describe("RoleRevealScreen", () => {
 
     expect(cancel.closest("header")).not.toBeNull();
     expect(cancel.querySelector("svg")).not.toBeNull();
-    expect(container.querySelector('[role="dialog"]')).not.toBeNull();
+    expect(document.querySelector('[role="dialog"]')).not.toBeNull();
     expect(commonProps.onCancel).not.toHaveBeenCalled();
 
     act(() => findButton("Да, прервать раздачу").click());
@@ -188,7 +189,7 @@ function getTestElement(testId: string): HTMLElement {
 }
 
 function findButton(label: string): HTMLButtonElement {
-  const button = Array.from(container.querySelectorAll("button")).find(
+  const button = Array.from(document.querySelectorAll("button")).find(
     (candidate) => candidate.textContent?.includes(label),
   );
   if (!button) throw new Error(`Missing button: ${label}`);

@@ -67,3 +67,25 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## Contributor Covenant
+
+`CODE_OF_CONDUCT.md` is adapted from Contributor Covenant version 2.1. The
+Contributor Covenant project distributes that text under the Creative Commons
+Attribution 4.0 International License:
+<https://creativecommons.org/licenses/by/4.0/>.
+
+## ElevenLabs-generated Mafia narration
+
+The MP3 files under `public/games/mafia/audio/` were generated with the
+ElevenLabs service using the shared voice `Marco - Deep, Rich and Reflective`
+(`13Cuh3NuYvWOVQtLbRN8`) on August 31, 2026, while the generating account had
+an active paid/pay-as-you-go plan. Under the provider terms applicable at
+generation time, the account holder retains rights in the resulting Output.
+
+The project distributes only the checked-in generated audio files. It does not
+distribute or purport to license the ElevenLabs service, its underlying models,
+or the shared voice itself. ElevenLabs does not endorse this project. Use of the
+generated media remains subject to the applicable
+[ElevenLabs Terms of Service](https://elevenlabs.io/terms-of-use) and
+[Voice Library Addendum](https://elevenlabs.io/vla).

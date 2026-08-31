@@ -21,6 +21,11 @@
   min-height: 4.5rem;
 }
 
+.soundCard {
+  display: grid;
+  gap: var(--space-sm);
+}
+
 .settingTitle {
   font-weight: 800;
 }

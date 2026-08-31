@@ -5,6 +5,8 @@ export const GAME_MODULE_API_VERSION = 1 as const;
 
 export interface GameHostPreferences {
   showSensitiveContent: boolean;
+  soundEnabled: boolean;
+  soundVolume: number;
 }
 
 export interface GameStorage {

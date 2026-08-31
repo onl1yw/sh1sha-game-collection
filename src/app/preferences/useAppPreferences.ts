@@ -10,6 +10,8 @@ import {
 export interface AppPreferencesController extends AppPreferences {
   setColorTheme(theme: ColorTheme): void;
   setShowSensitiveThemes(show: boolean): void;
+  setSoundEnabled(enabled: boolean): void;
+  setSoundVolume(volume: number): void;
 }
 
 export function useAppPreferences(): AppPreferencesController {
@@ -37,9 +39,22 @@ export function useAppPreferences(): AppPreferencesController {
     }));
   }, []);
 
+  const setSoundEnabled = useCallback((soundEnabled: boolean) => {
+    setPreferences((current) => ({ ...current, soundEnabled }));
+  }, []);
+
+  const setSoundVolume = useCallback((soundVolume: number) => {
+    setPreferences((current) => ({
+      ...current,
+      soundVolume: Math.min(100, Math.max(0, Math.round(soundVolume))),
+    }));
+  }, []);
+
   return {
     ...preferences,
     setColorTheme,
     setShowSensitiveThemes,
+    setSoundEnabled,
+    setSoundVolume,
   };
 }

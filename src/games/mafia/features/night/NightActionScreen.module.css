@@ -1,0 +1,72 @@
+.roleCard {
+  align-items: center;
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: auto minmax(0, 1fr);
+  min-height: 7.5rem;
+}
+
+.roleCard > svg {
+  color: var(--color-accent-strong);
+}
+
+.roleCard[data-tone="danger"] > svg {
+  color: var(--color-danger);
+}
+
+.roleCopy {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.roleCopy h2 {
+  font-size: var(--font-size-lg);
+  margin: 0;
+}
+
+.roleCard p {
+  color: var(--color-text-muted);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.actionArea {
+  min-height: 12.75rem;
+}
+
+.feedback {
+  align-content: center;
+  display: grid;
+  gap: var(--space-sm);
+  min-height: 12rem;
+  text-align: center;
+}
+
+.feedback span {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.feedback strong {
+  color: var(--color-accent-strong);
+  font-size: clamp(2rem, 10vw, 3.25rem);
+  line-height: 1;
+}
+
+.feedback[data-danger="true"] strong {
+  color: var(--color-danger);
+}
+
+.notice {
+  align-content: center;
+  color: var(--color-text-muted);
+  display: grid;
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  line-height: 1.4;
+  min-height: 12rem;
+  text-align: center;
+}

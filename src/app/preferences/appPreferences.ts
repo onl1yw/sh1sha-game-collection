@@ -5,6 +5,8 @@ export type { ColorTheme } from "../../shared/ui/colorTheme";
 export interface AppPreferences {
   colorTheme: ColorTheme;
   showSensitiveThemes: boolean;
+  soundEnabled: boolean;
+  soundVolume: number;
 }
 
 export interface PreferenceStorage {
@@ -17,6 +19,8 @@ const STORAGE_KEY = "sh1sha-game-collection.preferences.v1";
 export const DEFAULT_APP_PREFERENCES: Readonly<AppPreferences> = {
   colorTheme: "dark",
   showSensitiveThemes: false,
+  soundEnabled: true,
+  soundVolume: 100,
 };
 
 export function loadAppPreferences(
@@ -28,7 +32,10 @@ export function loadAppPreferences(
     const raw = storage.getItem(STORAGE_KEY);
     if (!raw) return { ...DEFAULT_APP_PREFERENCES };
     const parsed = JSON.parse(raw) as unknown;
-    if (!isRecord(parsed) || parsed.schemaVersion !== 1) {
+    if (
+      !isRecord(parsed)
+      || (parsed.schemaVersion !== 1 && parsed.schemaVersion !== 2)
+    ) {
       return { ...DEFAULT_APP_PREFERENCES };
     }
     return {
@@ -38,6 +45,12 @@ export function loadAppPreferences(
       showSensitiveThemes: typeof parsed.showSensitiveThemes === "boolean"
         ? parsed.showSensitiveThemes
         : DEFAULT_APP_PREFERENCES.showSensitiveThemes,
+      soundEnabled: typeof parsed.soundEnabled === "boolean"
+        ? parsed.soundEnabled
+        : DEFAULT_APP_PREFERENCES.soundEnabled,
+      soundVolume: isSoundVolume(parsed.soundVolume)
+        ? parsed.soundVolume
+        : DEFAULT_APP_PREFERENCES.soundVolume,
     };
   } catch {
     return { ...DEFAULT_APP_PREFERENCES };
@@ -51,7 +64,7 @@ export function saveAppPreferences(
   if (!storage) return;
   try {
     storage.setItem(STORAGE_KEY, JSON.stringify({
-      schemaVersion: 1,
+      schemaVersion: 2,
       ...preferences,
     }));
   } catch {
@@ -70,6 +83,10 @@ function browserStorage(): Storage | null {
 
 function isColorTheme(value: unknown): value is ColorTheme {
   return value === "dark" || value === "light";
+}
+
+function isSoundVolume(value: unknown): value is number {
+  return Number.isInteger(value) && Number(value) >= 0 && Number(value) <= 100;
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {

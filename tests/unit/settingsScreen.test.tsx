@@ -21,29 +21,47 @@ afterEach(() => {
 });
 
 describe("SettingsScreen", () => {
-  it("selects a color theme and toggles sensitive topics", () => {
+  it("updates sound, color theme, and sensitive topics", () => {
     const onColorThemeChange = vi.fn();
     const onSensitiveThemesChange = vi.fn();
+    const onSoundEnabledChange = vi.fn();
+    const onSoundVolumeChange = vi.fn();
     act(() => root.render(
       <SettingsScreen
         colorTheme="dark"
         showSensitiveThemes={false}
+        soundEnabled
+        soundVolume={80}
         onBack={vi.fn()}
         onColorThemeChange={onColorThemeChange}
         onSensitiveThemesChange={onSensitiveThemesChange}
+        onSoundEnabledChange={onSoundEnabledChange}
+        onSoundVolumeChange={onSoundVolumeChange}
       />,
     ));
 
     const light = findButton("Светлая");
     const sensitive = findButtonByLabel("Показывать чувствительные темы");
+    const sound = findButtonByLabel("Включить озвучку");
+    const volume = container.querySelector<HTMLInputElement>('#sound-volume');
     expect(findButton("Тёмная").getAttribute("aria-pressed")).toBe("true");
     expect(sensitive.getAttribute("aria-checked")).toBe("false");
+    expect(sound.getAttribute("aria-checked")).toBe("true");
+    expect(volume?.value).toBe("80");
 
     act(() => light.click());
     act(() => sensitive.click());
+    act(() => sound.click());
+    act(() => {
+      if (!volume) throw new Error("Missing volume control");
+      setNativeValue(volume, "35");
+      volume.dispatchEvent(new Event("input", { bubbles: true }));
+    });
 
     expect(onColorThemeChange).toHaveBeenCalledWith("light");
     expect(onSensitiveThemesChange).toHaveBeenCalledWith(true);
+    expect(onSoundEnabledChange).toHaveBeenCalledWith(false);
+    expect(onSoundVolumeChange).toHaveBeenCalledWith(35);
   });
 });
 
@@ -53,6 +71,15 @@ function findButton(text: string): HTMLButtonElement {
   );
   if (!button) throw new Error(`Missing button: ${text}`);
   return button;
+}
+
+function setNativeValue(input: HTMLInputElement, value: string): void {
+  const setter = Object.getOwnPropertyDescriptor(
+    HTMLInputElement.prototype,
+    "value",
+  )?.set;
+  if (!setter) throw new Error("Missing native input setter");
+  setter.call(input, value);
 }
 
 function findButtonByLabel(label: string): HTMLButtonElement {

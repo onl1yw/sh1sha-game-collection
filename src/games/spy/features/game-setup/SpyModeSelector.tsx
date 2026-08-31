@@ -1,6 +1,4 @@
-import { useId } from "react";
-
-import styles from "./SpyModeSelector.module.css";
+import { ChoiceGroup } from "../../../../shared/ui/ChoiceGroup";
 
 export type SpyModeValue = "classic" | "decoy";
 
@@ -32,30 +30,13 @@ export function SpyModeSelector({
   disabled = false,
   onChange,
 }: SpyModeSelectorProps) {
-  const groupName = useId();
-
   return (
-    <fieldset className={styles.root} disabled={disabled}>
-      <legend className={styles.legend}>Режим шпиона</legend>
-      <div className={styles.options}>
-        {modes.map((mode) => (
-          <label className={styles.option} key={mode.value}>
-            <input
-              className={styles.radio}
-              type="radio"
-              name={groupName}
-              value={mode.value}
-              checked={value === mode.value}
-              onChange={() => onChange(mode.value)}
-            />
-            <span className={styles.indicator} aria-hidden="true" />
-            <span className={styles.copy}>
-              <span className={styles.title}>{mode.title}</span>
-              <span className={styles.description}>{mode.description}</span>
-            </span>
-          </label>
-        ))}
-      </div>
-    </fieldset>
+    <ChoiceGroup
+      legend="Режим шпиона"
+      value={value}
+      options={modes}
+      disabled={disabled}
+      onChange={onChange}
+    />
   );
 }

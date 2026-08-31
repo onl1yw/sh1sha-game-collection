@@ -72,6 +72,7 @@ export function SpyScreenRouter({
         onSpyCountChange={actions.setSpyCount}
         onSpyModeChange={actions.setSpyMode}
         onBack={actions.backToThemes}
+        onOpenSettings={onOpenSettings}
         onStart={actions.startRound}
         onResetHistory={actions.resetHistory}
       />
@@ -122,6 +123,7 @@ export function SpyScreenRouter({
         onReveal={actions.revealRole}
         onHide={actions.hideRole}
         onCancel={actions.cancelRound}
+        onOpenSettings={onOpenSettings}
         {...revealState}
       />
     );
@@ -132,6 +134,8 @@ export function SpyScreenRouter({
       <RoundReadyScreen
         firstPlayerName={firstPlayer.name}
         themeName={roundTheme.name}
+        onCancel={actions.cancelRound}
+        onOpenSettings={onOpenSettings}
         onStart={actions.startPlaying}
       />
     );
@@ -142,6 +146,8 @@ export function SpyScreenRouter({
       <ActiveRoundScreen
         firstPlayerName={firstPlayer.name}
         themeName={roundTheme.name}
+        onCancel={actions.cancelRound}
+        onOpenSettings={onOpenSettings}
         {...(state.roundStartedAtMs === null
           ? {}
           : { startedAtMs: state.roundStartedAtMs })}
@@ -160,6 +166,7 @@ export function SpyScreenRouter({
       secretWord={state.round.targetWord}
       {...(state.round.decoyWord ? { decoyWord: state.round.decoyWord } : {})}
       spies={spies}
+      onOpenSettings={onOpenSettings}
       onPlayAgain={actions.playAgain}
       onNewGame={actions.newGame}
     />

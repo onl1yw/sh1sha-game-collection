@@ -1,4 +1,13 @@
-import { Suspense, useMemo, useState } from "react";
+import {
+  Suspense,
+  useCallback,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+  type SyntheticEvent,
+} from "react";
 
 import { GameCollectionScreen } from "../features/game-collection/GameCollectionScreen";
 import { SettingsScreen } from "../features/settings/SettingsScreen";
@@ -14,12 +23,15 @@ import { useAppPreferences } from "./preferences/useAppPreferences";
 
 type AppRoute =
   | { screen: "collection" }
-  | { screen: "settings"; returnToGameId: string | null }
   | { screen: "game"; gameId: string };
 
 export function App() {
   const preferences = useAppPreferences();
   const [route, setRoute] = useState<AppRoute>({ screen: "collection" });
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const settingsTriggerRef = useRef<HTMLElement | null>(null);
+  const settingsScrollRef = useRef({ x: 0, y: 0 });
+  const restoreSettingsContextRef = useRef(false);
   const gameStorages = useMemo(
     () => new Map(gameModules.map((game) => [
       game.id,
@@ -28,27 +40,40 @@ export function App() {
     [],
   );
 
-  if (route.screen === "settings") {
-    return (
-      <SettingsScreen
-        colorTheme={preferences.colorTheme}
-        showSensitiveThemes={preferences.showSensitiveThemes}
-        onBack={() => setRoute(
-          route.returnToGameId
-            ? { screen: "game", gameId: route.returnToGameId }
-            : { screen: "collection" },
-        )}
-        onColorThemeChange={preferences.setColorTheme}
-        onSensitiveThemesChange={preferences.setShowSensitiveThemes}
-      />
-    );
-  }
+  const openSettings = useCallback((
+    event?: SyntheticEvent<HTMLElement>,
+  ) => {
+    settingsTriggerRef.current = event?.currentTarget
+      ?? (document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null);
+    settingsScrollRef.current = { x: window.scrollX, y: window.scrollY };
+    setSettingsOpen(true);
+  }, []);
 
+  const closeSettings = useCallback(() => {
+    restoreSettingsContextRef.current = true;
+    setSettingsOpen(false);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (settingsOpen || !restoreSettingsContextRef.current) return;
+
+    restoreSettingsContextRef.current = false;
+    const trigger = settingsTriggerRef.current;
+    const scroll = settingsScrollRef.current;
+    if (trigger?.isConnected) trigger.focus({ preventScroll: true });
+    if (window.scrollX !== scroll.x || window.scrollY !== scroll.y) {
+      window.scrollTo(scroll.x, scroll.y);
+    }
+  }, [settingsOpen]);
+
+  let activeScreen: ReactNode = null;
   if (route.screen === "game") {
     const game = findGameModule(route.gameId);
     if (game) {
       const GameApp = game.App;
-      return (
+      activeScreen = (
         <GameErrorBoundary
           key={game.id}
           gameTitle={game.title}
@@ -58,13 +83,12 @@ export function App() {
             <GameApp
               preferences={{
                 showSensitiveContent: preferences.showSensitiveThemes,
+                soundEnabled: preferences.soundEnabled && !settingsOpen,
+                soundVolume: preferences.soundVolume,
               }}
               storage={gameStorages.get(game.id) ?? null}
               onExit={() => setRoute({ screen: "collection" })}
-              onOpenSettings={() => setRoute({
-                screen: "settings",
-                returnToGameId: game.id,
-              })}
+              onOpenSettings={openSettings}
             />
           </Suspense>
         </GameErrorBoundary>
@@ -72,8 +96,8 @@ export function App() {
     }
   }
 
-  return (
-    <GameCollectionScreen
+  if (!activeScreen) {
+    activeScreen = <GameCollectionScreen
       games={gameModules.map((game) => ({
         id: game.id,
         title: game.title,
@@ -88,11 +112,29 @@ export function App() {
           gameStorages.get(game.id) ?? null,
         ).hasSavedSession,
       }))}
-      onOpenSettings={() => setRoute({
-        screen: "settings",
-        returnToGameId: null,
-      })}
+      onOpenSettings={openSettings}
       onOpenGame={(gameId) => setRoute({ screen: "game", gameId })}
-    />
+    />;
+  }
+
+  return (
+    <>
+      <div hidden={settingsOpen}>
+        {activeScreen}
+      </div>
+      {settingsOpen ? (
+        <SettingsScreen
+          colorTheme={preferences.colorTheme}
+          showSensitiveThemes={preferences.showSensitiveThemes}
+          soundEnabled={preferences.soundEnabled}
+          soundVolume={preferences.soundVolume}
+          onBack={closeSettings}
+          onColorThemeChange={preferences.setColorTheme}
+          onSensitiveThemesChange={preferences.setShowSensitiveThemes}
+          onSoundEnabledChange={preferences.setSoundEnabled}
+          onSoundVolumeChange={preferences.setSoundVolume}
+        />
+      ) : null}
+    </>
   );
 }

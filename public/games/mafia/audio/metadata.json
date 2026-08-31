@@ -1,0 +1,18 @@
+{
+  "provider": "ElevenLabs",
+  "voiceId": "13Cuh3NuYvWOVQtLbRN8",
+  "voiceName": "Marco - Deep, Rich and Reflective",
+  "modelId": "eleven_multilingual_v2",
+  "outputFormat": "mp3_44100_128",
+  "generatedAt": "2026-08-31",
+  "generationPlan": "active-paid-payg",
+  "providerTermsUrl": "https://elevenlabs.io/terms-of-use",
+  "voiceLibraryTermsUrl": "https://elevenlabs.io/vla",
+  "voiceSettings": {
+    "stability": 0.55,
+    "similarityBoost": 0.8,
+    "style": 0.05,
+    "speakerBoost": true,
+    "speed": 0.93
+  }
+}

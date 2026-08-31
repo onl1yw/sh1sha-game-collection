@@ -9,6 +9,7 @@ export interface InteractiveCardProps
   title: string;
   description?: string;
   iconTone?: "accent" | "danger";
+  layout?: "row" | "tile";
   trailing?: ReactNode;
 }
 
@@ -17,6 +18,7 @@ export function InteractiveCard({
   title,
   description,
   iconTone = "accent",
+  layout = "row",
   trailing,
   className,
   type = "button",
@@ -25,17 +27,27 @@ export function InteractiveCard({
   const classes = [
     styles.card,
     trailing ? styles.withTrailing : undefined,
+    layout === "tile" ? styles.tile : undefined,
     className,
   ].filter(Boolean).join(" ");
 
   return (
-    <button {...buttonProps} className={classes} type={type}>
+    <button
+      {...buttonProps}
+      className={classes}
+      data-layout={layout}
+      type={type}
+    >
       <span
         className={`${styles.icon} ${iconTone === "danger" ? styles.iconDanger : ""}`}
         aria-hidden="true"
         data-icon-tone={iconTone}
       >
-        <Icon focusable="false" size={28} strokeWidth={1.8} />
+        <Icon
+          focusable="false"
+          size={layout === "tile" ? 64 : 28}
+          strokeWidth={1.8}
+        />
       </span>
       <span className={styles.copy}>
         <span className={styles.title}>{title}</span>

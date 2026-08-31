@@ -6,15 +6,17 @@
 A mobile-first collection of local pass-and-play games for groups sharing one
 phone. No registration, server, or in-game advertising.
 
-**Demo:** <https://onl1yw.github.io/sh1sha-game-collection/>
+**Demo:** <https://games.sh1sha.ru/>
 
-The collection currently includes Spy, with classic and alternative-word modes,
-multiple spies, fair role assignment, session recovery after a reload, and an
-extensible theme catalog.
+The collection includes Spy and Mafia. Spy provides classic and
+alternative-word modes, fair role assignment, session recovery, and an
+extensible theme catalog. Mafia is phone-hosted, supports editable role sets,
+pre-generated offline night narration, hidden-role dealing, night actions,
+voting, and multiple win conditions.
 
-Repository and contributor documentation is in English. The current Spy
-interface and bundled theme content intentionally remain in Russian; every
-future game owns its player-facing locale.
+Repository and contributor documentation is in English. The current game
+interfaces and bundled Spy theme content intentionally remain in Russian;
+every future game owns its player-facing locale.
 
 ## Why this repository exists
 
@@ -25,6 +27,7 @@ displays them in a shared catalog.
 
 ```text
 src/games/spy/       self-contained Spy module
+src/games/mafia/     self-contained Mafia module
 src/app/             shell, settings, and game registry
 src/shared/ui/       reusable UI primitives
 public/games/spy/    Spy theme catalogs in JSON

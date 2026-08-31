@@ -19,8 +19,6 @@
 
 .option {
   align-items: start;
-  background: transparent;
-  border: 0;
   cursor: pointer;
   display: grid;
   gap: var(--space-sm);
