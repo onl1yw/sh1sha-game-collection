@@ -1,11 +1,12 @@
+import { Check, X } from "lucide-react";
 import { useRef, useState, type PointerEvent } from "react";
 
-import type { AliasWord } from "../../domain/types";
+import type { AliasWord, WordOutcome } from "../../domain/types";
 import styles from "./WordCard.module.css";
 
 export interface WordCardProps {
   word: AliasWord;
-  onSwipe: () => void;
+  onSwipe: (outcome: WordOutcome) => void;
 }
 
 export function WordCard({ word, onSwipe }: WordCardProps) {
@@ -24,9 +25,9 @@ export function WordCard({ word, onSwipe }: WordCardProps) {
     setOffset(nextOffset);
   };
   const finishPointer = () => {
-    const shouldSkip = Math.abs(offsetRef.current) >= 64;
+    const outcome = swipeOutcome(offsetRef.current);
     resetPointer();
-    if (shouldSkip) onSwipe();
+    if (outcome) onSwipe(outcome);
   };
   const resetPointer = () => {
     originRef.current = null;
@@ -34,18 +35,33 @@ export function WordCard({ word, onSwipe }: WordCardProps) {
     setOffset(0);
   };
 
+  const direction = offset > 8 ? "correct" : offset < -8 ? "skipped" : "idle";
+
   return (
     <div
       className={styles.card}
+      data-direction={direction}
+      role="group"
+      aria-label={`${word.text}. Смахните влево для пропуска или вправо, если слово угадано`}
       style={{ translate: `${offset}px 0`, rotate: `${offset / 30}deg` }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={finishPointer}
       onPointerCancel={resetPointer}
     >
+      <span className={styles.feedback} aria-hidden="true">
+        {direction === "correct" ? <Check size={42} /> : null}
+        {direction === "skipped" ? <X size={42} /> : null}
+      </span>
       <p>Объясните слово</p>
       <strong>{word.text}</strong>
-      <span>Смахните, чтобы пропустить</span>
+      <span className={styles.hint}>← Пропуск · Угадано →</span>
     </div>
   );
+}
+
+function swipeOutcome(offset: number): WordOutcome | null {
+  if (offset >= 64) return "correct";
+  if (offset <= -64) return "skipped";
+  return null;
 }

@@ -42,9 +42,12 @@ export function AliasResultsScreen(props: AliasResultsScreenProps) {
       <Card className={styles.scoreboard}>
         {sortedTeams.map((team, index) => (
           <div className={styles.team} data-leading={leaders.includes(team.id)} key={team.id}>
-            <span className={styles.place}>{index + 1}</span>
-            {leaders.includes(team.id) ? <Medal aria-hidden="true" size={24} /> : null}
-            <strong>{team.name}</strong>
+            <span className={styles.place}>
+              {leaders.includes(team.id)
+                ? <Medal aria-hidden="true" size={26} />
+                : index + 1}
+            </span>
+            <strong className={styles.name}>{team.name}</strong>
             <span className={styles.score}>{props.session.scores[team.id] ?? 0}</span>
           </div>
         ))}

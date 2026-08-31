@@ -1,7 +1,7 @@
 .root {
   border: 0;
   display: grid;
-  gap: var(--space-md);
+  gap: var(--space-sm);
   min-width: 0;
   padding: 0;
 }
@@ -12,22 +12,9 @@
   padding: 0;
 }
 
-.hint {
-  color: var(--color-text-muted);
-  line-height: 1.45;
-  margin: calc(var(--space-xs) * -1) 0 0;
-}
-
 .list {
   display: grid;
   gap: var(--space-sm);
-}
-
-.team {
-  align-items: end;
-  display: grid;
-  gap: var(--space-sm);
-  grid-template-columns: minmax(0, 1fr) var(--touch-target);
 }
 
 .field {
@@ -57,6 +44,7 @@
   outline-offset: 2px;
 }
 
-.remove {
-  padding: 0;
+.input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.7;
 }

@@ -18,7 +18,6 @@ export interface RoundReadyScreenProps {
 
 export function RoundReadyScreen(props: RoundReadyScreenProps) {
   const team = props.session.setup.teams[props.session.activeTeamIndex];
-  const roundForTeam = (props.session.roundsPlayed[team?.id ?? ""] ?? 0) + 1;
   return (
     <AppShell
       ariaLabel="Подготовка к раунду Alias"
@@ -27,32 +26,34 @@ export function RoundReadyScreen(props: RoundReadyScreenProps) {
       <ScreenHeader
         eyebrow={`Раунд ${props.session.roundNumber}`}
         title={team?.name ?? "Команда"}
-        description={`Раунд команды: ${roundForTeam}`}
         leadingAction={<GameExitAction onConfirm={props.onExit} />}
         trailingAction={<SettingsButton onClick={props.onOpenSettings} />}
       />
       <Card className={styles.card} tone="accent">
         <MessageCircleMore aria-hidden="true" size={56} strokeWidth={1.6} />
-        <div className={styles.copy}>
-          <p className={styles.eyebrow}>Передайте телефон ведущему</p>
-          <h2>Объясняйте слова своей команде</h2>
-          <p>Галочка засчитает слово. Если не получается — смахните карточку или нажмите «Пропустить».</p>
-        </div>
+        <h2>Передайте телефон ведущему</h2>
       </Card>
-      <ScoreStrip session={props.session} />
+      <Scoreboard session={props.session} />
     </AppShell>
   );
 }
 
-function ScoreStrip({ session }: { session: AliasSession }) {
+function Scoreboard({ session }: { session: AliasSession }) {
   return (
-    <div className={styles.scores} aria-label="Текущий счёт">
-      {session.setup.teams.map((team) => (
-        <span className={styles.score} key={team.id}>
-          <span>{team.name}</span>
-          <strong>{session.scores[team.id] ?? 0}</strong>
-        </span>
-      ))}
-    </div>
+    <Card className={styles.scoreboard}>
+      <h2>Счёт</h2>
+      <div className={styles.scores}>
+        {session.setup.teams.map((team, index) => (
+          <div
+            className={styles.score}
+            data-active={index === session.activeTeamIndex}
+            key={team.id}
+          >
+            <span>{team.name}</span>
+            <strong>{session.scores[team.id] ?? 0}</strong>
+          </div>
+        ))}
+      </div>
+    </Card>
   );
 }

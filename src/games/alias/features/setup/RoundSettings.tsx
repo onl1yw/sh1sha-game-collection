@@ -2,7 +2,7 @@ import { Clock3, MinusCircle } from "lucide-react";
 
 import { Button } from "../../../../shared/ui/Button";
 import { ChoiceGroup } from "../../../../shared/ui/ChoiceGroup";
-import { NumberStepper } from "../../../../shared/ui/NumberStepper";
+import { NumberField } from "../../../../shared/ui/NumberField";
 import { Switch } from "../../../../shared/ui/Switch";
 import { ALIAS_LIMITS } from "../../domain/setup";
 import type { WinCondition } from "../../domain/types";
@@ -18,7 +18,7 @@ export interface RoundSettingsProps {
 }
 
 export function RoundSettings(props: RoundSettingsProps) {
-  const preset = [15, 30, 60].includes(props.durationSeconds);
+  const usesPreset = [15, 30, 60].includes(props.durationSeconds);
   return (
     <div className={styles.root}>
       <h2 className={styles.title}>Правила</h2>
@@ -38,32 +38,30 @@ export function RoundSettings(props: RoundSettingsProps) {
               {seconds} сек
             </Button>
           ))}
-          <Button
-            variant="secondary"
-            aria-pressed={!preset}
-            onClick={() => props.onDurationChange(preset ? 45 : props.durationSeconds)}
-          >
-            Своё
-          </Button>
-        </div>
-        {!preset ? (
-          <NumberStepper
-            label="Секунд"
+          <NumberField
+            compact
+            label="Своё время раунда"
             value={props.durationSeconds}
             min={ALIAS_LIMITS.minDurationSeconds}
             max={ALIAS_LIMITS.maxDurationSeconds}
+            suffix="сек"
+            placeholder="Своё"
+            showValue={!usesPreset}
             onChange={props.onDurationChange}
           />
-        ) : null}
+        </div>
       </div>
-      <div className={styles.toggleRow}>
-        <MinusCircle aria-hidden="true" size={22} />
-        <span>Вычитать очко за пропуск</span>
-        <Switch
-          checked={props.penalizeSkips}
-          label="Вычитать очко за пропущенное слово"
-          onCheckedChange={props.onPenaltyChange}
-        />
+      <div className={styles.setting}>
+        <h3 className={styles.subtitle}>Пропуски</h3>
+        <div className={styles.toggleRow}>
+          <MinusCircle aria-hidden="true" size={22} />
+          <span>Вычитать очко за пропуск</span>
+          <Switch
+            checked={props.penalizeSkips}
+            label="Вычитать очко за пропущенное слово"
+            onCheckedChange={props.onPenaltyChange}
+          />
+        </div>
       </div>
       <ChoiceGroup
         legend="Условие победы"
@@ -77,7 +75,7 @@ export function RoundSettings(props: RoundSettingsProps) {
           : { type, roundsPerTeam: 3 })}
       />
       {props.winCondition.type === "points" ? (
-        <NumberStepper
+        <NumberField
           label="Очков для победы"
           value={props.winCondition.target}
           min={ALIAS_LIMITS.minTargetPoints}
@@ -85,7 +83,7 @@ export function RoundSettings(props: RoundSettingsProps) {
           onChange={(target) => props.onWinConditionChange({ type: "points", target })}
         />
       ) : (
-        <NumberStepper
+        <NumberField
           label="Раундов на команду"
           value={props.winCondition.roundsPerTeam}
           min={ALIAS_LIMITS.minRounds}

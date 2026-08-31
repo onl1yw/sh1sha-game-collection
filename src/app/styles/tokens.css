@@ -12,6 +12,7 @@
   --color-accent-strong: var(--color-round);
   --color-on-accent: #17191c;
   --color-danger: var(--color-spy);
+  --color-success: #65c587;
   --color-border: #353941;
   --color-border-strong: #555b65;
   --color-control-border: #6f7682;
@@ -52,6 +53,7 @@
   --color-accent-strong: #835800;
   --color-on-accent: #17191c;
   --color-danger: var(--color-spy);
+  --color-success: #217a43;
   --color-border: #c5ccd5;
   --color-border-strong: #858e9a;
   --color-control-border: #6f7884;

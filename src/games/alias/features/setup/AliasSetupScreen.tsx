@@ -1,6 +1,7 @@
 import { AppShell } from "../../../../shared/ui/AppShell";
 import { Button } from "../../../../shared/ui/Button";
 import { Card } from "../../../../shared/ui/Card";
+import { NumberStepper } from "../../../../shared/ui/NumberStepper";
 import { ScreenHeader } from "../../../../shared/ui/ScreenHeader";
 import { SettingsButton } from "../../../../shared/ui/SettingsButton";
 import { ALIAS_LIMITS, createTeam } from "../../domain/setup";
@@ -28,15 +29,10 @@ export interface AliasSetupScreenProps {
 }
 
 export function AliasSetupScreen(props: AliasSetupScreenProps) {
-  const addTeam = () => {
-    const nextIndex = Math.max(0, ...props.setup.teams.map((team) => {
-      const number = Number(team.id.replace("team-", ""));
-      return Number.isFinite(number) ? number : 0;
-    }));
-    props.onTeamsChange([...props.setup.teams, createTeam(nextIndex)]);
-  };
-  const removeTeam = (teamId: string) => {
-    props.onTeamsChange(props.setup.teams.filter((team) => team.id !== teamId));
+  const changeTeamCount = (count: number) => {
+    const teams = props.setup.teams.slice(0, count);
+    while (teams.length < count) teams.push(createTeam(teams.length));
+    props.onTeamsChange(teams);
   };
   const validationMessage = setupError(props.setup, props.themes);
 
@@ -56,11 +52,17 @@ export function AliasSetupScreen(props: AliasSetupScreenProps) {
         trailingAction={<SettingsButton onClick={props.onOpenSettings} />}
       />
       <Card>
+        <NumberStepper
+          label="Команд"
+          value={props.setup.teams.length}
+          min={ALIAS_LIMITS.minTeams}
+          max={ALIAS_LIMITS.maxTeams}
+          onChange={changeTeamCount}
+        />
+      </Card>
+      <Card>
         <TeamEditor
           teams={props.setup.teams}
-          canAdd={props.setup.teams.length < ALIAS_LIMITS.maxTeams}
-          onAdd={addTeam}
-          onRemove={removeTeam}
           onRename={props.onTeamRename}
         />
       </Card>

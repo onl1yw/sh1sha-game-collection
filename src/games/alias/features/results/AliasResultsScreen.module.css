@@ -1,34 +1,45 @@
 .scoreboard {
   display: grid;
-  padding-block: var(--space-xs);
+  gap: var(--space-xs);
+  padding: var(--space-sm);
 }
 
 .team {
   align-items: center;
-  border-top: 1px solid var(--color-border);
+  border-left: 3px solid transparent;
+  border-radius: var(--radius-control);
   display: grid;
-  gap: var(--space-sm);
-  grid-template-columns: 1.5rem 1.5rem minmax(0, 1fr) auto;
-  min-height: 4.75rem;
-  padding-block: var(--space-sm);
+  gap: var(--space-md);
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
+  min-height: 5rem;
+  padding: var(--space-sm) var(--space-md);
 }
 
-.team:first-child {
-  border-top: 0;
+.team[data-leading="true"] {
+  background: var(--color-background);
+  border-left-color: var(--color-accent-strong);
 }
 
-.team svg,
+.team[data-leading="true"] .place,
 .team[data-leading="true"] .score {
   color: var(--color-accent-strong);
 }
 
 .place {
+  align-items: center;
   color: var(--color-text-muted);
+  display: flex;
   font-variant-numeric: tabular-nums;
+  justify-content: center;
+}
+
+.name {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .score {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-variant-numeric: tabular-nums;
   font-weight: 850;
 }

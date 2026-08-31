@@ -9,7 +9,6 @@ import { SettingsButton } from "../../../../shared/ui/SettingsButton";
 import { Switch } from "../../../../shared/ui/Switch";
 import { roundScore } from "../../domain/scoring";
 import type { AliasSession, RoundWord } from "../../domain/types";
-import { formatPoints } from "../formatPoints";
 import styles from "./RoundReviewScreen.module.css";
 
 export interface RoundReviewScreenProps {
@@ -28,15 +27,12 @@ export function RoundReviewScreen(props: RoundReviewScreenProps) {
     <AppShell
       ariaLabel="Проверка раунда Alias"
       actions={(
-        <Button fullWidth onClick={props.onConfirm}>
-          {scoreActionCopy(delta)}
-        </Button>
+        <Button fullWidth onClick={props.onConfirm}>Далее</Button>
       )}
     >
       <ScreenHeader
         eyebrow={team?.name ?? "Команда"}
         title="Проверьте слова"
-        description="Оставьте включёнными только угаданные слова"
         leadingAction={<GameExitAction onConfirm={props.onExit} />}
         trailingAction={<SettingsButton onClick={props.onOpenSettings} />}
       />
@@ -70,10 +66,4 @@ export function RoundReviewScreen(props: RoundReviewScreenProps) {
 
 function formatSigned(value: number): string {
   return value > 0 ? `+${value}` : String(value);
-}
-
-function scoreActionCopy(value: number): string {
-  if (value > 0) return `Начислить ${formatPoints(value)}`;
-  if (value < 0) return `Снять ${formatPoints(Math.abs(value))}`;
-  return "Продолжить без очков";
 }

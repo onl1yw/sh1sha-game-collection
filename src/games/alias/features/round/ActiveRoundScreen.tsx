@@ -49,7 +49,7 @@ export function ActiveRoundScreen(props: ActiveRoundScreenProps) {
         title={formatTime(remaining)}
         description="Осталось времени"
       />
-      <WordCard word={word} onSwipe={() => props.onMark("skipped")} />
+      <WordCard word={word} onSwipe={props.onMark} />
     </AppShell>
   );
 }

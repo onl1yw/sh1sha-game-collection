@@ -1,6 +1,7 @@
 .card {
   align-items: center;
   background: var(--color-surface-raised);
+  border: 3px solid transparent;
   border-radius: var(--radius-card);
   display: grid;
   gap: var(--space-lg);
@@ -13,8 +14,18 @@
   will-change: translate, rotate;
 }
 
+.card[data-direction="correct"] {
+  background: color-mix(in srgb, var(--color-success) 28%, var(--color-surface-raised));
+  border-color: var(--color-success);
+}
+
+.card[data-direction="skipped"] {
+  background: color-mix(in srgb, var(--color-danger) 28%, var(--color-surface-raised));
+  border-color: var(--color-danger);
+}
+
 .card p,
-.card span {
+.hint {
   color: var(--color-text-muted);
   margin: 0;
 }
@@ -32,6 +43,19 @@
   overflow-wrap: anywhere;
 }
 
-.card span {
+.hint {
   font-size: var(--font-size-sm);
+}
+
+.feedback {
+  color: var(--color-text);
+  min-height: 2.625rem;
+}
+
+.card[data-direction="correct"] .feedback {
+  color: var(--color-success);
+}
+
+.card[data-direction="skipped"] .feedback {
+  color: var(--color-danger);
 }

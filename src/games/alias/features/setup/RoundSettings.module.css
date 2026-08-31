@@ -8,6 +8,11 @@
   margin: 0;
 }
 
+.subtitle {
+  font-size: var(--font-size-md);
+  margin: 0;
+}
+
 .setting {
   display: grid;
   gap: var(--space-md);
