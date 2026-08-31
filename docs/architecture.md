@@ -65,8 +65,10 @@ A game owns all of its concepts:
 - screens and game-specific messages.
 
 The platform passes only `GameHostProps`: shared preferences, a return action,
-and an action that opens settings. It does not inspect the game's internal
-state.
+and an action that opens settings. Shared preferences currently expose
+sensitive-content visibility, sound enablement, and sound volume. The settings
+screen is layered over the active route so opening it does not unmount a game's
+in-memory state. The platform does not inspect that state.
 
 Games do not import one another. Even if Alias and Spy both use concepts such as
 players or rounds, their models remain separate until real repeated use proves a

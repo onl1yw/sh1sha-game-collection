@@ -8,5 +8,11 @@ output/
 .DS_Store
 *.local
 
+# Local secrets and one-off generated-media tooling
+.env
+.env.*
+!.env.example
+.local-audio-tools/
+
 # Private/local theme packs (not copied into production builds)
 .local-themes/
