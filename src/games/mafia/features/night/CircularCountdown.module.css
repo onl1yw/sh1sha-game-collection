@@ -1,0 +1,70 @@
+.timer {
+  aspect-ratio: 1;
+  display: grid;
+  grid-template-areas: "timer";
+  place-items: center;
+  transition: opacity 160ms ease;
+  width: clamp(6.5rem, 30vw, 8.5rem);
+}
+
+.timer[data-countdown-visible="false"] {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.ring,
+.value {
+  grid-area: timer;
+}
+
+.ring {
+  height: 100%;
+  overflow: visible;
+  transform: rotate(-90deg);
+  width: 100%;
+}
+
+.track,
+.progress {
+  fill: none;
+  stroke-width: 7;
+}
+
+.track {
+  stroke: var(--color-border);
+}
+
+.progress {
+  animation: drain var(--countdown-duration) linear var(--countdown-delay) forwards;
+  stroke: var(--color-accent);
+  stroke-dasharray: 100;
+  stroke-linecap: round;
+}
+
+.value {
+  color: var(--color-text);
+  font-size: clamp(2.75rem, 14vw, 4rem);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+@keyframes drain {
+  from {
+    stroke-dashoffset: 0;
+  }
+
+  to {
+    stroke-dashoffset: 100;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timer {
+    transition: none;
+  }
+
+  .progress {
+    animation: none;
+  }
+}

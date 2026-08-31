@@ -1,0 +1,27 @@
+.card {
+  align-content: center;
+  display: grid;
+  flex: 1;
+  gap: var(--space-md);
+  justify-items: center;
+  min-height: 18rem;
+  text-align: center;
+}
+
+.card > svg {
+  color: var(--color-accent-strong);
+}
+
+.card p {
+  font-size: clamp(1.75rem, 8vw, 2.5rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.card span {
+  color: var(--color-text-muted);
+  line-height: 1.45;
+}

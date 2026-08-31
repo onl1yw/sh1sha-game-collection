@@ -1,0 +1,40 @@
+.row {
+  align-items: center;
+  display: grid;
+  gap: var(--space-sm);
+  grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+  min-height: 4.5rem;
+  padding-block: var(--space-sm);
+}
+
+.row[data-disabled="true"] {
+  opacity: 0.55;
+}
+
+.icon {
+  color: var(--color-accent-strong);
+}
+
+.icon[data-tone="danger"] {
+  color: var(--color-danger);
+}
+
+.icon[data-tone="neutral"] {
+  color: var(--color-text-muted);
+}
+
+.copy {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.title {
+  font-weight: 800;
+}
+
+.description {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.35;
+}

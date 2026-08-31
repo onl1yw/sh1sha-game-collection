@@ -1,0 +1,32 @@
+.root {
+  border: 0;
+  display: grid;
+  min-width: 0;
+  padding: 0;
+}
+
+.legend {
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  padding: 0 0 var(--space-sm);
+}
+
+.row {
+  align-items: center;
+  display: grid;
+  gap: var(--space-sm);
+  grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+  min-height: 4rem;
+}
+
+.row + .row {
+  border-top: 1px solid var(--color-border);
+}
+
+.row > svg {
+  color: var(--color-accent-strong);
+}
+
+.title {
+  font-weight: 800;
+}

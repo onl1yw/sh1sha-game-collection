@@ -1,0 +1,27 @@
+.grid {
+  display: grid;
+  gap: var(--space-sm);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.target {
+  align-items: center;
+  display: flex;
+  gap: var(--space-xs);
+  justify-content: center;
+  min-height: 3.75rem;
+  overflow-wrap: anywhere;
+}
+
+.status {
+  align-items: center;
+  color: var(--color-danger);
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 22rem) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

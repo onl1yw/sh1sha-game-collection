@@ -1,0 +1,70 @@
+.root {
+  border: 0;
+  display: grid;
+  min-width: 0;
+  padding: 0;
+}
+
+.legend {
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  padding: 0 0 var(--space-sm);
+}
+
+.root > * + * {
+  border-top: 1px solid var(--color-border);
+}
+
+.mafiaCount {
+  align-items: center;
+  display: grid;
+  gap: var(--space-sm);
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  padding-block: var(--space-sm);
+}
+
+.mafiaCount > :last-child {
+  width: 100%;
+}
+
+.dangerIcon {
+  color: var(--color-danger);
+}
+
+.accentIcon {
+  color: var(--color-accent-strong);
+}
+
+.loverMode {
+  padding: var(--space-md) 0;
+}
+
+.civilianRow {
+  align-items: center;
+  display: grid;
+  gap: var(--space-sm);
+  grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+  min-height: 4.5rem;
+  padding-top: var(--space-sm);
+}
+
+.civilianCopy {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.civilianTitle,
+.civilianCount {
+  font-weight: 800;
+}
+
+.civilianDescription {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.civilianCount {
+  font-size: var(--font-size-lg);
+  min-width: 3rem;
+  text-align: center;
+}

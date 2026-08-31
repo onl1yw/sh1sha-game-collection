@@ -1,0 +1,16 @@
+.prompt {
+  align-items: center;
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.prompt > svg {
+  color: var(--color-accent-strong);
+}
+
+.prompt p {
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  margin: 0;
+}
