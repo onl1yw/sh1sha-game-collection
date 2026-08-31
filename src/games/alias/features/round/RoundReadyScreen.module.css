@@ -1,0 +1,62 @@
+.card {
+  align-items: center;
+  display: grid;
+  gap: var(--space-lg);
+  min-height: min(55dvh, 30rem);
+  place-content: center;
+  text-align: center;
+}
+
+.card > svg {
+  color: var(--color-accent-strong);
+  justify-self: center;
+}
+
+.copy {
+  display: grid;
+  gap: var(--space-sm);
+  max-width: 26rem;
+}
+
+.copy h2,
+.copy p {
+  margin: 0;
+}
+
+.copy h2 {
+  font-size: clamp(1.75rem, 8vw, 2.5rem);
+  line-height: 1.05;
+}
+
+.copy p:last-child,
+.eyebrow {
+  color: var(--color-text-muted);
+  line-height: 1.45;
+}
+
+.eyebrow {
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.scores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.score {
+  align-items: center;
+  background: var(--color-surface);
+  border-radius: 999px;
+  display: inline-flex;
+  gap: var(--space-sm);
+  min-height: var(--touch-target);
+  padding: 0.55rem 0.8rem;
+}
+
+.score span {
+  color: var(--color-text-muted);
+}

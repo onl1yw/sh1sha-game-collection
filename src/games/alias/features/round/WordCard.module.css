@@ -1,0 +1,37 @@
+.card {
+  align-items: center;
+  background: var(--color-surface-raised);
+  border-radius: var(--radius-card);
+  display: grid;
+  gap: var(--space-lg);
+  min-height: min(52dvh, 27rem);
+  padding: var(--space-xl);
+  place-content: center;
+  text-align: center;
+  touch-action: pan-y;
+  user-select: none;
+  will-change: translate, rotate;
+}
+
+.card p,
+.card span {
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.card p {
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.card strong {
+  font-size: clamp(2.5rem, 13vw, 4.5rem);
+  line-height: 0.95;
+  overflow-wrap: anywhere;
+}
+
+.card span {
+  font-size: var(--font-size-sm);
+}

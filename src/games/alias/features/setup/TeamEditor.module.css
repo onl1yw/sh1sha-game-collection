@@ -1,0 +1,62 @@
+.root {
+  border: 0;
+  display: grid;
+  gap: var(--space-md);
+  min-width: 0;
+  padding: 0;
+}
+
+.legend {
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  padding: 0;
+}
+
+.hint {
+  color: var(--color-text-muted);
+  line-height: 1.45;
+  margin: calc(var(--space-xs) * -1) 0 0;
+}
+
+.list {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.team {
+  align-items: end;
+  display: grid;
+  gap: var(--space-sm);
+  grid-template-columns: minmax(0, 1fr) var(--touch-target);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.label {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+}
+
+.input {
+  background: var(--color-background);
+  border: 0;
+  border-radius: var(--radius-control);
+  color: var(--color-text);
+  font: inherit;
+  min-height: var(--touch-target);
+  padding: 0.7rem 0.8rem;
+  width: 100%;
+}
+
+.input:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.remove {
+  padding: 0;
+}
