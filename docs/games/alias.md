@@ -2,8 +2,8 @@
 
 Alias is a phone-hosted word-explanation game for one to eight teams. One
 person holds the phone and explains the visible word without saying it. The
-team confirms guessed words with the check button; an unexplainable word can be
-skipped with the explicit button or a horizontal card swipe.
+team confirms guessed words with the check button or a right swipe; an
+unexplainable word can be skipped with the explicit button or a left swipe.
 
 Player-facing copy and bundled word packs are intentionally Russian. Code,
 tests, and contributor documentation remain English.
@@ -55,9 +55,10 @@ before the score changes.
 ## Theme catalog
 
 Alias owns its content under `public/games/alias/themes/`; it never imports
-Spy internals or reads Spy files at runtime. Existing project-authored concepts
-were adapted into flat explanation decks, then Cinema, Physics, and Mathematics
-were added as original packs. No list was copied from a commercial Alias deck.
+Spy internals or reads Spy files at runtime. Every checked-in Spy pack is copied
+one-to-one into an Alias-owned flat explanation deck, including Places; a test
+keeps those copies synchronized. Cinema, Physics, and Mathematics are original
+Alias packs. No list was copied from a commercial Alias deck.
 
 `manifest.json` controls order, enablement, and sensitivity. Each theme file is:
 

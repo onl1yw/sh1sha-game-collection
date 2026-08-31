@@ -4,6 +4,7 @@
     { "id": "cinema", "file": "cinema.json", "enabled": true },
     { "id": "physics", "file": "physics.json", "enabled": true },
     { "id": "mathematics", "file": "mathematics.json", "enabled": true },
+    { "id": "places", "file": "places.json", "enabled": true },
     { "id": "minecraft", "file": "minecraft.json", "enabled": true },
     { "id": "disney", "file": "disney.json", "enabled": true },
     { "id": "phone-apps", "file": "phone-apps.json", "enabled": true },
