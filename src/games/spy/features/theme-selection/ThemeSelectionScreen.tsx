@@ -1,10 +1,9 @@
-import { Settings } from "lucide-react";
-
 import { AppShell } from "../../../../shared/ui/AppShell";
 import { Button } from "../../../../shared/ui/Button";
 import { Card } from "../../../../shared/ui/Card";
 import { InteractiveCard } from "../../../../shared/ui/InteractiveCard";
 import { ScreenHeader } from "../../../../shared/ui/ScreenHeader";
+import { SettingsButton } from "../../../../shared/ui/SettingsButton";
 import { getThemeIcon } from "./themeIconRegistry";
 import styles from "./ThemeSelectionScreen.module.css";
 
@@ -19,9 +18,9 @@ export interface ThemeSelectionScreenProps {
   themes: readonly ThemeOption[];
   isLoading?: boolean;
   errorMessage?: string;
-  onBack?: () => void;
+  onBack: () => void;
   onChooseTheme: (themeId: string) => void;
-  onOpenSettings?: () => void;
+  onOpenSettings: () => void;
   onRetry?: () => void;
 }
 
@@ -36,25 +35,12 @@ export function ThemeSelectionScreen({
 }: ThemeSelectionScreenProps) {
   return (
     <AppShell ariaLabel="Выбор темы">
-      <div className={styles.stickyHeader}>
-        <ScreenHeader
-          title="Выберите тему"
-          {...(onBack ? { backLabel: "Все игры", onBack } : {})}
-          {...(onOpenSettings
-            ? {
-                trailingAction: (
-                  <Button
-                    variant="quiet"
-                    aria-label="Настройки"
-                    onClick={onOpenSettings}
-                  >
-                    <Settings aria-hidden="true" size={22} strokeWidth={1.8} />
-                  </Button>
-                ),
-              }
-            : {})}
-        />
-      </div>
+      <ScreenHeader
+        title="Выберите тему"
+        backLabel="Все игры"
+        onBack={onBack}
+        trailingAction={<SettingsButton onClick={onOpenSettings} />}
+      />
 
       {isLoading ? (
         <Card role="status" aria-live="polite">

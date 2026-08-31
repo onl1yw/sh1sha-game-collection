@@ -1,13 +1,3 @@
-.exitAction {
-  align-items: center;
-  display: inline-flex;
-  gap: var(--space-xs);
-}
-
-.exitIcon {
-  flex: none;
-}
-
 .scene {
   display: grid;
   flex: 1;

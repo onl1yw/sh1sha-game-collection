@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { HatGlasses, LogOut } from "lucide-react";
+import { HatGlasses } from "lucide-react";
 
 import { AppShell } from "../../../../shared/ui/AppShell";
 import { Button } from "../../../../shared/ui/Button";
-import { ConfirmAction } from "../../../../shared/ui/ConfirmAction";
+import { GameExitAction } from "../../../../shared/ui/GameExitAction";
 import { ScreenHeader } from "../../../../shared/ui/ScreenHeader";
+import { SettingsButton } from "../../../../shared/ui/SettingsButton";
 import styles from "./RoleRevealScreen.module.css";
 
 export type RevealedRole =
@@ -16,7 +17,8 @@ interface CommonProps {
   themeName: string;
   onReveal: () => void;
   onHide: () => void;
-  onCancel?: () => void;
+  onCancel: () => void;
+  onOpenSettings: () => void;
 }
 
 export type RoleRevealScreenProps = CommonProps & (
@@ -94,32 +96,10 @@ export function RoleRevealScreen(props: RoleRevealScreenProps) {
       <ScreenHeader
         eyebrow={props.themeName}
         title={props.playerName}
-        {...(props.onCancel
-          ? {
-              leadingAction: (
-                <ConfirmAction
-                  triggerLabel={(
-                    <span className={styles.exitAction}>
-                      <LogOut
-                        aria-hidden="true"
-                        className={styles.exitIcon}
-                        focusable="false"
-                        size={20}
-                        strokeWidth={2}
-                      />
-                      <span>Прервать раздачу</span>
-                    </span>
-                  )}
-                  prompt="Текущая раздача будет отменена, и уже показанные роли нельзя будет восстановить."
-                  confirmLabel="Да, прервать раздачу"
-                  cancelLabel="Продолжить раздачу"
-                  triggerFullWidth={false}
-                  triggerVariant="quiet"
-                  onConfirm={props.onCancel}
-                />
-              ),
-            }
-          : {})}
+        leadingAction={(
+          <GameExitAction stage="deal" onConfirm={props.onCancel} />
+        )}
+        trailingAction={<SettingsButton onClick={props.onOpenSettings} />}
       />
 
       <div className={styles.scene}>

@@ -19,6 +19,7 @@ interface ThemeManifestFile {
 
 interface ThemeFile {
   id: string;
+  description: string;
   groups: Array<{ items: string[] }>;
 }
 
@@ -64,6 +65,11 @@ describe("spy theme catalog", () => {
         true,
       );
     }
+  });
+
+  it("labels the drugs theme as non-promotional", () => {
+    const theme = readJson("drugs.json") as ThemeFile;
+    expect(theme.description).toContain("не пропагандируем");
   });
 
   it("keeps all 15 original princesses in the Disney theme", () => {

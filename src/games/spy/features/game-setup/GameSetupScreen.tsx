@@ -3,8 +3,9 @@ import { AppShell } from "../../../../shared/ui/AppShell";
 import { Button } from "../../../../shared/ui/Button";
 import { Card } from "../../../../shared/ui/Card";
 import { ConfirmAction } from "../../../../shared/ui/ConfirmAction";
+import { NumberStepper } from "../../../../shared/ui/NumberStepper";
 import { ScreenHeader } from "../../../../shared/ui/ScreenHeader";
-import { NumberStepper } from "./NumberStepper";
+import { SettingsButton } from "../../../../shared/ui/SettingsButton";
 import {
   PlayerListEditor,
   type EditablePlayer,
@@ -29,6 +30,7 @@ export interface GameSetupScreenProps {
   onSpyCountChange: (count: number) => void;
   onSpyModeChange: (mode: SpyModeValue) => void;
   onBack: () => void;
+  onOpenSettings: () => void;
   onStart: () => void;
   onResetHistory?: () => void;
 }
@@ -47,6 +49,7 @@ export function GameSetupScreen({
   onSpyCountChange,
   onSpyModeChange,
   onBack,
+  onOpenSettings,
   onStart,
   onResetHistory,
 }: GameSetupScreenProps) {
@@ -64,6 +67,7 @@ export function GameSetupScreen({
       <ScreenHeader
         title={themeName}
         onBack={onBack}
+        trailingAction={<SettingsButton onClick={onOpenSettings} />}
       />
 
       <Card className={styles.section}>

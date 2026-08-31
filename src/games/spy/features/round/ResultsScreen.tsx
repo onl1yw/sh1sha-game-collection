@@ -2,6 +2,7 @@ import { AppShell } from "../../../../shared/ui/AppShell";
 import { Button } from "../../../../shared/ui/Button";
 import { Card } from "../../../../shared/ui/Card";
 import { ScreenHeader } from "../../../../shared/ui/ScreenHeader";
+import { SettingsButton } from "../../../../shared/ui/SettingsButton";
 import styles from "./ResultsScreen.module.css";
 
 export interface ResultPlayer {
@@ -13,6 +14,7 @@ export interface ResultsScreenProps {
   secretWord: string;
   decoyWord?: string;
   spies: readonly ResultPlayer[];
+  onOpenSettings: () => void;
   onPlayAgain: () => void;
   onNewGame: () => void;
 }
@@ -21,6 +23,7 @@ export function ResultsScreen({
   secretWord,
   decoyWord,
   spies,
+  onOpenSettings,
   onPlayAgain,
   onNewGame,
 }: ResultsScreenProps) {
@@ -41,6 +44,7 @@ export function ResultsScreen({
       <ScreenHeader
         eyebrow="Раунд окончен"
         title="Вот кто был шпионом"
+        trailingAction={<SettingsButton onClick={onOpenSettings} />}
       />
 
       <Card className={styles.wordCard} tone="accent">
