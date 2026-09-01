@@ -68,6 +68,10 @@ export const gameModule = defineGame({
 instantiate providers, fetch content, or write to storage. The game itself is
 loaded lazily through `load` and must have a default export.
 
+Set `requiresSensitiveContent` only when the whole catalog card should stay
+hidden until the shared sensitive-content preference is enabled. This affects
+catalog discovery only and does not interrupt an already opened game.
+
 ## Root component
 
 ```tsx

@@ -46,8 +46,8 @@ src/
 ## Platform
 
 `src/app/gameModule.ts` defines the stable module API. A descriptor contains an
-ID, catalog-card copy, a Lucide icon, optional resume state, and an asynchronous
-`load` function for the root component.
+ID, catalog-card copy, a Lucide icon, optional catalog visibility and resume
+state, and an asynchronous `load` function for the root component.
 
 `src/app/gameRegistry.ts` discovers `src/games/*/gameModule.ts`
 automatically and validates the API version, the match between module ID and

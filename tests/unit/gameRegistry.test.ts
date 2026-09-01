@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import {
   buildGameRegistry,
   gameCatalogState,
+  gameIsVisibleInCatalog,
   gameModules,
 } from "../../src/app/gameRegistry";
 import {
@@ -48,6 +49,15 @@ describe("game registry", () => {
     };
 
     expect(gameCatalogState(game, null)).toEqual({ hasSavedSession: false });
+  });
+
+  it("gates catalog modules that require sensitive content", () => {
+    const game = fakeGame("alpha");
+
+    expect(gameIsVisibleInCatalog(game, false)).toBe(true);
+    game.requiresSensitiveContent = true;
+    expect(gameIsVisibleInCatalog(game, false)).toBe(false);
+    expect(gameIsVisibleInCatalog(game, true)).toBe(true);
   });
 });
 

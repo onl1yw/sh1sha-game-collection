@@ -26,6 +26,21 @@ afterEach(() => {
 });
 
 describe("application settings flow", () => {
+  it("reveals gated games only after sensitive content is enabled", () => {
+    expect(optionalButtonByText("Шляпа")).toBeUndefined();
+
+    act(() => buttonByText("Настройки").click());
+    act(() => buttonByLabel("Показывать чувствительные темы").click());
+
+    const settingsBack = Array.from(container.querySelectorAll("button")).find(
+      (button) => button.textContent?.includes("Назад"),
+    );
+    if (!settingsBack) throw new Error("Missing settings back button");
+    act(() => settingsBack.click());
+
+    expect(optionalButtonByText("Шляпа")).toBeDefined();
+  });
+
   it("keeps an active game's in-memory setup mounted", async () => {
     const mafiaCard = buttonByText("Мафия");
     await act(async () => {
@@ -80,11 +95,15 @@ describe("application settings flow", () => {
 });
 
 function buttonByText(text: string): HTMLButtonElement {
-  const button = Array.from(container.querySelectorAll("button")).find(
-    (candidate) => candidate.textContent?.includes(text),
-  );
+  const button = optionalButtonByText(text);
   if (!button) throw new Error(`Missing button: ${text}`);
   return button;
+}
+
+function optionalButtonByText(text: string): HTMLButtonElement | undefined {
+  return Array.from(container.querySelectorAll("button")).find(
+    (candidate) => candidate.textContent?.includes(text),
+  );
 }
 
 function buttonByLabel(label: string): HTMLButtonElement {

@@ -3,6 +3,10 @@
 Hat is a local pass-and-play team game that runs one fixed set of words through
 three increasingly constrained stages. Its player-facing interface is Russian.
 
+While Hat remains an early playable release, its catalog card is visible only
+when the shared sensitive-content preference is enabled. Disabling the
+preference does not interrupt a game that is already open.
+
 ## Setup
 
 - One to eight editable teams; one team is a valid cooperative game.

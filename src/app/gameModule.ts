@@ -37,6 +37,7 @@ export interface GameModule {
   Icon: LucideIcon;
   iconTone?: "accent" | "danger";
   order?: number;
+  requiresSensitiveContent?: boolean;
   getCatalogState?: (
     context: GameModuleContext,
   ) => { hasSavedSession: boolean };
