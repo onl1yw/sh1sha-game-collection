@@ -41,9 +41,16 @@
 }
 
 .input::placeholder {
-  color: var(--color-accent-strong);
+  color: var(--color-text);
   font-weight: 750;
   opacity: 1;
+}
+
+.suffix {
+  color: var(--color-text);
+  font-weight: 800;
+  margin-inline-start: 0.25rem;
+  white-space: nowrap;
 }
 
 .inputWrap:focus-within {
@@ -56,6 +63,11 @@
 }
 
 .root[data-selected="true"] .input {
+  color: var(--color-accent-strong);
+}
+
+.root[data-selected="true"] .input::placeholder,
+.root[data-selected="true"] .suffix {
   color: var(--color-accent-strong);
 }
 
@@ -85,5 +97,5 @@
 .root[data-compact="true"] .input {
   font-size: inherit;
   min-width: 0;
-  width: 3.25rem;
+  width: 2.5rem;
 }

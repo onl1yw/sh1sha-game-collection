@@ -44,7 +44,8 @@ export function RoundSettings(props: RoundSettingsProps) {
             value={props.durationSeconds}
             min={ALIAS_LIMITS.minDurationSeconds}
             max={ALIAS_LIMITS.maxDurationSeconds}
-            placeholder="Своё"
+            placeholder="XX"
+            suffix="сек"
             showValue={!usesPreset}
             selected={!usesPreset}
             onChange={props.onDurationChange}

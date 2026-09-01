@@ -4,6 +4,7 @@ import { AppShell } from "../../../../shared/ui/AppShell";
 import { Button } from "../../../../shared/ui/Button";
 import { GameExitAction } from "../../../../shared/ui/GameExitAction";
 import { ScreenHeader } from "../../../../shared/ui/ScreenHeader";
+import { SettingsButton } from "../../../../shared/ui/SettingsButton";
 import { wordAt } from "../../domain/deck";
 import type { AliasSession, WordOutcome } from "../../domain/types";
 import { useRoundTimer } from "./useRoundTimer";
@@ -13,6 +14,7 @@ import styles from "./ActiveRoundScreen.module.css";
 export interface ActiveRoundScreenProps {
   session: AliasSession;
   onExit: () => void;
+  onOpenSettings: () => void;
   onMark: (outcome: WordOutcome) => void;
   onExpire: () => void;
 }
@@ -51,6 +53,7 @@ export function ActiveRoundScreen(props: ActiveRoundScreenProps) {
         title={formatTime(remaining)}
         description="Осталось времени"
         leadingAction={<GameExitAction onConfirm={props.onExit} />}
+        trailingAction={<SettingsButton onClick={props.onOpenSettings} />}
       />
       <WordCard word={word} onSwipe={props.onMark} />
     </AppShell>

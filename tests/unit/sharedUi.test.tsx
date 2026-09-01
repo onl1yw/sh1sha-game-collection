@@ -110,6 +110,7 @@ describe("shared UI controls", () => {
         min={5}
         max={100}
         selected
+        suffix="сек"
         onChange={onChange}
       />,
     ));
@@ -124,6 +125,7 @@ describe("shared UI controls", () => {
     expect(onChange).toHaveBeenCalledWith(100);
     expect(input?.value).toBe("100");
     expect(input?.closest("label")?.dataset.selected).toBe("true");
+    expect(container.textContent).toContain("сек");
   });
 
   it("reports an accessible single choice", () => {

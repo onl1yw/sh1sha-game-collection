@@ -9,6 +9,7 @@ export interface NumberFieldProps {
   max: number;
   compact?: boolean;
   placeholder?: string;
+  suffix?: string;
   showValue?: boolean;
   selected?: boolean;
   onChange: (value: number) => void;
@@ -21,6 +22,7 @@ export function NumberField({
   max,
   compact = false,
   placeholder,
+  suffix,
   showValue = true,
   selected = false,
   onChange,
@@ -71,6 +73,9 @@ export function NumberField({
           onBlur={commit}
           onKeyDown={handleKeyDown}
         />
+        {suffix ? (
+          <span aria-hidden="true" className={styles.suffix}>{suffix}</span>
+        ) : null}
       </span>
     </label>
   );

@@ -26,14 +26,21 @@ afterEach(() => {
 describe("Alias active round screen", () => {
   it("lets the host confirm leaving an active timed round", () => {
     const onExit = vi.fn();
+    const onOpenSettings = vi.fn();
     act(() => root.render(
       <ActiveRoundScreen
         session={session}
         onExit={onExit}
+        onOpenSettings={onOpenSettings}
         onMark={vi.fn()}
         onExpire={vi.fn()}
       />,
     ));
+
+    act(() => document.querySelector<HTMLButtonElement>(
+      'button[aria-label="Настройки"]',
+    )?.click());
+    expect(onOpenSettings).toHaveBeenCalledOnce();
 
     act(() => findButton("Прервать игру").click());
     expect(document.querySelector('[role="dialog"]')?.textContent)
