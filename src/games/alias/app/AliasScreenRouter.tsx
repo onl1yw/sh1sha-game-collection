@@ -83,6 +83,7 @@ export function AliasScreenRouter(props: AliasScreenRouterProps) {
     return (
       <ActiveRoundScreen
         session={props.state.session}
+        onExit={props.onExit}
         onMark={(outcome) => props.dispatch({ type: "record-word", outcome })}
         onExpire={() => props.dispatch({ type: "finish-round" })}
       />

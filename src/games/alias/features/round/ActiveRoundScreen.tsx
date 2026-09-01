@@ -2,6 +2,7 @@ import { Check, X } from "lucide-react";
 
 import { AppShell } from "../../../../shared/ui/AppShell";
 import { Button } from "../../../../shared/ui/Button";
+import { GameExitAction } from "../../../../shared/ui/GameExitAction";
 import { ScreenHeader } from "../../../../shared/ui/ScreenHeader";
 import { wordAt } from "../../domain/deck";
 import type { AliasSession, WordOutcome } from "../../domain/types";
@@ -11,6 +12,7 @@ import styles from "./ActiveRoundScreen.module.css";
 
 export interface ActiveRoundScreenProps {
   session: AliasSession;
+  onExit: () => void;
   onMark: (outcome: WordOutcome) => void;
   onExpire: () => void;
 }
@@ -48,6 +50,7 @@ export function ActiveRoundScreen(props: ActiveRoundScreenProps) {
         eyebrow={team?.name ?? "Команда"}
         title={formatTime(remaining)}
         description="Осталось времени"
+        leadingAction={<GameExitAction onConfirm={props.onExit} />}
       />
       <WordCard word={word} onSwipe={props.onMark} />
     </AppShell>
