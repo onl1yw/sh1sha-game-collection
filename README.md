@@ -8,16 +8,18 @@ phone. No registration, server, or in-game advertising.
 
 **Demo:** <https://games.sh1sha.ru/>
 
-The collection includes Spy, Mafia, and Alias. Spy provides classic and
+The collection includes Spy, Mafia, Alias, and Hat. Spy provides classic and
 alternative-word modes, fair role assignment, session recovery, and an
 extensible theme catalog. Mafia is phone-hosted, supports editable role sets,
 pre-generated offline night narration, hidden-role dealing, night actions,
 voting, and multiple win conditions. Alias supports editable teams, mixed word
 themes, timed explanation rounds, reviewable scoring, and two victory modes.
+Hat reuses one fixed word pool across description, gesture, and one-word stages
+with unlimited alternating team turns.
 
 Repository and contributor documentation is in English. The current game
-interfaces and bundled Spy theme content intentionally remain in Russian;
-every future game owns its player-facing locale.
+interfaces and bundled game content are intentionally Russian; every game owns
+its player-facing locale.
 
 ## Why this repository exists
 
@@ -30,10 +32,12 @@ displays them in a shared catalog.
 src/games/spy/       self-contained Spy module
 src/games/mafia/     self-contained Mafia module
 src/games/alias/     self-contained Alias module
+src/games/hat/       self-contained Hat module
 src/app/             shell, settings, and game registry
 src/shared/ui/       reusable UI primitives
 public/games/spy/    Spy theme catalogs in JSON
 public/games/alias/  Alias word catalogs in JSON
+public/games/hat/    Hat word catalogs in JSON
 ```
 
 Adding a game means adding its own directory; the central router and menu do not
@@ -88,7 +92,7 @@ creates a real module only when a contributor runs it.
 - [Your first contribution](docs/first-contribution.md)
 - [Architecture](docs/architecture.md)
 - [UI components](docs/ui-components.md)
-- [Theme format](docs/theme-format.md)
+- [Spy theme format](docs/theme-format.md)
 - [UI guidelines](docs/ui-guidelines.md)
 
 ## Core guarantees

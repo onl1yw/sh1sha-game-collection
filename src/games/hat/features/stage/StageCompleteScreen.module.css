@@ -1,0 +1,59 @@
+.next {
+  align-items: center;
+  display: grid;
+  gap: var(--space-sm);
+  justify-items: center;
+  min-height: min(30dvh, 17rem);
+  text-align: center;
+}
+
+.next > svg {
+  color: var(--color-accent-strong);
+}
+
+.next > span,
+.next p {
+  color: var(--color-text-muted);
+}
+
+.next > span {
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.next h2,
+.next p {
+  margin: 0;
+}
+
+.next h2 {
+  font-size: clamp(1.75rem, 8vw, 2.5rem);
+  line-height: 1.05;
+}
+
+.next p {
+  line-height: 1.45;
+}
+
+.options {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.options > div {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.options > div + div {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-md);
+}
+
+.options span {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}

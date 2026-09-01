@@ -37,7 +37,9 @@ src/
       domain/                pure game rules
       features/              game screens
       infrastructure/        storage, randomness, and theme loading
+    mafia/                    independent roles, narration, voting, and night game
     alias/                    independent team, timer, scoring, and word game
+    hat/                      fixed-pool, three-stage team word game
   shared/ui/                 shared visual primitives
 ```
 
@@ -72,9 +74,9 @@ sensitive-content visibility, sound enablement, and sound volume. The settings
 screen is layered over the active route so opening it does not unmount a game's
 in-memory state. The platform does not inspect that state.
 
-Games do not import one another. Even if Alias and Spy both use concepts such as
-players or rounds, their models remain separate until real repeated use proves a
-shared contract.
+Games do not import one another. Even when several games use concepts such as
+teams, themes, players, or rounds, their models remain separate until real
+repeated use proves a shared contract.
 
 ## Layers inside a game
 
@@ -119,6 +121,13 @@ Alias owns a separate flat word catalog under `public/games/alias/themes`.
 Concepts adapted from Spy are copied into Alias-owned files rather than read
 through another game's runtime boundary. Its Cinema, Physics, Mathematics, and
 adapted packs are validated by the same repository gate.
+
+Hat keeps another flat catalog under `public/games/hat/themes`, with editor
+schemas in `schemas/games/hat`. Its initial files were adapted from the
+checked-in Alias catalog under the same project license and are maintained as
+an independent snapshot: Hat does not read Alias files at runtime or in tests.
+Hat's validator uses the Hat domain parser and additionally requires enabled
+words to be globally unique after trimming and Russian case normalization.
 
 ## Persistence
 
