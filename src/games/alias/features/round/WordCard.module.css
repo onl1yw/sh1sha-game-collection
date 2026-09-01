@@ -8,10 +8,21 @@
   min-height: min(52dvh, 27rem);
   padding: var(--space-xl);
   place-content: center;
+  position: relative;
   text-align: center;
   touch-action: pan-y;
   user-select: none;
   will-change: translate, rotate;
+}
+
+.card[data-exiting="correct"] {
+  animation: exit-right 180ms ease-out forwards;
+  pointer-events: none;
+}
+
+.card[data-exiting="skipped"] {
+  animation: exit-left 180ms ease-out forwards;
+  pointer-events: none;
 }
 
 .card[data-direction="correct"] {
@@ -24,8 +35,7 @@
   border-color: var(--color-danger);
 }
 
-.card p,
-.hint {
+.card p {
   color: var(--color-text-muted);
   margin: 0;
 }
@@ -43,13 +53,12 @@
   overflow-wrap: anywhere;
 }
 
-.hint {
-  font-size: var(--font-size-sm);
-}
-
 .feedback {
   color: var(--color-text);
-  min-height: 2.625rem;
+  left: 50%;
+  position: absolute;
+  top: var(--space-xl);
+  translate: -50% 0;
 }
 
 .card[data-direction="correct"] .feedback {
@@ -58,4 +67,24 @@
 
 .card[data-direction="skipped"] .feedback {
   color: var(--color-danger);
+}
+
+@keyframes exit-right {
+  to {
+    rotate: 18deg;
+    translate: calc(100vw + 100%) 0;
+  }
+}
+
+@keyframes exit-left {
+  to {
+    rotate: -18deg;
+    translate: calc(-100vw - 100%) 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card[data-exiting] {
+    animation-duration: 1ms;
+  }
 }

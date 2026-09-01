@@ -37,7 +37,6 @@
 
 .score {
   background: var(--color-background);
-  border-left: 3px solid transparent;
   border-radius: var(--radius-control);
   display: grid;
   gap: var(--space-xs);
@@ -56,10 +55,6 @@
   font-size: 2rem;
   font-variant-numeric: tabular-nums;
   line-height: 1;
-}
-
-.score[data-active="true"] {
-  border-left-color: var(--color-accent-strong);
 }
 
 .score[data-active="true"] strong {

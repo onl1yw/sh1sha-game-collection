@@ -13,8 +13,10 @@ export function WordCard({ word, onSwipe }: WordCardProps) {
   const originRef = useRef<number | null>(null);
   const offsetRef = useRef(0);
   const [offset, setOffset] = useState(0);
+  const [exitOutcome, setExitOutcome] = useState<WordOutcome | null>(null);
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    if (exitOutcome) return;
     originRef.current = event.clientX;
     event.currentTarget.setPointerCapture(event.pointerId);
   };
@@ -26,13 +28,24 @@ export function WordCard({ word, onSwipe }: WordCardProps) {
   };
   const finishPointer = () => {
     const outcome = swipeOutcome(offsetRef.current);
+    originRef.current = null;
+    if (outcome) {
+      setExitOutcome(outcome);
+      return;
+    }
     resetPointer();
-    if (outcome) onSwipe(outcome);
   };
   const resetPointer = () => {
     originRef.current = null;
     offsetRef.current = 0;
     setOffset(0);
+  };
+  const finishExit = () => {
+    if (!exitOutcome) return;
+    const outcome = exitOutcome;
+    setExitOutcome(null);
+    resetPointer();
+    onSwipe(outcome);
   };
 
   const direction = offset > 8 ? "correct" : offset < -8 ? "skipped" : "idle";
@@ -40,7 +53,8 @@ export function WordCard({ word, onSwipe }: WordCardProps) {
   return (
     <div
       className={styles.card}
-      data-direction={direction}
+      data-direction={exitOutcome ?? direction}
+      data-exiting={exitOutcome ?? undefined}
       role="group"
       aria-label={`${word.text}. Смахните влево для пропуска или вправо, если слово угадано`}
       style={{ translate: `${offset}px 0`, rotate: `${offset / 30}deg` }}
@@ -48,6 +62,7 @@ export function WordCard({ word, onSwipe }: WordCardProps) {
       onPointerMove={handlePointerMove}
       onPointerUp={finishPointer}
       onPointerCancel={resetPointer}
+      onAnimationEnd={finishExit}
     >
       <span className={styles.feedback} aria-hidden="true">
         {direction === "correct" ? <Check size={42} /> : null}
@@ -55,7 +70,6 @@ export function WordCard({ word, onSwipe }: WordCardProps) {
       </span>
       <p>Объясните слово</p>
       <strong>{word.text}</strong>
-      <span className={styles.hint}>← Пропуск · Угадано →</span>
     </div>
   );
 }

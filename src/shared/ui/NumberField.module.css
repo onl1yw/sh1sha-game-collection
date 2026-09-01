@@ -51,10 +51,12 @@
   outline-offset: 2px;
 }
 
-.suffix {
-  color: var(--color-text-muted);
-  font-size: var(--font-size-sm);
-  font-weight: 700;
+.root[data-selected="true"] .inputWrap {
+  border-color: var(--color-accent);
+}
+
+.root[data-selected="true"] .input {
+  color: var(--color-accent-strong);
 }
 
 .root[data-compact="true"] {

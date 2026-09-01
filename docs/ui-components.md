@@ -86,7 +86,8 @@ outside those bounds.
 A direct integer input for wider ranges where repeated stepping would be slow.
 The value is committed on blur or Enter, rounded to an integer, and clamped to
 the supplied `min` and `max`. Use `compact` only when the field sits inside a
-preset grid and its visible context already names the setting.
+preset grid and its visible context already names the setting. Set `selected`
+when a compact field represents the active custom value beside preset buttons.
 
 ## RangeField
 

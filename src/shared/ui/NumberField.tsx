@@ -7,10 +7,10 @@ export interface NumberFieldProps {
   value: number;
   min: number;
   max: number;
-  suffix?: string;
   compact?: boolean;
   placeholder?: string;
   showValue?: boolean;
+  selected?: boolean;
   onChange: (value: number) => void;
 }
 
@@ -19,10 +19,10 @@ export function NumberField({
   value,
   min,
   max,
-  suffix,
   compact = false,
   placeholder,
   showValue = true,
+  selected = false,
   onChange,
 }: NumberFieldProps) {
   const id = useId();
@@ -50,7 +50,12 @@ export function NumberField({
   };
 
   return (
-    <label className={styles.root} data-compact={compact} htmlFor={id}>
+    <label
+      className={styles.root}
+      data-compact={compact}
+      data-selected={selected}
+      htmlFor={id}
+    >
       <span className={styles.label}>{label}</span>
       <span className={styles.inputWrap}>
         <input
@@ -66,7 +71,6 @@ export function NumberField({
           onBlur={commit}
           onKeyDown={handleKeyDown}
         />
-        {suffix ? <span className={styles.suffix}>{suffix}</span> : null}
       </span>
     </label>
   );

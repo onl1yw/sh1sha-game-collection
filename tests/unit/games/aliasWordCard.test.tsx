@@ -44,6 +44,13 @@ describe("Alias word card", () => {
     expect(card.dataset.direction).toBe(direction);
 
     act(() => dispatchPointer(card, "pointerup", endX));
+    expect(card.dataset.exiting).toBe(outcome);
+    expect(onSwipe).not.toHaveBeenCalled();
+
+    act(() => {
+      card.dispatchEvent(new Event("animationend", { bubbles: true }));
+      card.dispatchEvent(new Event("webkitAnimationEnd", { bubbles: true }));
+    });
     expect(onSwipe).toHaveBeenCalledWith(outcome);
     expect(card.dataset.direction).toBe("idle");
   });
