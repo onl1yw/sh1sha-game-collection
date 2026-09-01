@@ -30,7 +30,7 @@
     "build": "tsc --noEmit && vite build && node scripts/copy-legal-notices.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
-    "validate:themes": "node scripts/validate-spy-themes.mjs && node scripts/validate-alias-themes.mjs",
+    "validate:themes": "node scripts/validate-spy-themes.mjs && node scripts/validate-alias-themes.mjs && node scripts/validate-hat-themes.mjs",
     "lint": "eslint .",
     "check:architecture": "node scripts/check-architecture.mjs",
     "check:size": "node scripts/check-file-length.mjs",

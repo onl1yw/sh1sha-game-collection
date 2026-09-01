@@ -1,0 +1,32 @@
+.root {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  margin: 0;
+}
+
+.setting {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.settingTitle {
+  align-items: center;
+  display: grid;
+  gap: var(--space-sm);
+  grid-template-columns: 2rem minmax(0, 1fr);
+}
+
+.settingTitle svg {
+  color: var(--color-accent-strong);
+}
+
+.hint {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+  margin: calc(0px - var(--space-xs)) 0 0;
+}

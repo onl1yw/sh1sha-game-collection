@@ -1,0 +1,50 @@
+.summary {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.summary span {
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
+.summary strong {
+  color: var(--color-accent-strong);
+  font-size: 2rem;
+}
+
+.words {
+  display: grid;
+  padding-block: var(--space-xs);
+}
+
+.word {
+  align-items: center;
+  border-top: 1px solid var(--color-border);
+  display: grid;
+  gap: var(--space-sm);
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
+  min-height: 4rem;
+  padding-block: var(--space-sm);
+}
+
+.word:first-child {
+  border-top: 0;
+}
+
+.outcome {
+  align-items: center;
+  color: var(--color-danger);
+  display: flex;
+}
+
+.word[data-included="true"] .outcome {
+  color: var(--color-success);
+}
+
+.empty {
+  color: var(--color-text-muted);
+  line-height: 1.45;
+  margin: var(--space-md) 0;
+}

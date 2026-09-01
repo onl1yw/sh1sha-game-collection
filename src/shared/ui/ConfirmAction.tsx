@@ -20,6 +20,7 @@ export interface ConfirmActionProps {
   successMessage?: string;
   triggerFullWidth?: boolean;
   triggerVariant?: ButtonVariant;
+  onOpenChange?: (open: boolean) => void;
 }
 
 export function ConfirmAction({
@@ -31,6 +32,7 @@ export function ConfirmAction({
   successMessage,
   triggerFullWidth = true,
   triggerVariant = "danger",
+  onOpenChange,
 }: ConfirmActionProps) {
   const [isConfirming, setIsConfirming] = useState(false);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
@@ -60,17 +62,20 @@ export function ConfirmAction({
   const openConfirmation = () => {
     setStatusMessage(null);
     setIsConfirming(true);
+    onOpenChange?.(true);
   };
 
   const cancelConfirmation = () => {
     restoreTriggerFocus.current = true;
     setIsConfirming(false);
+    onOpenChange?.(false);
   };
 
   const confirm = () => {
     restoreTriggerFocus.current = true;
     setIsConfirming(false);
     setStatusMessage(successMessage ?? null);
+    onOpenChange?.(false);
     onConfirm();
   };
 

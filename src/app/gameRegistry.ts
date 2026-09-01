@@ -27,6 +27,13 @@ export function findGameModule(gameId: string): RegisteredGame | undefined {
   return gameModules.find((game) => game.id === gameId);
 }
 
+export function gameIsVisibleInCatalog(
+  game: GameModule,
+  showSensitiveContent: boolean,
+): boolean {
+  return !game.requiresSensitiveContent || showSensitiveContent;
+}
+
 export function buildGameRegistry(
   files: Readonly<Record<string, GameModuleFile>>,
 ): readonly RegisteredGame[] {
@@ -68,6 +75,12 @@ function validateGameModule(
   }
   if (!game.title.trim() || !game.description.trim() || !game.Icon || !game.load) {
     throw new Error(`Game module ${game.id} has incomplete metadata`);
+  }
+  if (
+    game.requiresSensitiveContent !== undefined
+    && typeof game.requiresSensitiveContent !== "boolean"
+  ) {
+    throw new Error(`Game module ${game.id} has invalid catalog visibility`);
   }
 }
 

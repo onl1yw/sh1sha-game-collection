@@ -23,10 +23,12 @@ export interface ActiveRoundScreenProps {
 
 export function ActiveRoundScreen(props: ActiveRoundScreenProps) {
   const [cardExiting, setCardExiting] = useState(false);
+  const [exitConfirming, setExitConfirming] = useState(false);
+  const interactionsPaused = props.paused || exitConfirming;
   const remaining = useRoundTimer(
     props.session.setup.durationSeconds,
     props.onExpire,
-    props.paused,
+    interactionsPaused,
   );
   const team = props.session.setup.teams[props.session.activeTeamIndex];
   const word = wordAt(props.session.deck, props.session.cursor);
@@ -39,7 +41,7 @@ export function ActiveRoundScreen(props: ActiveRoundScreenProps) {
             className={styles.action}
             variant="secondary"
             aria-label="Пропустить слово"
-            disabled={cardExiting || props.paused}
+            disabled={cardExiting || interactionsPaused}
             onClick={() => props.onMark("skipped")}
           >
             <X aria-hidden="true" size={28} />
@@ -48,7 +50,7 @@ export function ActiveRoundScreen(props: ActiveRoundScreenProps) {
           <Button
             className={styles.action}
             aria-label="Слово угадано"
-            disabled={cardExiting || props.paused}
+            disabled={cardExiting || interactionsPaused}
             onClick={() => props.onMark("correct")}
           >
             <Check aria-hidden="true" size={30} />
@@ -61,7 +63,12 @@ export function ActiveRoundScreen(props: ActiveRoundScreenProps) {
         eyebrow={team?.name ?? "Команда"}
         title={formatTime(remaining)}
         description="Осталось времени"
-        leadingAction={<GameExitAction onConfirm={props.onExit} />}
+        leadingAction={(
+          <GameExitAction
+            onConfirm={props.onExit}
+            onOpenChange={setExitConfirming}
+          />
+        )}
         trailingAction={<SettingsButton onClick={props.onOpenSettings} />}
       />
       <WordCard

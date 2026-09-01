@@ -16,6 +16,7 @@ import { GameLoadingScreen } from "./GameLoadingScreen";
 import {
   findGameModule,
   gameCatalogState,
+  gameIsVisibleInCatalog,
   gameModules,
 } from "./gameRegistry";
 import { createGameStorage } from "./gameStorage";
@@ -99,7 +100,10 @@ export function App() {
 
   if (!activeScreen) {
     activeScreen = <GameCollectionScreen
-      games={gameModules.map((game) => ({
+      games={gameModules.filter((game) => gameIsVisibleInCatalog(
+        game,
+        preferences.showSensitiveThemes,
+      )).map((game) => ({
         id: game.id,
         title: game.title,
         description: game.description,

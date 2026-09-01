@@ -2,6 +2,7 @@
   border: 0;
   display: grid;
   gap: var(--space-sm);
+  margin: 0;
   min-width: 0;
   padding: 0;
 }
