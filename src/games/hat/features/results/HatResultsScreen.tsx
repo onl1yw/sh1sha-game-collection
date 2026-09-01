@@ -76,7 +76,7 @@ function TeamResults(props: {
 }) {
   return (
     <Card className={styles.scoreboard}>
-      {props.teams.map((team, index) => (
+      {props.teams.map((team) => (
         <div
           className={styles.team}
           data-leading={props.leaders.includes(team.id)}
@@ -85,7 +85,7 @@ function TeamResults(props: {
           <span className={styles.place}>
             {props.leaders.includes(team.id)
               ? <Medal aria-hidden="true" size={26} />
-              : index + 1}
+              : teamPlace(props.session, team.id)}
           </span>
           <strong className={styles.name}>{team.name}</strong>
           <span className={styles.score}>{props.session.scores[team.id] ?? 0}</span>
@@ -93,6 +93,13 @@ function TeamResults(props: {
       ))}
     </Card>
   );
+}
+
+function teamPlace(session: HatSession, teamId: string): number {
+  const score = session.scores[teamId] ?? 0;
+  return session.setup.teams.filter(
+    (team) => (session.scores[team.id] ?? 0) > score,
+  ).length + 1;
 }
 
 function GameMetrics({ session }: { session: HatSession }) {

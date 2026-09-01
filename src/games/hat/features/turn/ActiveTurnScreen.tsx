@@ -1,5 +1,5 @@
 import { Check, X } from "lucide-react";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 import { AppShell } from "../../../../shared/ui/AppShell";
 import { Button } from "../../../../shared/ui/Button";
@@ -32,13 +32,27 @@ export interface ActiveTurnScreenProps {
 }
 
 export function ActiveTurnScreen(props: ActiveTurnScreenProps) {
+  const onExpire = props.onExpire;
   const cardRef = useRef<HatWordCardHandle>(null);
+  const cardExitingRef = useRef(false);
+  const deferredExpireRef = useRef(false);
   const [cardExiting, setCardExiting] = useState(false);
   const [exitConfirmationOpen, setExitConfirmationOpen] = useState(false);
-  const timerPaused = props.paused || exitConfirmationOpen || cardExiting;
+  const handleExpire = useCallback(() => {
+    if (cardExitingRef.current) {
+      deferredExpireRef.current = true;
+      return;
+    }
+    onExpire();
+  }, [onExpire]);
+  const handleCardTransition = useCallback((transitioning: boolean) => {
+    cardExitingRef.current = transitioning;
+    setCardExiting(transitioning);
+  }, []);
+  const timerPaused = props.paused || exitConfirmationOpen;
   const remainingMs = useTurnTimer(
     props.draft.segmentBudgetMs,
-    props.onExpire,
+    handleExpire,
     timerPaused,
   );
   const team = props.session.setup.teams.find(
@@ -49,8 +63,13 @@ export function ActiveTurnScreen(props: ActiveTurnScreenProps) {
   if (!word) throw new Error("Hat active turn needs a current word");
 
   const mark = (outcome: HatWordOutcome) => {
-    if (outcome === "correct") props.onCorrect(remainingMs);
+    const expiredDuringTransition = deferredExpireRef.current;
+    deferredExpireRef.current = false;
+    if (outcome === "correct") {
+      props.onCorrect(expiredDuringTransition ? 0 : remainingMs);
+    }
     else props.onSkip();
+    if (expiredDuringTransition) onExpire();
   };
   const controlsDisabled = cardExiting || timerPaused;
   return (
@@ -98,7 +117,7 @@ export function ActiveTurnScreen(props: ActiveTurnScreenProps) {
         prompt={hatStagePresentation(props.session.stageIndex).prompt}
         disabled={timerPaused}
         onOutcome={mark}
-        onTransitionChange={setCardExiting}
+        onTransitionChange={handleCardTransition}
       />
     </AppShell>
   );

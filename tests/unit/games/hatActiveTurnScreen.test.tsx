@@ -53,7 +53,7 @@ describe("Hat active turn screen", () => {
     expect(findButton("Слово угадано").disabled).toBe(true);
   });
 
-  it("animates a tapped final word before committing it and pauses the timer", () => {
+  it("counts card-exit animation against the turn before committing", () => {
     const onCorrect = vi.fn();
     const onExpire = vi.fn();
     renderActive({ onCorrect, onExpire });
@@ -63,8 +63,8 @@ describe("Hat active turn screen", () => {
     expect(card?.dataset.exiting).toBe("correct");
     expect(onCorrect).not.toHaveBeenCalled();
 
-    act(() => vi.advanceTimersByTime(5_000));
-    expect(container.querySelector("h1")?.textContent).toBe("0:10");
+    act(() => vi.advanceTimersByTime(1_200));
+    expect(container.querySelector("h1")?.textContent).toBe("0:09");
     expect(onExpire).not.toHaveBeenCalled();
     expect(onCorrect).not.toHaveBeenCalled();
 
@@ -73,7 +73,29 @@ describe("Hat active turn screen", () => {
       card?.dispatchEvent(new Event("webkitAnimationEnd", { bubbles: true }));
     });
     expect(onCorrect).toHaveBeenCalledOnce();
-    expect(onCorrect.mock.calls[0]?.[0]).toBeGreaterThan(9_000);
+    expect(onCorrect.mock.calls[0]?.[0]).toBeGreaterThan(8_000);
+    expect(onCorrect.mock.calls[0]?.[0]).toBeLessThanOrEqual(9_000);
+  });
+
+  it("commits an in-flight outcome before an expiration deferred by animation", () => {
+    const onCorrect = vi.fn();
+    const onExpire = vi.fn();
+    renderActive({ onCorrect, onExpire });
+
+    act(() => findButton("Слово угадано").click());
+    const card = container.querySelector<HTMLElement>('[role="group"]');
+    act(() => vi.advanceTimersByTime(10_200));
+    expect(container.querySelector("h1")?.textContent).toBe("0:00");
+    expect(onExpire).not.toHaveBeenCalled();
+    expect(card?.isConnected).toBe(true);
+    expect(card?.dataset.exiting).toBe("correct");
+
+    act(() => {
+      card?.dispatchEvent(new Event("animationend", { bubbles: true }));
+      card?.dispatchEvent(new Event("webkitAnimationEnd", { bubbles: true }));
+    });
+    expect(onCorrect).toHaveBeenCalledWith(0);
+    expect(onExpire).toHaveBeenCalledOnce();
   });
 });
 

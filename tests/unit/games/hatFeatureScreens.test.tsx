@@ -175,6 +175,29 @@ describe("Hat feature screens", () => {
     expect(container.textContent).toContain("Ходов4");
     expect(container.textContent).toContain("Игровое время1:10");
   });
+
+  it("gives tied non-leading teams the same result place", () => {
+    const ranked = sessionFor([
+      { id: "first", name: "Первая" },
+      { id: "second", name: "Вторая" },
+      { id: "third", name: "Третья" },
+    ]);
+    ranked.scores = { first: 5, second: 2, third: 2 };
+    act(() => root.render(
+      <HatResultsScreen
+        session={ranked}
+        onPlayAgain={vi.fn()}
+        onExit={vi.fn()}
+        onOpenSettings={vi.fn()}
+      />,
+    ));
+
+    const rows = Array.from(container.querySelectorAll<HTMLElement>("[data-leading]"));
+    const second = rows.find((row) => row.textContent?.includes("Вторая"));
+    const third = rows.find((row) => row.textContent?.includes("Третья"));
+    expect(second?.querySelector("span")?.textContent).toBe("2");
+    expect(third?.querySelector("span")?.textContent).toBe("2");
+  });
 });
 
 const teams: HatTeam[] = [

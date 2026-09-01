@@ -27,6 +27,7 @@ export default function HatGame({
   useEffect(() => {
     const controller = new AbortController();
     void repository.loadThemes(controller.signal).then((result) => {
+      if (controller.signal.aborted) return;
       setCatalog({ status: "ready", themes: result.themes, errors: result.errors });
       dispatch({
         type: "reset-setup",
