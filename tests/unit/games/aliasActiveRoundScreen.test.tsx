@@ -30,6 +30,7 @@ describe("Alias active round screen", () => {
     act(() => root.render(
       <ActiveRoundScreen
         session={session}
+        paused={false}
         onExit={onExit}
         onOpenSettings={onOpenSettings}
         onMark={vi.fn()}
@@ -48,6 +49,50 @@ describe("Alias active round screen", () => {
 
     act(() => findButton("Да, прервать игру").click());
     expect(onExit).toHaveBeenCalledOnce();
+  });
+
+  it("pauses the round countdown while the host overlay is open", () => {
+    const onExpire = vi.fn();
+    act(() => root.render(
+      <ActiveRoundScreen
+        session={session}
+        paused={false}
+        onExit={vi.fn()}
+        onOpenSettings={vi.fn()}
+        onMark={vi.fn()}
+        onExpire={onExpire}
+      />,
+    ));
+
+    act(() => vi.advanceTimersByTime(1_200));
+    expect(container.querySelector("h1")?.textContent).toBe("0:59");
+
+    act(() => root.render(
+      <ActiveRoundScreen
+        session={session}
+        paused
+        onExit={vi.fn()}
+        onOpenSettings={vi.fn()}
+        onMark={vi.fn()}
+        onExpire={onExpire}
+      />,
+    ));
+    act(() => vi.advanceTimersByTime(70_000));
+    expect(onExpire).not.toHaveBeenCalled();
+    expect(container.querySelector("h1")?.textContent).toBe("0:59");
+
+    act(() => root.render(
+      <ActiveRoundScreen
+        session={session}
+        paused={false}
+        onExit={vi.fn()}
+        onOpenSettings={vi.fn()}
+        onMark={vi.fn()}
+        onExpire={onExpire}
+      />,
+    ));
+    act(() => vi.advanceTimersByTime(60_200));
+    expect(onExpire).toHaveBeenCalledOnce();
   });
 });
 

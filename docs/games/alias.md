@@ -24,9 +24,9 @@ tests, and contributor documentation remain English.
 - automatic team rotation, score keeping, ties, and final results.
 
 Active sessions are intentionally in memory for this first version. Opening
-collection settings does not unmount the game, but a full reload starts a new
-Alias setup. A versioned recovery format should be introduced before adding
-resume metadata to `gameModule.ts`.
+collection settings does not unmount the game and pauses an active round timer,
+but a full reload starts a new Alias setup. A versioned recovery format should
+be introduced before adding resume metadata to `gameModule.ts`.
 
 ## Game loop
 
@@ -45,6 +45,9 @@ rounds mode, “rounds” means rounds **per team**: every team receives the sam
 number of turns before the final ranking. One-team games therefore end when
 that team reaches the target or completes its configured rounds.
 
+When every word in the selected deck has been shown, the deck is reshuffled.
+The first word of the new cycle cannot repeat the final word of the old cycle.
+
 ## Scoring
 
 Every enabled review item is worth `+1`. A disabled item is worth `0` when
@@ -55,10 +58,10 @@ before the score changes.
 ## Theme catalog
 
 Alias owns its content under `public/games/alias/themes/`; it never imports
-Spy internals or reads Spy files at runtime. Every checked-in Spy pack is copied
-one-to-one into an Alias-owned flat explanation deck, including Places; a test
-keeps those copies synchronized. Cinema, Physics, and Mathematics are original
-Alias packs. No list was copied from a commercial Alias deck.
+Spy internals or reads Spy files at runtime or in tests. The adapted packs were
+seeded from the checked-in Spy vocabulary and are maintained independently as
+Alias-owned flat explanation decks. Cinema, Physics, and Mathematics are
+original Alias packs. No list was copied from a commercial Alias deck.
 
 `manifest.json` controls order, enablement, and sensitivity. Each theme file is:
 

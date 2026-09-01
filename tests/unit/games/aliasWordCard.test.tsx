@@ -26,10 +26,12 @@ describe("Alias word card", () => {
     { endX: 20, direction: "skipped", outcome: "skipped" },
   ] as const)("marks a $outcome directional swipe", ({ endX, direction, outcome }) => {
     const onSwipe = vi.fn();
+    const onTransitionChange = vi.fn();
     act(() => root.render(
       <WordCard
         word={{ id: "word-1", text: "Каскадёр", themeId: "cinema" }}
         onSwipe={onSwipe}
+        onTransitionChange={onTransitionChange}
       />,
     ));
 
@@ -45,14 +47,26 @@ describe("Alias word card", () => {
 
     act(() => dispatchPointer(card, "pointerup", endX));
     expect(card.dataset.exiting).toBe(outcome);
-    expect(onSwipe).not.toHaveBeenCalled();
+    expect(onSwipe).toHaveBeenCalledWith(outcome);
+    expect(onTransitionChange).toHaveBeenCalledWith(true);
+
+    act(() => root.render(
+      <WordCard
+        word={{ id: "word-2", text: "Режиссёр", themeId: "cinema" }}
+        onSwipe={onSwipe}
+        onTransitionChange={onTransitionChange}
+      />,
+    ));
+    expect(card.querySelector("strong")?.textContent).toBe("Каскадёр");
 
     act(() => {
       card.dispatchEvent(new Event("animationend", { bubbles: true }));
       card.dispatchEvent(new Event("webkitAnimationEnd", { bubbles: true }));
     });
-    expect(onSwipe).toHaveBeenCalledWith(outcome);
+    expect(onSwipe).toHaveBeenCalledOnce();
+    expect(onTransitionChange).toHaveBeenLastCalledWith(false);
     expect(card.dataset.direction).toBe("idle");
+    expect(card.querySelector("strong")?.textContent).toBe("Режиссёр");
   });
 });
 

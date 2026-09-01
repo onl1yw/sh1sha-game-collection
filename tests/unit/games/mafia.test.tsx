@@ -31,6 +31,7 @@ describe("Мафия" + " game module", () => {
 
     await act(async () => root.render(
       <Game
+        paused={false}
         storage={null}
         preferences={{
           showSensitiveContent: false,

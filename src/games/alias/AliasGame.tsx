@@ -8,6 +8,7 @@ import type { AliasTheme } from "./domain/theme";
 import { HttpAliasThemeRepository } from "./infrastructure/themes/HttpAliasThemeRepository";
 
 export default function AliasGame({
+  paused,
   preferences,
   onExit,
   onOpenSettings,
@@ -45,6 +46,7 @@ export default function AliasGame({
       themes={visibleThemes}
       catalogStatus={catalog.status}
       catalogWarnings={catalog.errors}
+      paused={paused}
       onExit={onExit}
       onOpenSettings={onOpenSettings}
     />

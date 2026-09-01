@@ -52,6 +52,35 @@ describe("Alias reducer", () => {
     expect(state.phase).toBe("results");
     if (state.phase === "results") expect(state.session.scores["team-1"]).toBe(1);
   });
+
+  it("replaces an exhausted deck before the next word", () => {
+    const replacement = [{ id: "next", text: "Новое", themeId: "cinema" }];
+    let state: AliasGameState = {
+      phase: "round",
+      session: {
+        setup: createInitialSetup(["cinema"]),
+        deck: [deck[0] as AliasWord],
+        cursor: 0,
+        scores: { "team-1": 0, "team-2": 0 },
+        roundsPlayed: { "team-1": 0, "team-2": 0 },
+        activeTeamIndex: 0,
+        roundNumber: 1,
+      },
+      entries: [],
+    };
+
+    state = aliasGameReducer(state, {
+      type: "record-word",
+      outcome: "correct",
+      nextDeck: replacement,
+    });
+    expect(state.phase).toBe("round");
+    if (state.phase === "round") {
+      expect(state.session.deck).toEqual(replacement);
+      expect(state.session.cursor).toBe(0);
+      expect(state.entries[0]?.word.id).toBe("one");
+    }
+  });
 });
 
 function playOneCorrectRound(state: AliasGameState): AliasGameState {

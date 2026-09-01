@@ -17,9 +17,17 @@ export function aliasGameReducer(
   }
   if (action.type === "record-word" && state.phase === "round") {
     const word = wordAt(state.session.deck, state.session.cursor);
+    const exhausted = state.session.cursor + 1 >= state.session.deck.length;
+    const nextDeck = exhausted && action.nextDeck?.length
+      ? action.nextDeck
+      : state.session.deck;
     return {
       ...state,
-      session: { ...state.session, cursor: state.session.cursor + 1 },
+      session: {
+        ...state.session,
+        deck: nextDeck,
+        cursor: exhausted ? 0 : state.session.cursor + 1,
+      },
       entries: [
         ...state.entries,
         {

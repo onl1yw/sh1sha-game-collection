@@ -3,10 +3,10 @@ import type { Dispatch } from "react";
 import { AppShell } from "../../../shared/ui/AppShell";
 import { Card } from "../../../shared/ui/Card";
 import { ScreenHeader } from "../../../shared/ui/ScreenHeader";
-import { createWordDeck } from "../domain/deck";
+import { createWordDeck, reshuffleWordDeck } from "../domain/deck";
 import { setupIsValid } from "../domain/setup";
 import type { AliasTheme } from "../domain/theme";
-import type { AliasGameState } from "../domain/types";
+import type { AliasGameState, WordOutcome } from "../domain/types";
 import { ActiveRoundScreen } from "../features/round/ActiveRoundScreen";
 import { RoundReadyScreen } from "../features/round/RoundReadyScreen";
 import { RoundReviewScreen } from "../features/review/RoundReviewScreen";
@@ -20,6 +20,7 @@ export interface AliasScreenRouterProps {
   themes: readonly AliasTheme[];
   catalogStatus: "loading" | "ready";
   catalogWarnings: readonly string[];
+  paused: boolean;
   onExit: () => void;
   onOpenSettings: () => void;
 }
@@ -80,12 +81,22 @@ export function AliasScreenRouter(props: AliasScreenRouterProps) {
     );
   }
   if (props.state.phase === "round") {
+    const { session } = props.state;
+    const markWord = (outcome: WordOutcome) => {
+      const exhausted = session.cursor + 1 >= session.deck.length;
+      props.dispatch({
+        type: "record-word",
+        outcome,
+        ...(exhausted ? { nextDeck: reshuffleWordDeck(session.deck) } : {}),
+      });
+    };
     return (
       <ActiveRoundScreen
         session={props.state.session}
+        paused={props.paused}
         onExit={props.onExit}
         onOpenSettings={props.onOpenSettings}
-        onMark={(outcome) => props.dispatch({ type: "record-word", outcome })}
+        onMark={markWord}
         onExpire={() => props.dispatch({ type: "finish-round" })}
       />
     );

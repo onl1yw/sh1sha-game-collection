@@ -7,13 +7,16 @@ import styles from "./WordCard.module.css";
 export interface WordCardProps {
   word: AliasWord;
   onSwipe: (outcome: WordOutcome) => void;
+  onTransitionChange?: (transitioning: boolean) => void;
 }
 
-export function WordCard({ word, onSwipe }: WordCardProps) {
+export function WordCard({ word, onSwipe, onTransitionChange }: WordCardProps) {
   const originRef = useRef<number | null>(null);
   const offsetRef = useRef(0);
   const [offset, setOffset] = useState(0);
   const [exitOutcome, setExitOutcome] = useState<WordOutcome | null>(null);
+  const [exitingWord, setExitingWord] = useState<AliasWord | null>(null);
+  const displayedWord = exitingWord ?? word;
 
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if (exitOutcome) return;
@@ -30,7 +33,10 @@ export function WordCard({ word, onSwipe }: WordCardProps) {
     const outcome = swipeOutcome(offsetRef.current);
     originRef.current = null;
     if (outcome) {
+      setExitingWord(word);
       setExitOutcome(outcome);
+      onTransitionChange?.(true);
+      onSwipe(outcome);
       return;
     }
     resetPointer();
@@ -42,10 +48,10 @@ export function WordCard({ word, onSwipe }: WordCardProps) {
   };
   const finishExit = () => {
     if (!exitOutcome) return;
-    const outcome = exitOutcome;
     setExitOutcome(null);
+    setExitingWord(null);
     resetPointer();
-    onSwipe(outcome);
+    onTransitionChange?.(false);
   };
 
   const direction = offset > 8 ? "correct" : offset < -8 ? "skipped" : "idle";
@@ -56,7 +62,7 @@ export function WordCard({ word, onSwipe }: WordCardProps) {
       data-direction={exitOutcome ?? direction}
       data-exiting={exitOutcome ?? undefined}
       role="group"
-      aria-label={`${word.text}. Смахните влево для пропуска или вправо, если слово угадано`}
+      aria-label={`${displayedWord.text}. Смахните влево для пропуска или вправо, если слово угадано`}
       style={{ translate: `${offset}px 0`, rotate: `${offset / 30}deg` }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
@@ -69,7 +75,7 @@ export function WordCard({ word, onSwipe }: WordCardProps) {
         {direction === "skipped" ? <X size={42} /> : null}
       </span>
       <p>Объясните слово</p>
-      <strong>{word.text}</strong>
+      <strong>{displayedWord.text}</strong>
     </div>
   );
 }

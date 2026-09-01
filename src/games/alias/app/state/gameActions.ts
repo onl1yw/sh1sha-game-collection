@@ -9,7 +9,7 @@ export type AliasGameAction =
   | { type: "set-win-condition"; winCondition: WinCondition }
   | { type: "start-game"; deck: AliasWord[] }
   | { type: "start-round" }
-  | { type: "record-word"; outcome: WordOutcome }
+  | { type: "record-word"; outcome: WordOutcome; nextDeck?: AliasWord[] }
   | { type: "finish-round" }
   | { type: "toggle-result"; entryId: string }
   | { type: "confirm-review" }

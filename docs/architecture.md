@@ -65,8 +65,9 @@ A game owns all of its concepts:
 - game content and its schemas;
 - screens and game-specific messages.
 
-The platform passes only `GameHostProps`: shared preferences, a return action,
-and an action that opens settings. Shared preferences currently expose
+The platform passes only `GameHostProps`: shared preferences, a paused flag, a
+return action, and an action that opens settings. Timed games suspend gameplay
+while that flag is set. Shared preferences currently expose
 sensitive-content visibility, sound enablement, and sound volume. The settings
 screen is layered over the active route so opening it does not unmount a game's
 in-memory state. The platform does not inspect that state.

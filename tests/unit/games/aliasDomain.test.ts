@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { createWordDeck, wordAt } from "../../../src/games/alias/domain/deck";
+import {
+  createWordDeck,
+  reshuffleWordDeck,
+  wordAt,
+} from "../../../src/games/alias/domain/deck";
 import { gameIsFinished, leadingTeamIds, roundScore } from "../../../src/games/alias/domain/scoring";
 import { createInitialSetup, setupIsValid } from "../../../src/games/alias/domain/setup";
 import type { AliasSession, RoundWord } from "../../../src/games/alias/domain/types";
@@ -14,7 +18,19 @@ describe("Alias domain", () => {
 
     expect(deck).toHaveLength(3);
     expect(new Set(deck.map((word) => word.text))).toEqual(new Set(["A", "B", "C"]));
-    expect(wordAt(deck, 3)).toEqual(deck[0]);
+    expect(() => wordAt(deck, 3)).toThrow("available word");
+  });
+
+  it("reshuffles an exhausted deck without repeating its boundary word", () => {
+    const original = [
+      { id: "a", text: "A", themeId: "one" },
+      { id: "b", text: "B", themeId: "one" },
+      { id: "c", text: "C", themeId: "one" },
+    ];
+    const next = reshuffleWordDeck(original, () => 0);
+
+    expect(new Set(next.map((word) => word.id))).toEqual(new Set(["a", "b", "c"]));
+    expect(next[0]?.id).not.toBe(original.at(-1)?.id);
   });
 
   it("validates teams and scores skipped words according to the setting", () => {

@@ -1,4 +1,5 @@
 import { Check, X } from "lucide-react";
+import { useState } from "react";
 
 import { AppShell } from "../../../../shared/ui/AppShell";
 import { Button } from "../../../../shared/ui/Button";
@@ -13,6 +14,7 @@ import styles from "./ActiveRoundScreen.module.css";
 
 export interface ActiveRoundScreenProps {
   session: AliasSession;
+  paused: boolean;
   onExit: () => void;
   onOpenSettings: () => void;
   onMark: (outcome: WordOutcome) => void;
@@ -20,7 +22,12 @@ export interface ActiveRoundScreenProps {
 }
 
 export function ActiveRoundScreen(props: ActiveRoundScreenProps) {
-  const remaining = useRoundTimer(props.session.setup.durationSeconds, props.onExpire);
+  const [cardExiting, setCardExiting] = useState(false);
+  const remaining = useRoundTimer(
+    props.session.setup.durationSeconds,
+    props.onExpire,
+    props.paused,
+  );
   const team = props.session.setup.teams[props.session.activeTeamIndex];
   const word = wordAt(props.session.deck, props.session.cursor);
   return (
@@ -32,6 +39,7 @@ export function ActiveRoundScreen(props: ActiveRoundScreenProps) {
             className={styles.action}
             variant="secondary"
             aria-label="Пропустить слово"
+            disabled={cardExiting || props.paused}
             onClick={() => props.onMark("skipped")}
           >
             <X aria-hidden="true" size={28} />
@@ -40,6 +48,7 @@ export function ActiveRoundScreen(props: ActiveRoundScreenProps) {
           <Button
             className={styles.action}
             aria-label="Слово угадано"
+            disabled={cardExiting || props.paused}
             onClick={() => props.onMark("correct")}
           >
             <Check aria-hidden="true" size={30} />
@@ -55,7 +64,11 @@ export function ActiveRoundScreen(props: ActiveRoundScreenProps) {
         leadingAction={<GameExitAction onConfirm={props.onExit} />}
         trailingAction={<SettingsButton onClick={props.onOpenSettings} />}
       />
-      <WordCard word={word} onSwipe={props.onMark} />
+      <WordCard
+        word={word}
+        onSwipe={props.onMark}
+        onTransitionChange={setCardExiting}
+      />
     </AppShell>
   );
 }

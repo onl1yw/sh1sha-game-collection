@@ -1,7 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import type { ComponentType } from "react";
 
-export const GAME_MODULE_API_VERSION = 1 as const;
+export const GAME_MODULE_API_VERSION = 2 as const;
 
 export interface GameHostPreferences {
   showSensitiveContent: boolean;
@@ -22,6 +22,7 @@ export interface GameModuleContext {
 }
 
 export interface GameHostProps extends GameModuleContext {
+  paused: boolean;
   preferences: GameHostPreferences;
   onExit: () => void;
   onOpenSettings: () => void;

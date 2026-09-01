@@ -74,18 +74,20 @@ loaded lazily through `load` and must have a default export.
 import type { GameHostProps } from "../../app/gameModule";
 
 export default function AliasGame({
+  paused,
   preferences,
   storage,
   onExit,
   onOpenSettings,
 }: GameHostProps) {
-  // Assemble the game's provider and screen state machine here.
+  // Assemble the provider and suspend timed interactions while paused.
   return null;
 }
 ```
 
-The platform supplies shared preferences, isolated storage, and navigation
-commands. It must not know about a particular game's rounds, teams, roles, or
+The platform supplies shared preferences, isolated storage, a paused flag, and
+navigation commands. Timed interactions must suspend while `paused` is true.
+The platform must not know about a particular game's rounds, teams, roles, or
 other rules.
 
 ## Responsibility boundaries
