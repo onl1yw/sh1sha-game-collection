@@ -48,7 +48,7 @@
 
 .suffix {
   color: var(--color-text);
-  font-weight: 800;
+  font-weight: 700;
   margin-inline-start: 0.25rem;
   white-space: nowrap;
 }
@@ -95,7 +95,10 @@
 }
 
 .root[data-compact="true"] .input {
+  field-sizing: content;
   font-size: inherit;
-  min-width: 0;
-  width: 2.5rem;
+  font-weight: 700;
+  max-width: 3ch;
+  min-width: 2ch;
+  width: auto;
 }
