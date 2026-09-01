@@ -43,14 +43,15 @@ export function parseAliasTheme(input: unknown): Omit<AliasTheme, "sensitive"> |
   if (!input.words.every((word) => (
     typeof word === "string" && Boolean(word.trim()) && word.length <= 80
   ))) return null;
-  const normalized = input.words.map((word) => word.toLocaleLowerCase("ru"));
+  const words = input.words.map((word) => word.trim());
+  const normalized = words.map((word) => word.toLocaleLowerCase("ru"));
   if (new Set(normalized).size !== normalized.length) return null;
   return {
     schemaVersion: 1,
     id: input.id,
     name: input.name.trim(),
     description: input.description.trim(),
-    words: input.words.map((word) => word.trim()),
+    words,
   };
 }
 
