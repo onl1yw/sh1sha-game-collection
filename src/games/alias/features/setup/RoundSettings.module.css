@@ -1,0 +1,53 @@
+.root {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  margin: 0;
+}
+
+.subtitle {
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  margin: 0;
+}
+
+.setting {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.settingTitle,
+.toggleRow {
+  align-items: center;
+  display: grid;
+  gap: var(--space-sm);
+  grid-template-columns: 2rem minmax(0, 1fr);
+}
+
+.settingTitle svg,
+.toggleRow svg {
+  color: var(--color-accent-strong);
+}
+
+.presets {
+  display: grid;
+  gap: var(--space-xs);
+  grid-auto-rows: minmax(var(--touch-target), auto);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.presets > * {
+  height: 100%;
+}
+
+.toggleRow {
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
+  min-height: var(--touch-target);
+}
+
+.toggleRow span {
+  font-weight: 750;
+}

@@ -1,0 +1,20 @@
+.actions {
+  display: grid;
+  gap: var(--space-sm);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+}
+
+.action {
+  min-height: 4.25rem;
+}
+
+.action span {
+  display: none;
+}
+
+@media (min-width: 26rem) {
+  .action span {
+    display: inline;
+  }
+}

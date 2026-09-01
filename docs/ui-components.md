@@ -81,6 +81,14 @@ and optional hint copy. Pass explicit `min` and `max` bounds; the component
 disables the corresponding action at either limit and never reports a value
 outside those bounds.
 
+## NumberField
+
+A direct integer input for wider ranges where repeated stepping would be slow.
+The value is committed on blur or Enter, rounded to an integer, and clamped to
+the supplied `min` and `max`. Use `compact` only when the field sits inside a
+preset grid and its visible context already names the setting. Set `selected`
+when a compact field represents the active custom value beside preset buttons.
+
 ## RangeField
 
 A labeled native range input with a visible value. Use it for bounded numeric

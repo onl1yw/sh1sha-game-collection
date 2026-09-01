@@ -1,0 +1,90 @@
+.card {
+  align-items: center;
+  background: var(--color-surface-raised);
+  border: 3px solid transparent;
+  border-radius: var(--radius-card);
+  display: grid;
+  gap: var(--space-lg);
+  min-height: min(52dvh, 27rem);
+  padding: var(--space-xl);
+  place-content: center;
+  position: relative;
+  text-align: center;
+  touch-action: pan-y;
+  user-select: none;
+  will-change: translate, rotate;
+}
+
+.card[data-exiting="correct"] {
+  animation: exit-right 180ms ease-out forwards;
+  pointer-events: none;
+}
+
+.card[data-exiting="skipped"] {
+  animation: exit-left 180ms ease-out forwards;
+  pointer-events: none;
+}
+
+.card[data-direction="correct"] {
+  background: color-mix(in srgb, var(--color-success) 28%, var(--color-surface-raised));
+  border-color: var(--color-success);
+}
+
+.card[data-direction="skipped"] {
+  background: color-mix(in srgb, var(--color-danger) 28%, var(--color-surface-raised));
+  border-color: var(--color-danger);
+}
+
+.card p {
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.card p {
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.card strong {
+  font-size: clamp(2.5rem, 13vw, 4.5rem);
+  line-height: 0.95;
+  overflow-wrap: anywhere;
+}
+
+.feedback {
+  color: var(--color-text);
+  left: 50%;
+  position: absolute;
+  top: var(--space-xl);
+  translate: -50% 0;
+}
+
+.card[data-direction="correct"] .feedback {
+  color: var(--color-success);
+}
+
+.card[data-direction="skipped"] .feedback {
+  color: var(--color-danger);
+}
+
+@keyframes exit-right {
+  to {
+    rotate: 18deg;
+    translate: calc(100vw + 100%) 0;
+  }
+}
+
+@keyframes exit-left {
+  to {
+    rotate: -18deg;
+    translate: calc(-100vw - 100%) 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card[data-exiting] {
+    animation-duration: 1ms;
+  }
+}

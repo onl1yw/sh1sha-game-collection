@@ -10,6 +10,7 @@ import { AppBar } from "../../src/shared/ui/AppBar";
 import { InteractiveCard } from "../../src/shared/ui/InteractiveCard";
 import { ChoiceGroup } from "../../src/shared/ui/ChoiceGroup";
 import { NumberStepper } from "../../src/shared/ui/NumberStepper";
+import { NumberField } from "../../src/shared/ui/NumberField";
 import { RangeField } from "../../src/shared/ui/RangeField";
 import { ScreenHeader } from "../../src/shared/ui/ScreenHeader";
 import { SettingsButton } from "../../src/shared/ui/SettingsButton";
@@ -98,6 +99,33 @@ describe("shared UI controls", () => {
 
     act(() => increase.click());
     expect(onChange).toHaveBeenCalledWith(6);
+  });
+
+  it("accepts a direct number and clamps it on commit", () => {
+    const onChange = vi.fn();
+    act(() => root.render(
+      <NumberField
+        label="Очков для победы"
+        value={30}
+        min={5}
+        max={100}
+        selected
+        suffix="сек"
+        onChange={onChange}
+      />,
+    ));
+
+    const input = container.querySelector<HTMLInputElement>('input[type="number"]');
+    act(() => {
+      if (!input) throw new Error("Missing number input");
+      input.focus();
+      setNativeValue(input, "140");
+      input.blur();
+    });
+    expect(onChange).toHaveBeenCalledWith(100);
+    expect(input?.value).toBe("100");
+    expect(input?.closest("label")?.dataset.selected).toBe("true");
+    expect(container.textContent).toContain("сек");
   });
 
   it("reports an accessible single choice", () => {

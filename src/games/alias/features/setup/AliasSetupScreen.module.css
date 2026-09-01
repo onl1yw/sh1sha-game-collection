@@ -1,0 +1,11 @@
+.error,
+.warning {
+  color: var(--color-danger);
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.warning {
+  color: var(--color-text-muted);
+}

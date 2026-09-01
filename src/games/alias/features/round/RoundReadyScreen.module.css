@@ -1,0 +1,62 @@
+.card {
+  align-items: center;
+  display: grid;
+  gap: var(--space-md);
+  min-height: min(32dvh, 18rem);
+  place-content: center;
+  text-align: center;
+}
+
+.card > svg {
+  color: var(--color-accent-strong);
+  justify-self: center;
+}
+
+.card h2 {
+  font-size: clamp(1.75rem, 8vw, 2.5rem);
+  line-height: 1.05;
+  margin: 0;
+  max-width: 18rem;
+}
+
+.scoreboard {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.scoreboard h2 {
+  font-size: var(--font-size-lg);
+  margin: 0;
+}
+
+.scores {
+  display: grid;
+  gap: var(--space-sm);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.score {
+  background: var(--color-background);
+  border-radius: var(--radius-control);
+  display: grid;
+  gap: var(--space-xs);
+  min-width: 0;
+  padding: var(--space-sm);
+}
+
+.score span {
+  color: var(--color-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.score strong {
+  font-size: 2rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.score[data-active="true"] strong {
+  color: var(--color-accent-strong);
+}

@@ -37,6 +37,7 @@ src/
       domain/                pure game rules
       features/              game screens
       infrastructure/        storage, randomness, and theme loading
+    alias/                    independent team, timer, scoring, and word game
   shared/ui/                 shared visual primitives
 ```
 
@@ -64,8 +65,9 @@ A game owns all of its concepts:
 - game content and its schemas;
 - screens and game-specific messages.
 
-The platform passes only `GameHostProps`: shared preferences, a return action,
-and an action that opens settings. Shared preferences currently expose
+The platform passes only `GameHostProps`: shared preferences, a paused flag, a
+return action, and an action that opens settings. Timed games suspend gameplay
+while that flag is set. Shared preferences currently expose
 sensitive-content visibility, sound enablement, and sound volume. The settings
 screen is layered over the active route so opening it does not unmount a game's
 in-memory state. The platform does not inspect that state.
@@ -104,7 +106,7 @@ not import the platform or any game, and knows nothing about roles, themes, or
 rounds. Component contracts are documented in
 `docs/ui-components.md`.
 
-## Spy content
+## Game content
 
 Public JSON themes live in `public/games/spy/themes`. Catalog metadata
 (`enabled`, `sensitive`) is separate from the strict game-theme model. An
@@ -112,6 +114,11 @@ invalid file is excluded without breaking the remaining themes.
 
 Schemas live in `schemas/games/spy`. Local packs in `.local-themes` are
 excluded from Git and from the production build.
+
+Alias owns a separate flat word catalog under `public/games/alias/themes`.
+Concepts adapted from Spy are copied into Alias-owned files rather than read
+through another game's runtime boundary. Its Cinema, Physics, Mathematics, and
+adapted packs are validated by the same repository gate.
 
 ## Persistence
 

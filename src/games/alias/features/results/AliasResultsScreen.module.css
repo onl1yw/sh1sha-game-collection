@@ -1,0 +1,45 @@
+.scoreboard {
+  display: grid;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+}
+
+.team {
+  align-items: center;
+  border-left: 3px solid transparent;
+  border-radius: var(--radius-control);
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
+  min-height: 5rem;
+  padding: var(--space-sm) var(--space-md);
+}
+
+.team[data-leading="true"] {
+  background: var(--color-background);
+  border-left-color: var(--color-accent-strong);
+}
+
+.team[data-leading="true"] .place,
+.team[data-leading="true"] .score {
+  color: var(--color-accent-strong);
+}
+
+.place {
+  align-items: center;
+  color: var(--color-text-muted);
+  display: flex;
+  font-variant-numeric: tabular-nums;
+  justify-content: center;
+}
+
+.name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.score {
+  font-size: 2rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 850;
+}

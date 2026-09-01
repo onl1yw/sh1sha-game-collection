@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "themes": [
+    { "id": "cinema", "file": "cinema.json", "enabled": true },
+    { "id": "physics", "file": "physics.json", "enabled": true },
+    { "id": "mathematics", "file": "mathematics.json", "enabled": true },
+    { "id": "places", "file": "places.json", "enabled": true },
+    { "id": "minecraft", "file": "minecraft.json", "enabled": true },
+    { "id": "disney", "file": "disney.json", "enabled": true },
+    { "id": "phone-apps", "file": "phone-apps.json", "enabled": true },
+    { "id": "chip-flavors", "file": "chip-flavors.json", "enabled": true },
+    { "id": "drinks", "file": "drinks.json", "enabled": true },
+    { "id": "countries", "file": "countries.json", "enabled": true },
+    { "id": "berries", "file": "berries.json", "enabled": true },
+    { "id": "politicians", "file": "politicians.json", "enabled": true, "sensitive": true },
+    { "id": "drugs", "file": "drugs.json", "enabled": true, "sensitive": true }
+  ]
+}

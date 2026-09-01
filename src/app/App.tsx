@@ -81,6 +81,7 @@ export function App() {
         >
           <Suspense fallback={<GameLoadingScreen />}>
             <GameApp
+              paused={settingsOpen}
               preferences={{
                 showSensitiveContent: preferences.showSensitiveThemes,
                 soundEnabled: preferences.soundEnabled && !settingsOpen,
