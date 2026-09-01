@@ -94,6 +94,28 @@ describe("Alias active round screen", () => {
     act(() => vi.advanceTimersByTime(60_200));
     expect(onExpire).toHaveBeenCalledOnce();
   });
+
+  it("pauses the round countdown while exit confirmation is open", () => {
+    const onExpire = vi.fn();
+    act(() => root.render(
+      <ActiveRoundScreen
+        session={session}
+        paused={false}
+        onExit={vi.fn()}
+        onOpenSettings={vi.fn()}
+        onMark={vi.fn()}
+        onExpire={onExpire}
+      />,
+    ));
+
+    act(() => findButton("Прервать игру").click());
+    act(() => vi.advanceTimersByTime(70_000));
+    expect(onExpire).not.toHaveBeenCalled();
+
+    act(() => findButton("Продолжить игру").click());
+    act(() => vi.advanceTimersByTime(60_200));
+    expect(onExpire).toHaveBeenCalledOnce();
+  });
 });
 
 const session: AliasSession = {

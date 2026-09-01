@@ -32,17 +32,6 @@
   color: var(--color-accent-strong);
 }
 
-.presets {
-  display: grid;
-  gap: var(--space-xs);
-  grid-auto-rows: minmax(var(--touch-target), auto);
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.presets > * {
-  height: 100%;
-}
-
 .toggleRow {
   grid-template-columns: 2rem minmax(0, 1fr) auto;
   min-height: var(--touch-target);

@@ -4,11 +4,13 @@ import { ConfirmAction } from "./ConfirmAction";
 
 export interface GameExitActionProps {
   onConfirm: () => void;
+  onOpenChange?: (open: boolean) => void;
   stage?: "deal" | "game";
 }
 
 export function GameExitAction({
   onConfirm,
+  onOpenChange,
   stage = "game",
 }: GameExitActionProps) {
   const isDeal = stage === "deal";
@@ -28,6 +30,7 @@ export function GameExitAction({
       triggerFullWidth={false}
       triggerVariant="quiet"
       onConfirm={onConfirm}
+      {...(onOpenChange ? { onOpenChange } : {})}
     />
   );
 }

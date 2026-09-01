@@ -1,8 +1,8 @@
 import { Clock3, MinusCircle } from "lucide-react";
 
-import { Button } from "../../../../shared/ui/Button";
 import { ChoiceGroup } from "../../../../shared/ui/ChoiceGroup";
 import { NumberField } from "../../../../shared/ui/NumberField";
+import { PresetNumberField } from "../../../../shared/ui/PresetNumberField";
 import { Switch } from "../../../../shared/ui/Switch";
 import { ALIAS_LIMITS } from "../../domain/setup";
 import type { WinCondition } from "../../domain/types";
@@ -18,7 +18,6 @@ export interface RoundSettingsProps {
 }
 
 export function RoundSettings(props: RoundSettingsProps) {
-  const usesPreset = [15, 30, 60].includes(props.durationSeconds);
   return (
     <div className={styles.root}>
       <h2 className={styles.title}>Правила</h2>
@@ -27,30 +26,20 @@ export function RoundSettings(props: RoundSettingsProps) {
           <Clock3 aria-hidden="true" size={22} />
           <strong>Время раунда</strong>
         </div>
-        <div className={styles.presets} aria-label="Время раунда">
-          {[15, 30, 60].map((seconds) => (
-            <Button
-              key={seconds}
-              variant="secondary"
-              aria-pressed={props.durationSeconds === seconds}
-              onClick={() => props.onDurationChange(seconds)}
-            >
-              {seconds} сек
-            </Button>
-          ))}
-          <NumberField
-            compact
-            label="Своё время раунда"
-            value={props.durationSeconds}
-            min={ALIAS_LIMITS.minDurationSeconds}
-            max={ALIAS_LIMITS.maxDurationSeconds}
-            placeholder="XX"
-            suffix="сек"
-            showValue={!usesPreset}
-            selected={!usesPreset}
-            onChange={props.onDurationChange}
-          />
-        </div>
+        <PresetNumberField
+          label="Время раунда"
+          value={props.durationSeconds}
+          presets={[15, 30, 60].map((seconds) => ({
+            value: seconds,
+            label: `${seconds} сек`,
+          }))}
+          min={ALIAS_LIMITS.minDurationSeconds}
+          max={ALIAS_LIMITS.maxDurationSeconds}
+          customLabel="Своё время раунда"
+          customPlaceholder="XX"
+          suffix="сек"
+          onChange={props.onDurationChange}
+        />
       </div>
       <div className={styles.setting}>
         <h3 className={styles.subtitle}>Пропуски</h3>

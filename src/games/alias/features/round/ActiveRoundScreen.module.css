@@ -10,11 +10,11 @@
 }
 
 .action span {
-  display: none;
+  display: inline;
 }
 
-@media (min-width: 26rem) {
+@media (max-width: 22rem) {
   .action span {
-    display: inline;
+    display: none;
   }
 }

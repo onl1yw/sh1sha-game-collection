@@ -89,6 +89,20 @@ the supplied `min` and `max`. Use `compact` only when the field sits inside a
 preset grid and its visible context already names the setting. Set `selected`
 when a compact field represents the active custom value beside preset buttons.
 
+## PresetNumberField
+
+An accessible preset grid with a compact custom `NumberField` in its final
+slot. Use it when a bounded number has three common values plus direct entry,
+such as turn duration or word-pool size. The shared grid keeps preset and custom
+controls exactly aligned across games.
+
+## TeamNamesFieldset
+
+A controlled editor for a list of `{ id, name }` teams. It owns fieldset,
+label, input, and ID semantics while the game continues to own team-count rules
+and state. Optional callbacks customize visible labels without changing the
+shared input behavior.
+
 ## RangeField
 
 A labeled native range input with a visible value. Use it for bounded numeric
@@ -124,8 +138,9 @@ standard game and role-deal exits.
 
 The shared confirmed exit control for active games and private role dealing.
 Use `stage="deal"` while roles are still being passed between players; use the
-default game copy once play has started. Do not recreate its icon, dialog, or
-confirmation copy inside a game.
+default game copy once play has started. Timed screens pass `onOpenChange` so
+their timer pauses while the confirmation dialog is open. Do not recreate its
+icon, dialog, or confirmation copy inside a game.
 
 ## Screen chrome contract
 
