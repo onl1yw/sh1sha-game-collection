@@ -37,7 +37,7 @@
     "check": "npm run check:size && npm run check:architecture && npm run validate:themes && npm run lint && npm run test && npm run build"
   },
   "dependencies": {
-    "lucide-react": "^1.37.0",
+    "lucide-react": "^1.40.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
