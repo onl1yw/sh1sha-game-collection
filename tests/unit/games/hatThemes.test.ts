@@ -4,9 +4,11 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { parseHatTheme } from "../../../src/games/hat/domain/theme";
+import { checkExpansionPacks, EXPANSION_PACKS } from "../wordPackExpansionChecks";
 
 const CATALOG = resolve(process.cwd(), "public/games/hat/themes");
 const HAT_THEME_IDS = [
+  ...EXPANSION_PACKS.map((pack) => pack.id),
   "cinema",
   "physics",
   "mathematics",
@@ -38,6 +40,10 @@ interface HatTheme {
 }
 
 describe("Hat theme catalog", () => {
+  it("publishes six separate expansion packs without repeating catalog words", () => {
+    checkExpansionPacks("hat");
+  });
+
   it("owns all registered packs and preserves sensitive flags", async () => {
     const manifest = await readJson<{ schemaVersion: number; themes: ManifestEntry[] }>(
       "manifest.json",

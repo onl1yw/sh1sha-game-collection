@@ -1,8 +1,8 @@
 # Third-party notices
 
-The distributed web application includes the following runtime dependencies.
-These notices apply to those dependencies only and do not replace the project's
-PolyForm Noncommercial license.
+The distributed web application includes the following third-party dependencies
+and content. These notices preserve their original terms and do not replace
+the project's PolyForm Noncommercial license for original contributions.
 
 ## React, React DOM and Scheduler
 
@@ -89,3 +89,40 @@ or the shared voice itself. ElevenLabs does not endorse this project. Use of the
 generated media remains subject to the applicable
 [ElevenLabs Terms of Service](https://elevenlabs.io/terms-of-use) and
 [Voice Library Addendum](https://elevenlabs.io/vla).
+
+## TheTrueHat vocabulary reference
+
+The curated everyday, people/activity, nature, food, and harder word packs use
+the vocabulary in `words/easy.json`, `words/med.json`, and `words/hard.json` from
+<https://github.com/m20-sch57/thetruehat>, commit
+`d1d13bf9334eb9dab4da8231d385fa2cc53bd602`, as a reference alongside original
+editorial additions. Selection, spelling, ordering, and grouping were adapted
+for this collection. See `docs/word-packs.md` in the source repository.
+
+(The MIT License)
+
+Copyright (c) 2020 Ivan Gaidai-Turlov
+Copyright (c) 2020 Gleb Minaev
+Copyright (c) 2020 Fedor Kuyanov
+Copyright (c) 2020 Alexander Danyarkhodzhaev
+Copyright (c) 2020 Yury Voronov
+Copyright (c) 2020 Semyon Savkin
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

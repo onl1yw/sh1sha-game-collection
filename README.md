@@ -89,6 +89,7 @@ creates a real module only when a contributor runs it.
 
 - [Adding a game](docs/adding-a-game.md)
 - [Adding a theme](docs/adding-a-theme.md)
+- [Curated word packs](docs/word-packs.md)
 - [Your first contribution](docs/first-contribution.md)
 - [Architecture](docs/architecture.md)
 - [UI components](docs/ui-components.md)
@@ -113,7 +114,7 @@ The code is available under the
 modification, and distribution are permitted as long as the license and the
 attribution statement in [NOTICE](NOTICE) are preserved.
 
-Runtime dependency licenses are listed in
+Third-party dependency and content licenses are listed in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). All three files are included
 in production artifacts automatically.
 

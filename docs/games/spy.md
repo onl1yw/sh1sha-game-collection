@@ -16,6 +16,17 @@ The game supports multiple spies, first-player selection, and assignment that
 accounts for recent history so that one person does not receive the same role
 too frequently.
 
+Questions follow the player list in the same order as passing the phone: the
+chosen starter asks the next player, who then asks the following player. Starter
+selection retains history-based fairness and multiplies a candidate's weight by
+0.1 if the first recipient is a spy. With at least four players, it also applies
+a factor of 0.25 if the second recipient is a spy, provided some starting position
+has two civilian recipients. Otherwise only the first-recipient factor applies.
+All weights stay positive, so an early answer never rules out a spy. These are
+relative weights, not fixed probabilities; with six players, one spy, and equal
+histories, the spy answers first about 2.3% and second about 5.7% of the time.
+Both modes use this rule. It relies on players following the displayed order.
+
 ## Module structure
 
 ```text
@@ -36,6 +47,10 @@ exported to other games.
 The theme catalog lives in `public/games/spy/themes` and is controlled by its
 manifest. Its format is described in the
 [shared theme document](../theme-format.md).
+
+Six separately selectable curated packs add 970 objects in groups that support
+both modes. See [Curated word packs](../word-packs.md) for their scope,
+editorial method, and source attribution.
 
 New data is stored through the platform-supplied scoped storage under the
 `sh1sha-games:spy` namespace. The module adapter migrates compatible sessions

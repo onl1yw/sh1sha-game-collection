@@ -63,6 +63,10 @@ seeded from the checked-in Spy vocabulary and are maintained independently as
 Alias-owned flat explanation decks. Cinema, Physics, and Mathematics are
 original Alias packs. No list was copied from a commercial Alias deck.
 
+Six additional, separately selectable curated packs add 1,250 words. Their
+selection method, game-specific adaptations, and source attribution are in
+[Curated word packs](../word-packs.md).
+
 `manifest.json` controls order, enablement, and sensitivity. Each theme file is:
 
 ```json

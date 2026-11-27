@@ -26,19 +26,23 @@ afterEach(() => {
 });
 
 describe("application settings flow", () => {
-  it("reveals gated games only after sensitive content is enabled", () => {
-    expect(optionalButtonByText("Шляпа")).toBeUndefined();
-
-    act(() => buttonByText("Настройки").click());
-    act(() => buttonByLabel("Показывать чувствительные темы").click());
-
-    const settingsBack = Array.from(container.querySelectorAll("button")).find(
-      (button) => button.textContent?.includes("Назад"),
-    );
-    if (!settingsBack) throw new Error("Missing settings back button");
-    act(() => settingsBack.click());
-
+  it("keeps Hat visible by default and after changing sensitive-content visibility", () => {
     expect(optionalButtonByText("Шляпа")).toBeDefined();
+
+    for (const enabled of [true, false]) {
+      act(() => buttonByText("Настройки").click());
+      const toggle = buttonByLabel("Показывать чувствительные темы");
+      act(() => toggle.click());
+      expect(toggle.getAttribute("aria-checked")).toBe(String(enabled));
+
+      const settingsBack = Array.from(container.querySelectorAll("button")).find(
+        (button) => button.textContent?.includes("Назад"),
+      );
+      if (!settingsBack) throw new Error("Missing settings back button");
+      act(() => settingsBack.click());
+
+      expect(optionalButtonByText("Шляпа")).toBeDefined();
+    }
   });
 
   it("keeps an active game's in-memory setup mounted", async () => {

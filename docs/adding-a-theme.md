@@ -4,6 +4,9 @@ A new theme is a data-only contribution and does not require changes to game
 logic. The catalog is built exclusively from
 `public/games/spy/themes/manifest.json`.
 
+See [Curated word packs](./word-packs.md) for the existing six-pack expansion,
+its alternative-word groupings, and source attribution.
+
 ## 1. Create a JSON file
 
 Add `public/games/spy/themes/<theme-id>.json`. Write the file name and every

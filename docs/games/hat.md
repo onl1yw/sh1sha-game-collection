@@ -3,9 +3,8 @@
 Hat is a local pass-and-play team game that runs one fixed set of words through
 three increasingly constrained stages. Its player-facing interface is Russian.
 
-While Hat remains an early playable release, its catalog card is visible only
-when the shared sensitive-content preference is enabled. Disabling the
-preference does not interrupt a game that is already open.
+Hat is visible in the main game catalog by default. The shared sensitive-content
+preference controls sensitive word packs inside Hat, not the game's visibility.
 
 ## Setup
 
@@ -64,6 +63,10 @@ schemas, loader, and validation. The initial catalog was adapted from the
 checked-in Alias catalog under the same PolyForm Noncommercial terms and is now
 maintained independently. No commercial word deck was copied. Enabled words
 are globally unique after trimming and Russian case normalization.
+
+Six separately selectable curated packs add 1,250 words for the three-stage
+loop. See [Curated word packs](../word-packs.md) for the editorial method,
+difficulty limits, and source attribution.
 
 Automated coverage includes setup validation, deterministic pool selection,
 skip reinsertion, reducer transitions, review corrections, time credits,
