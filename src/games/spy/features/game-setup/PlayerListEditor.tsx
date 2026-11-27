@@ -21,8 +21,15 @@ export function PlayerListEditor({
   const fieldId = useId();
 
   return (
-    <fieldset className={styles.root} disabled={disabled}>
+    <fieldset
+      className={styles.root}
+      disabled={disabled}
+      aria-describedby={`${fieldId}-order`}
+    >
       <legend className={styles.legend}>Имена игроков</legend>
+      <p className={styles.hint} id={`${fieldId}-order`}>
+        Укажите игроков по кругу — в порядке передачи телефона.
+      </p>
       <div className={styles.list}>
         {players.map((player, index) => {
           const inputId = `${fieldId}-${index}`;

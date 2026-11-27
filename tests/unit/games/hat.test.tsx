@@ -25,7 +25,7 @@ describe("Hat game module", () => {
   it("exposes metadata and a lazy-loadable root screen", async () => {
     expect(gameModule.id).toBe("hat");
     expect(gameModule.title).toBe("Шляпа");
-    expect(gameModule.requiresSensitiveContent).toBe(true);
+    expect(gameModule.requiresSensitiveContent ?? false).toBe(false);
 
     const { default: Game } = await gameModule.load();
     const onExit = vi.fn();

@@ -7,6 +7,7 @@ import {
   parseAliasManifest,
   parseAliasTheme,
 } from "../../../src/games/alias/domain/theme";
+import { checkExpansionPacks } from "../wordPackExpansionChecks";
 
 const CATALOG = resolve(process.cwd(), "public/games/alias/themes");
 const ADAPTED_THEME_IDS = [
@@ -23,6 +24,10 @@ const ADAPTED_THEME_IDS = [
 ] as const;
 
 describe("Alias theme catalog", () => {
+  it("publishes six separate expansion packs without repeating catalog words", () => {
+    checkExpansionPacks("alias");
+  });
+
   it("registers valid, distinct, sufficiently large themes", async () => {
     const manifest = parseAliasManifest(await readJson("manifest.json"));
     expect(manifest).not.toBeNull();

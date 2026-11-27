@@ -62,6 +62,7 @@ export function createRound(input: CreateRoundInput): CreateRoundResult {
       assignments,
       firstPlayerId: selectFirstPlayerId({
         players: input.players,
+        spyIds,
         history: input.firstPlayerHistory,
         roundNumber: input.roundNumber,
         random: input.random,

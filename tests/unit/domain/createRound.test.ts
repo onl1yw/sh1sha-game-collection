@@ -112,4 +112,26 @@ describe("createRound", () => {
 
     expect(result.round.firstPlayerId).toBe("b");
   });
+
+  it.each(["classic", "decoy"] as const)(
+    "uses the assigned spy roles to soften early questions in %s mode",
+    (spyMode) => {
+      const result = createRound({
+        players,
+        settings: { spyCount: 1, spyMode },
+        theme,
+        spyHistory: [],
+        firstPlayerHistory: [],
+        recentWords: [],
+        roundNumber: 1,
+        random: new SequenceRandom(spyMode === "classic"
+          ? [0, 0, 0.8]
+          : [0, 0, 0, 0.8]),
+      });
+
+      expect(result.round.assignments[0]?.role).toBe("spy");
+      // Without the recipient bias this draw starts at d and asks spy a first.
+      expect(result.round.firstPlayerId).toBe("b");
+    },
+  );
 });

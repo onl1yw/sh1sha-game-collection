@@ -9,6 +9,7 @@ import type { FirstPlayerHistoryEntry } from "./types";
 
 interface FirstPlayerSelectionInput {
   players: readonly Player[];
+  spyIds?: readonly string[];
   history: readonly FirstPlayerHistoryEntry[];
   roundNumber: number;
   random: RandomSource;
@@ -25,7 +26,8 @@ export function selectFirstPlayerId(
   const minimumStarts = Math.min(...input.players.map((player) =>
     history.get(player.id)?.starts ?? newcomerBaseline,
   ));
-  const weights = input.players.map((player) => {
+  const recipientWeights = earlyRecipientWeights(input.players, input.spyIds ?? []);
+  const weights = input.players.map((player, index) => {
     const entry = history.get(player.id) ?? {
       playerId: player.id,
       starts: newcomerBaseline,
@@ -36,11 +38,30 @@ export function selectFirstPlayerId(
       entry?.lastStartRound ?? null,
       input.roundNumber,
       minimumStarts,
-    );
+    ) * recipientWeights[index]!;
   });
   const player = input.players[selectWeightedIndex(weights, input.random)];
   if (!player) throw new Error("Не удалось выбрать первого игрока");
   return player.id;
+}
+
+function earlyRecipientWeights(
+  players: readonly Player[],
+  spyIds: readonly string[],
+): number[] {
+  const spies = new Set(spyIds);
+  const isSpyAfter = (index: number, offset: number) =>
+    spies.has(players[(index + offset) % players.length]!.id);
+  const protectSecond = players.length >= 4 && players.some((_, index) =>
+    !isSpyAfter(index, 1) && !isSpyAfter(index, 2),
+  );
+
+  // Questions follow the roster/dealing order, starting after the first asker.
+  // Positive factors soften early questions without excluding any role/order.
+  return players.map((_, index) =>
+    (isSpyAfter(index, 1) ? 0.1 : 1) *
+    (protectSecond && isSpyAfter(index, 2) ? 0.25 : 1),
+  );
 }
 
 function validateInput(input: FirstPlayerSelectionInput): void {

@@ -1,6 +1,12 @@
 {
   "schemaVersion": 1,
   "themes": [
+    { "id": "everyday", "file": "everyday.json", "enabled": true },
+    { "id": "people-activities", "file": "people-activities.json", "enabled": true },
+    { "id": "animals-nature", "file": "animals-nature.json", "enabled": true },
+    { "id": "food-kitchen", "file": "food-kitchen.json", "enabled": true },
+    { "id": "explain-harder", "file": "explain-harder.json", "enabled": true },
+    { "id": "famous-characters", "file": "famous-characters.json", "enabled": true },
     { "id": "places", "file": "places.json", "enabled": false },
     { "id": "minecraft", "file": "minecraft.json", "enabled": true },
     { "id": "disney", "file": "disney.json", "enabled": true },

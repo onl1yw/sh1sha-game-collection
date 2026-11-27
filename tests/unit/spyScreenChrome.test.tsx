@@ -45,6 +45,11 @@ describe("Spy screen chrome", () => {
       />,
     ));
     expectHeaderChrome("Политики", "Назад");
+    const roster = Array.from(container.querySelectorAll("fieldset"))
+      .find((fieldset) => fieldset.querySelector("legend")?.textContent === "Имена игроков");
+    const descriptionId = roster?.getAttribute("aria-describedby");
+    expect(descriptionId && document.getElementById(descriptionId)?.textContent)
+      .toContain("в порядке передачи телефона");
     act(() => settingsButton().click());
 
     act(() => root.render(
@@ -57,6 +62,8 @@ describe("Spy screen chrome", () => {
       />,
     ));
     expectHeaderChrome("Роли розданы", "Прервать игру");
+    expect(container.textContent).toContain("следующему игроку по порядку передачи телефона");
+    expect(container.textContent).toContain("Ответивший задаёт следующий вопрос");
     act(() => settingsButton().click());
 
     act(() => root.render(

@@ -13,6 +13,5 @@ export const gameModule = defineGame({
   description: "Объясняйте один набор слов тремя способами",
   Icon: Cylinder,
   order: 40,
-  requiresSensitiveContent: true,
   load: () => import("./HatGame"),
 });
